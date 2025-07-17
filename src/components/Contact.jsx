@@ -37,9 +37,9 @@ const Contact = () => {
         import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
         {
           from_name: form.name,
-          to_name: "JavaScript Mastery",
+          to_name: "Sunil Karki",
           from_email: form.email,
-          to_email: "sujata@jsmastery.pro",
+          to_email: "suk@gmail.com",
           message: form.message,
         },
         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
@@ -72,8 +72,8 @@ const Contact = () => {
         variants={slideIn("left", "tween", 0.2, 1)}
         className='flex-[0.75] bg-black-100 p-8 rounded-2xl'
       >
-        <p className={styles.sectionSubText}>Get in touch</p>
-        <h3 className={styles.sectionHeadText}>Contact.</h3>
+        <p className={`${styles.sectionSubText} text-gradient`}>Get in touch</p>
+        <h4 className={`${styles.sectionHeadText} text-gradient`}>Contact.</h4>
 
         <form
           ref={formRef}
@@ -81,7 +81,7 @@ const Contact = () => {
           className='mt-12 flex flex-col gap-8'
         >
           <label className='flex flex-col'>
-            <span className='text-white font-medium mb-4'>Your Name</span>
+            <span className='text-white text-lg font-medium mb-4'>Your Name</span>
             <input
               type='text'
               name='name'
@@ -116,7 +116,7 @@ const Contact = () => {
 
           <button
             type='submit'
-            className='bg-tertiary py-3 px-8 rounded-xl outline-none w-fit text-white font-bold shadow-md shadow-primary'
+            className='bg-gradient-to-r from-green-700  to-purple-900 text-lg py-2.5 px-8  rounded-xl outline outline-none w-fit text-green-400 font-bold shadow-md shadow-primary'
           >
             {loading ? "Sending..." : "Send"}
           </button>
