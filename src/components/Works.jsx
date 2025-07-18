@@ -1,6 +1,6 @@
 import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
-
+import { useState, useEffect } from "react";
 import { styles } from "../styles";
 import { github } from "../assets";
 import { SectionWrapper } from "../hoc";
@@ -12,9 +12,18 @@ const ProjectCard = ({
   name,
   description,
   tags,
-  image,
+  images,
   source_code_link,
 }) => {
+
+  const [currentImage, setCurrentImage] = useState(0);
+   useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   return (
     <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
       <Tilt
@@ -26,9 +35,9 @@ const ProjectCard = ({
       >
         <div className='relative w-full h-[230px]'>
           <img
-            src={image}
+            src={images[currentImage]}
             alt='project_image'
-            className='w-full h-full object-cover rounded-2xl'
+            className='w-full h-full object-fit rounded-2xl transition-all duration-500'
           />
 
           <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>

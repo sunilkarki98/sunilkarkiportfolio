@@ -32,6 +32,11 @@ import tripguide from "./tripguide.png";
 import java from "./java.svg";
 import python from "./python.svg"
 
+//site images 
+import moviepic1 from "./site/movisite1.png"
+import moviepic2 from "./site/moviesite2.png"
+import moviepic3 from "./site/moviesite3.png"
+
 export {
   logo,
   backend,
@@ -62,5 +67,8 @@ export {
   jobit,
   tripguide,
   java,
-  python
+  python,
+  moviepic1,
+  moviepic2,
+  moviepic3
 };
