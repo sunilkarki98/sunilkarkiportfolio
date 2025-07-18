@@ -23,6 +23,8 @@ import {
   jobit,
   tripguide,
   threejs,
+  java,
+  python
 } from "../assets";
 
 export const navLinks = [
@@ -46,7 +48,7 @@ const services = [
     icon: web,
   },
   {
-    title: "flutter Developer",
+    title: "Flutter Developer",
     icon: mobile,
   },
   {
@@ -59,12 +61,12 @@ const services = [
   },
   {
     title: "Java Developer",
-    icon: ""
+    icon: java
   },
 
   {
     title: "Python Developer",
-    icon:""
+    icon: python
   }
 ];
 

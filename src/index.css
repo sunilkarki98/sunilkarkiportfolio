@@ -218,3 +218,30 @@
 .text-gradient {
   @apply bg-gradient-to-r from-green-500 to-purple-500 bg-clip-text text-transparent;
 }
+
+
+
+.shimmer-text {
+  display: inline-block;
+  background: url('./assets/textbg.png');
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: white;
+  opacity: 0;
+  animation: shimmer 8s linear infinite;
+  animation-delay: 3.2s;
+  animation-fill-mode: forwards;
+}
+
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+    opacity: 1;
+  }
+  100% {
+    background-position: -100% 0;
+    opacity: 1;
+  }
+}

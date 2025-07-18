@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export const content = ["./src/**/*.{js,jsx}"];
 export const mode = "jit";
+
 export const theme = {
   extend: {
     colors: {
@@ -20,6 +21,16 @@ export const theme = {
     backgroundImage: {
       "hero-pattern": "url('/src/assets/herobg.png')",
     },
+    keyframes: {
+      borderGradientMove: {
+        "0%": { backgroundPosition: "0% 50%" },
+        "100%": { backgroundPosition: "200% 50%" },
+      },
+    },
+    animation: {
+      borderGradientMove: "borderGradientMove 5s linear infinite",
+    },
   },
 };
+
 export const plugins = [];
