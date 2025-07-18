@@ -230,7 +230,7 @@
   color: white;
   opacity: 0;
   animation: shimmer 8s linear infinite;
-  animation-delay: 3.2s;
+  animation-delay: 1s;
   animation-fill-mode: forwards;
 }
 
