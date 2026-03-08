@@ -47,29 +47,24 @@ export const navLinks = [
 
 const services = [
   {
-    title: "Web Developer",
+    title: "AI Automation Expert",
     icon: web,
   },
   {
-    title: "Flutter Developer",
+    title: "AI Chatbot Developer",
     icon: mobile,
   },
   {
-    title: "Backend Developer",
+    title: "AI Agents Developer",
     icon: backend,
   },
   {
-    title: "Content Creator",
+    title: "n8n Low-code Specialist",
     icon: creator,
   },
   {
-    title: "Java Developer",
+    title: "Full Stack Developer",
     icon: java
-  },
-
-  {
-    title: "Python Developer",
-    icon: python
   }
 ];
 
@@ -132,24 +127,11 @@ const technologies = [
 
 const experiences = [
   {
-    title: "React.js Developer",
-    company_name: "Starbucks",
-    icon: starbucks,
+    title: "Software Engineer",
+    company_name: "Your Company",
+    icon: meta, // Replace with your company icon
     iconBg: "#383E56",
-    date: "March 2020 - April 2021",
-    points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
-  },
-  {
-    title: "React Native Developer",
-    company_name: "Tesla",
-    icon: tesla,
-    iconBg: "#E6DEDD",
-    date: "Jan 2021 - Feb 2022",
+    date: "Jan 2023 - Present",
     points: [
       "Developing and maintaining web applications using React.js and other related technologies.",
       "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
@@ -159,28 +141,13 @@ const experiences = [
   },
   {
     title: "Web Developer",
-    company_name: "Shopify",
-    icon: shopify,
-    iconBg: "#383E56",
+    company_name: "Previous Company",
+    icon: shopify, // Replace with your company icon
+    iconBg: "#E6DEDD",
     date: "Jan 2022 - Jan 2023",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
-    ],
-  },
-  {
-    title: "Full stack Developer",
-    company_name: "Meta",
-    icon: meta,
-    iconBg: "#E6DEDD",
-    date: "Jan 2023 - Present",
-    points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
+      "Update this section with your actual work experience.",
+      "Focus on achievements and impact rather than just daily tasks.",
     ],
   },
 ];
@@ -188,7 +155,7 @@ const experiences = [
 const testimonials = [
   {
     testimonial:
-      "I thought it was impossible to make a website as beautiful as our product, but Rick proved me wrong.",
+      "I thought it was impossible to make a website as beautiful as our product, but Suneel proved me wrong.",
     name: "Sara Lee",
     designation: "CFO",
     company: "Acme Co",
@@ -196,7 +163,7 @@ const testimonials = [
   },
   {
     testimonial:
-      "I've never met a web developer who truly cares about their clients' success like Rick does.",
+      "I've never met a web developer who truly cares about their clients' success like Suneel does.",
     name: "Chris Brown",
     designation: "COO",
     company: "DEF Corp",
@@ -204,7 +171,7 @@ const testimonials = [
   },
   {
     testimonial:
-      "After Rick optimized our website, our traffic increased by 50%. We can't thank them enough!",
+      "After Suneel optimized our website, our traffic increased by 50%. We can't thank them enough!",
     name: "Lisa Wang",
     designation: "CTO",
     company: "456 Enterprises",
@@ -213,6 +180,27 @@ const testimonials = [
 ];
 
 const projects = [
+  {
+    name: "StaySewa",
+    description:
+      "A comprehensive marketplace for booking hotels, flats, hostels, and resorts. It enables property owners to list their venues effortlessly while providing customers with a seamless booking experience.",
+    tags: [
+      {
+        name: "marketplace",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "booking",
+        color: "green-text-gradient",
+      },
+      {
+        name: "real-estate",
+        color: "pink-text-gradient",
+      },
+    ],
+    images: [tripguide], // using tripguide placeholder until new image provided
+    source_code_link: "https://staysewa.vercel.app/",
+  },
   {
     name: "MovieVerse",
     description:
@@ -232,49 +220,70 @@ const projects = [
       },
     ],
     images: [moviepic1, moviepic2, moviepic3],
-    source_code_link: "https://github.com/",
+    source_code_link: "https://movieticketbooking-nine.vercel.app/",
   },
   {
-    name: "Job Portal",
+    name: "eBizMate",
     description:
-      "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+      "A powerful social media automation platform designed for SMEs. It streamlines marketing efforts for businesses selling products and services, allowing them to scale their online presence effectively.",
     tags: [
       {
-        name: "react",
+        name: "ai-automation",
         color: "blue-text-gradient",
       },
       {
-        name: "restapi",
+        name: "social-media",
         color: "green-text-gradient",
       },
       {
-        name: "scss",
+        name: "saas",
         color: "pink-text-gradient",
       },
     ],
-    images: [jobit],
-    source_code_link: "https://github.com/",
+    images: [jobit], // using jobit placeholder until new image provided
+    source_code_link: "https://ebizmate-web.vercel.app/",
   },
   {
-    name: "Trip Guide",
+    name: "EEVS Group",
     description:
-      "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+      "A comprehensive cross-platform website for an educational and migration consultancy, providing students with critical resources, appointment scheduling, and university information.",
     tags: [
+      {
+        name: "consultancy",
+        color: "blue-text-gradient",
+      },
       {
         name: "nextjs",
-        color: "blue-text-gradient",
-      },
-      {
-        name: "supabase",
         color: "green-text-gradient",
       },
       {
-        name: "css",
+        name: "education",
         color: "pink-text-gradient",
       },
     ],
-    images: [tripguide],
-    source_code_link: "https://github.com/",
+    images: [web], // Using web icon placeholder
+    source_code_link: "https://eevsgroup.com/",
+  },
+  {
+    name: "Namaste Nepal Belgium",
+    description:
+      "A rich, content-driven WordPress blog catering to the Nepalese community in Belgium. Features community news, event galleries, and cultural stories.",
+    tags: [
+      {
+        name: "wordpress",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "blog",
+        color: "green-text-gradient",
+      },
+      {
+        name: "community",
+        color: "pink-text-gradient",
+      },
+    ],
+    images: [web], // Using web icon placeholder
+    source_code_link: "https://namastenepalbelgium.com/",
   },
 ];
 

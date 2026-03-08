@@ -37,9 +37,9 @@ const Contact = () => {
         import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
         {
           from_name: form.name,
-          to_name: "Sunil Karki",
+          to_name: "Suneel Karki",
           from_email: form.email,
-          to_email: "suk@gmail.com",
+          to_email: import.meta.env.VITE_APP_CONTACT_EMAIL || "suneelkarkee98@gmail.com",
           message: form.message,
         },
         import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY

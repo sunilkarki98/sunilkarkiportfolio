@@ -9,7 +9,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
   scroll-behavior: smooth;
   color-scheme: dark;
 }
@@ -223,7 +223,7 @@
 
 .shimmer-text {
   display: inline-block;
-  background: url('./assets/textbg.png');
+  background: url('./assets/textbg.webp');
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -240,6 +240,7 @@
     background-position: 100% 0;
     opacity: 1;
   }
+
   100% {
     background-position: -100% 0;
     opacity: 1;

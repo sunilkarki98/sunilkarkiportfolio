@@ -53,6 +53,10 @@ const ComputersCanvas = () => {
     };
   }, []);
 
+  if (isMobile) {
+    return null; // Disable heavy 3D rendering on mobile
+  }
+
   return (
     <Canvas
       frameloop='demand'

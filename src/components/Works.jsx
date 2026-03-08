@@ -2,7 +2,7 @@ import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { styles } from "../styles";
-import { github } from "../assets";
+import { github, web } from "../assets";
 import { SectionWrapper } from "../hoc";
 import { projects } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
@@ -17,7 +17,7 @@ const ProjectCard = ({
 }) => {
 
   const [currentImage, setCurrentImage] = useState(0);
-   useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
     }, 2000);
@@ -33,41 +33,55 @@ const ProjectCard = ({
         transitionSpeed={450}
         className='bg-tertiary p-5 rounded-2xl sm:w-[360px] w-full'
       >
-        <div className='relative w-full h-[230px]'>
-          <img
-            src={images[currentImage]}
-            alt='project_image'
-            className='w-full h-full object-fit rounded-2xl transition-all duration-500'
-          />
+        <div
+          onClick={() => source_code_link !== "#" && window.open(source_code_link, "_blank")}
+          className="cursor-pointer group"
+        >
+          <div className='relative w-full h-[230px] rounded-2xl overflow-hidden'>
+            <img
+              src={images[currentImage]}
+              alt='project_image'
+              className='w-full h-full object-cover transition-all duration-500 group-hover:scale-110'
+            />
 
-          <div className='absolute inset-0 flex justify-end m-3 card-img_hover'>
-            <div
-              onClick={() => window.open(source_code_link, "_blank")}
-              className='black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer'
-            >
-              <img
-                src={github}
-                alt='source code'
-                className='w-1/2 h-1/2 object-contain'
-              />
+            <div className='absolute inset-0 bg-black/60 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10'>
+              <p className='text-white font-bold text-[20px] tracking-wider drop-shadow-md'>
+                {source_code_link !== "#" ? "VISIT SITE" : "VIEW CODE"}
+              </p>
+            </div>
+
+            <div className='absolute inset-0 flex justify-end m-3 card-img_hover z-20 pointer-events-none'>
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(source_code_link, "_blank");
+                }}
+                className='black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer pointer-events-auto'
+              >
+                <img
+                  src={source_code_link.includes("github.com") ? github : web}
+                  alt='link'
+                  className='w-1/2 h-1/2 object-contain'
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className='mt-5'>
-          <h3 className='text-white font-bold text-[24px]'>{name}</h3>
-          <p className='mt-2 text-secondary text-[14px]'>{description}</p>
-        </div>
+          <div className='mt-5'>
+            <h3 className='text-white font-bold text-[24px]'>{name}</h3>
+            <p className='mt-2 text-secondary text-[14px]'>{description}</p>
+          </div>
 
-        <div className='mt-4 flex flex-wrap gap-2'>
-          {tags.map((tag) => (
-            <p
-              key={`${name}-${tag.name}`}
-              className={`text-[14px] ${tag.color}`}
-            >
-              #{tag.name}
-            </p>
-          ))}
+          <div className='mt-4 flex flex-wrap gap-2'>
+            {tags.map((tag) => (
+              <p
+                key={`${name}-${tag.name}`}
+                className={`text-[14px] ${tag.color}`}
+              >
+                #{tag.name}
+              </p>
+            ))}
+          </div>
         </div>
       </Tilt>
     </motion.div>
@@ -104,4 +118,4 @@ const Works = () => {
   );
 };
 
-export default SectionWrapper(Works, "");
+export default SectionWrapper(Works, "work");
