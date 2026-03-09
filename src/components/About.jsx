@@ -37,7 +37,7 @@ const About = () => {
 
       <motion.p
         variants={fadeIn("", "", 0.1, 1)}
-        className='mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]'
+        className='mt-4 text-white-100/90 text-[17px] max-w-3xl leading-[28px]'
       >
         I'm a skilled software developer with expertise in AI automation, AI chatbot and agent development, and low-code solutions using n8n. Along with my AI capabilities, I have strong experience in Full Stack development using TypeScript, JavaScript, React, and Node.js. I'm a quick learner and collaborate closely with clients to create intelligent, automated, and scalable solutions that solve real-world problems. Let's work together to bring your ideas to life!
       </motion.p>

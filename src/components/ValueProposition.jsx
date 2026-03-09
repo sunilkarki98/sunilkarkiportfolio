@@ -43,9 +43,9 @@ const ValueProposition = () => {
                         className='p-[1px] rounded-2xl green-pink-gradient shadow-card group'
                     >
                         <div className='bg-tertiary rounded-2xl p-5 h-full flex flex-col items-center text-center group-hover:bg-black-200 transition-colors'>
-                            <value.icon className="text-3xl mb-3 text-purple-400" />
+                            <value.icon className="text-3xl mb-3 text-white" />
                             <h3 className='text-white text-[17px] font-bold mb-1'>{value.title}</h3>
-                            <p className="text-[#c4bfdf] text-[14px] leading-relaxed">{value.description}</p>
+                            <p className="text-white-100/90 text-[14px] leading-relaxed">{value.description}</p>
                         </div>
                     </div>
                 ))}

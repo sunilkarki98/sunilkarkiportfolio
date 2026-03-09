@@ -6,7 +6,7 @@ export const theme = {
   extend: {
     colors: {
       primary: "#050816",
-      secondary: "#c4bfdf",
+      secondary: "#e2e0ff", // Much brighter for sharper text contrast
       tertiary: "#151030",
       "black-100": "#100d25",
       "black-200": "#090325",

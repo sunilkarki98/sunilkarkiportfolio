@@ -43,13 +43,13 @@ const Process = () => {
                         className='p-[1px] rounded-2xl green-pink-gradient shadow-card group'
                     >
                         <div className='bg-tertiary p-5 rounded-2xl h-full group-hover:bg-black-200 transition-colors'>
-                            <step.icon className='text-3xl mb-3 text-purple-400' />
+                            <step.icon className='text-3xl mb-3 text-white' />
                             <div className='flex items-center gap-2 mb-2'>
-                                <span className='text-xs text-purple-400 font-mono'>0{index + 1}</span>
-                                <div className='h-px flex-1 bg-white/10'></div>
+                                <span className='text-xs text-white-100/60 font-mono'>0{index + 1}</span>
+                                <div className='h-px flex-1 bg-white/20'></div>
                             </div>
                             <h3 className='text-white text-[18px] font-bold mb-1'>{step.title}</h3>
-                            <p className='text-[#c4bfdf] text-[14px] leading-relaxed'>{step.description}</p>
+                            <p className='text-white-100/90 text-[14px] leading-relaxed'>{step.description}</p>
                         </div>
                     </div>
                 ))}
