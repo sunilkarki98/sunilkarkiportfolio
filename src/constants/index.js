@@ -199,7 +199,8 @@ const projects = [
       },
     ],
     images: [tripguide], // using tripguide placeholder until new image provided
-    source_code_link: "https://staysewa.vercel.app/",
+    github_link: "https://github.com/sunilkarki98", // Update with actual URL
+    live_link: "https://staysewa.vercel.app/",
   },
   {
     name: "MovieVerse",
@@ -220,7 +221,8 @@ const projects = [
       },
     ],
     images: [moviepic1, moviepic2, moviepic3],
-    source_code_link: "https://movieticketbooking-nine.vercel.app/",
+    github_link: "https://github.com/sunilkarki98", // Update with actual URL
+    live_link: "https://movieticketbooking-nine.vercel.app/",
   },
   {
     name: "eBizMate",
@@ -241,7 +243,8 @@ const projects = [
       },
     ],
     images: [jobit], // using jobit placeholder until new image provided
-    source_code_link: "https://ebizmate-web.vercel.app/",
+    github_link: "https://github.com/sunilkarki98", // Update with actual URL
+    live_link: "https://ebizmate-web.vercel.app/",
   },
   {
     name: "EEVS Group",
@@ -262,7 +265,8 @@ const projects = [
       },
     ],
     images: [web], // Using web icon placeholder
-    source_code_link: "https://eevsgroup.com/",
+    github_link: "https://github.com/sunilkarki98", // Update with actual URL
+    live_link: "https://eevsgroup.com/",
   },
   {
     name: "Namaste Nepal Belgium",
@@ -283,7 +287,8 @@ const projects = [
       },
     ],
     images: [web], // Using web icon placeholder
-    source_code_link: "https://namastenepalbelgium.com/",
+    github_link: "https://github.com/sunilkarki98", // Update with actual URL
+    live_link: "https://namastenepalbelgium.com/",
   },
 ];
 

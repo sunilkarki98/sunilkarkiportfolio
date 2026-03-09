@@ -8,7 +8,10 @@ import Works from "./Works";
 import Feedbacks from "./Feedbacks";
 import Contact from "./Contact";
 import CanvasLoader from "./Loader";
-
+import ValueProposition from "./ValueProposition";
+import CurrentlyBuilding from "./CurrentlyBuilding";
+import Process from "./Process";
+import GithubStats from "./GithubStats";
 
 export {
   Hero,
@@ -20,8 +23,12 @@ export {
   Feedbacks,
   Contact,
   CanvasLoader,
-  EarthCanvas, 
-  BallCanvas, 
-  ComputersCanvas, 
+  ValueProposition,
+  CurrentlyBuilding,
+  Process,
+  GithubStats,
+  EarthCanvas,
+  BallCanvas,
+  ComputersCanvas,
   StarsCanvas
 };

@@ -13,7 +13,8 @@ const ProjectCard = ({
   description,
   tags,
   images,
-  source_code_link,
+  github_link,
+  live_link,
 }) => {
 
   const [currentImage, setCurrentImage] = useState(0);
@@ -34,7 +35,7 @@ const ProjectCard = ({
         className='bg-tertiary p-5 rounded-2xl sm:w-[360px] w-full'
       >
         <div
-          onClick={() => source_code_link !== "#" && window.open(source_code_link, "_blank")}
+          onClick={() => live_link && window.open(live_link, "_blank")}
           className="cursor-pointer group"
         >
           <div className='relative w-full h-[230px] rounded-2xl overflow-hidden'>
@@ -44,26 +45,31 @@ const ProjectCard = ({
               className='w-full h-full object-cover transition-all duration-500 group-hover:scale-110'
             />
 
-            <div className='absolute inset-0 bg-black/60 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10'>
-              <p className='text-white font-bold text-[20px] tracking-wider drop-shadow-md'>
-                {source_code_link !== "#" ? "VISIT SITE" : "VIEW CODE"}
-              </p>
-            </div>
-
-            <div className='absolute inset-0 flex justify-end m-3 card-img_hover z-20 pointer-events-none'>
-              <div
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.open(source_code_link, "_blank");
-                }}
-                className='black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer pointer-events-auto'
-              >
-                <img
-                  src={source_code_link.includes("github.com") ? github : web}
-                  alt='link'
-                  className='w-1/2 h-1/2 object-contain'
-                />
-              </div>
+            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 gap-3'>
+              {live_link && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.open(live_link, "_blank");
+                  }}
+                  className='px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full text-white font-medium hover:scale-105 transition-transform flex items-center gap-2'
+                >
+                  <img src={web} alt="live" className="w-4 h-4 object-contain brightness-0 invert" />
+                  Live Demo
+                </button>
+              )}
+              {github_link && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.open(github_link, "_blank");
+                  }}
+                  className='px-4 py-2 bg-black/50 border border-white/20 rounded-full text-white font-medium hover:bg-black/80 hover:scale-105 transition-all flex items-center gap-2 backdrop-blur-sm'
+                >
+                  <img src={github} alt="github" className="w-4 h-4 object-contain" />
+                  Source Code
+                </button>
+              )}
             </div>
           </div>
 

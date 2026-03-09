@@ -7,34 +7,22 @@ import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
 
 const ServiceCard = ({ index, title, icon }) => (
-  <Tilt
-    className='xs:w-[250px] w-full'
-    tiltMaxAngleX={45}
-    tiltMaxAngleY={45}
-    scale={1}
-    transitionSpeed={450}
-    glareEnable={true}
-    glareMaxOpacity={0.1}
-    glareBorderRadius="20px"
+  <div
+    className='p-[1px] rounded-2xl green-pink-gradient shadow-card group'
   >
-    <motion.div
-      variants={fadeIn("right", "spring", index * 0.5, 0.75)}
-      className='w-full green-pink-gradient p-[1px] rounded-[20px] shadow-card'
+    <div
+      className='bg-tertiary rounded-2xl py-4 px-4 min-h-[160px] flex justify-center items-center flex-col gap-3 group-hover:bg-black-200 transition-colors'
     >
-      <div
-        className='bg-tertiary rounded-[20px] py-5 px-12 min-h-[280px] flex justify-evenly items-center flex-col'
-      >
-        <img
-          src={icon}
-          alt='web-development'
-          className='w-16 h-16 object-contain'
-        />
-        <h3 className='bg-gradient-to-r from-red-700 to-purple-500 bg-clip-text text-transparent  text-[20px] font-bold text-center'>
-          {title}
-        </h3>
-      </div>
-    </motion.div>
-  </Tilt>
+      <img
+        src={icon}
+        alt='web-development'
+        className='w-10 h-10 object-contain'
+      />
+      <h3 className='bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent text-[15px] font-bold text-center leading-tight'>
+        {title}
+      </h3>
+    </div>
+  </div>
 );
 
 const About = () => {
@@ -54,7 +42,7 @@ const About = () => {
         I'm a skilled software developer with expertise in AI automation, AI chatbot and agent development, and low-code solutions using n8n. Along with my AI capabilities, I have strong experience in Full Stack development using TypeScript, JavaScript, React, and Node.js. I'm a quick learner and collaborate closely with clients to create intelligent, automated, and scalable solutions that solve real-world problems. Let's work together to bring your ideas to life!
       </motion.p>
 
-      <div className='mt-20 flex flex-wrap md:gap-4 gap-10'>
+      <div className='mt-8 grid grid-cols-3 sm:grid-cols-5 gap-3'>
         {services.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} />
         ))}
