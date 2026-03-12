@@ -41,7 +41,7 @@ const ProjectCard = ({
           <div className='relative w-full h-[230px] rounded-2xl overflow-hidden'>
             <img
               src={images[currentImage]}
-              alt='project_image'
+              alt={name}
               className='w-full h-full object-cover transition-all duration-500 group-hover:scale-110'
             />
 
