@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
 
@@ -5,6 +6,7 @@ import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
 import { fadeIn, textVariant } from "../utils/motion";
 import { testimonials } from "../constants";
+import { imageSrc } from "../utils/image";
 
 const FeedbackCard = ({
   index,
@@ -34,7 +36,7 @@ const FeedbackCard = ({
         </div>
 
         <img
-          src={image}
+          src={imageSrc(image)}
           alt={`feedback_by-${name}`}
           className='w-10 h-10 rounded-full object-cover'
         />

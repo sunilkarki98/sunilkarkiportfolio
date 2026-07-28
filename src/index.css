@@ -14,6 +14,10 @@
   color-scheme: dark;
 }
 
+.hero-background {
+  background-image: url("./assets/herobg.webp");
+}
+
 .hash-span {
   margin-top: -100px;
   padding-bottom: 100px;

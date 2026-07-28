@@ -1,9 +1,11 @@
+"use client";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 import { styles } from "../styles";
 import { navLinks } from "../constants";
 import { logo, menu, close } from "../assets";
+import { imageSrc } from "../utils/image";
 
 const Navbar = () => {
   const [active, setActive] = useState("");
@@ -33,14 +35,14 @@ const Navbar = () => {
     >
       <div className='w-full flex justify-between items-center max-w-7xl mx-auto'>
         <Link
-          to='/'
+          href='/'
           className='flex items-center gap-2'
           onClick={() => {
             setActive("");
             window.scrollTo(0, 0);
           }}
         >
-          <img src={logo} alt='logo' className='w-9 h-9 object-contain' />
+          <img src={imageSrc(logo)} alt='logo' className='w-9 h-9 object-contain' />
           <p className='text-white uppercase text-[18px] font-bold cursor-pointer flex '>
             Suneel &nbsp;
             <span className='sm:block hidden text-gradient'> | FullStack DEV</span>
@@ -55,7 +57,7 @@ const Navbar = () => {
                 } hover:text-white text-[18px] font-medium cursor-pointer transition-colors`}
               onClick={() => setActive(nav.title)}
             >
-              <a href={`#${nav.id}`}>{nav.title}</a>
+              <a href={`#${nav.id}`} aria-label={`Navigate to ${nav.title}`}>{nav.title}</a>
             </li>
           ))}
           <li className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-tertiary border border-white/10 shadow-sm cursor-default">
@@ -68,14 +70,23 @@ const Navbar = () => {
         </ul>
 
         <div className='sm:hidden flex flex-1 justify-end items-center'>
-          <img
-            src={toggle ? close : menu}
-            alt='menu'
-            className='w-[28px] h-[28px] object-contain'
-            onClick={() => setToggle(!toggle)}
-          />
+          <button
+            type='button'
+            aria-label={toggle ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={toggle}
+            aria-controls='mobile-navigation'
+            onClick={() => setToggle((isOpen) => !isOpen)}
+            className='p-1'
+          >
+            <img
+              src={imageSrc(toggle ? close : menu)}
+              alt=''
+              className='w-[28px] h-[28px] object-contain'
+            />
+          </button>
 
           <div
+            id='mobile-navigation'
             className={`${!toggle ? "hidden" : "flex"
               } p-6 black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
           >
@@ -90,7 +101,7 @@ const Navbar = () => {
                     setActive(nav.title);
                   }}
                 >
-                  <a href={`#${nav.id}`}>{nav.title}</a>
+                  <a href={`#${nav.id}`} aria-label={`Navigate to ${nav.title}`}>{nav.title}</a>
                 </li>
               ))}
               <li className="flex items-center gap-2 px-3 py-1.5 mt-2 rounded-full bg-tertiary border border-white/10 shadow-sm w-full">

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   VerticalTimeline,
@@ -11,6 +12,7 @@ import { styles } from "../styles";
 import { experiences } from "../constants";
 import { SectionWrapper } from "../hoc";
 import { textVariant } from "../utils/motion";
+import { imageSrc } from "../utils/image";
 
 const ExperienceCard = ({ experience }) => {
   return (
@@ -25,7 +27,7 @@ const ExperienceCard = ({ experience }) => {
       icon={
         <div className='flex justify-center items-center w-full h-full'>
           <img
-            src={experience.icon}
+            src={imageSrc(experience.icon)}
             alt={experience.company_name}
             className='w-[60%] h-[60%] object-contain'
           />

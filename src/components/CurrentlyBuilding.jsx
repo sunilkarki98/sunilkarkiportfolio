@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
 import { styles } from "../styles";
@@ -9,7 +10,7 @@ const CurrentlyBuilding = () => {
     return (
         <>
             <motion.div variants={textVariant()}>
-                <p className={`${styles.sectionSubText}`}>What I'm focused on</p>
+                <p className={`${styles.sectionSubText}`}>What I&apos;m focused on</p>
                 <h2 className={`${styles.sectionHeadText} text-gradient`}>Currently Building.</h2>
             </motion.div>
 

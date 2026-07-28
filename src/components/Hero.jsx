@@ -1,6 +1,13 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { styles } from "../styles";
-import { ComputersCanvas } from "./canvas";
+import ErrorBoundary from "./ErrorBoundary";
+
+const ComputersCanvas = dynamic(() => import('./canvas/Computers'), {
+  ssr: false,
+});
 
 const Hero = () => {
   return (
@@ -22,7 +29,7 @@ const Hero = () => {
             transition={{ duration: 0.5 }}
           >
             <h1 className={`${styles.heroHeadText}`}>
-              <span className="text-white">Hi, I'm </span>
+              <span className="text-white">Hi, I&apos;m </span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 uppercase font-bold tracking-tight">Suneel Karki</span>
             </h1>
           </motion.div>
@@ -43,10 +50,10 @@ const Hero = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex flex-wrap gap-4 mt-8"
           >
-            <a href="#contact" className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium hover:scale-105 transition-transform shadow-lg shadow-purple-500/30">
+            <a href="#contact" aria-label="Get in Touch" className="px-8 py-3 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium hover:scale-105 transition-transform shadow-lg shadow-purple-500/30">
               Get in Touch
             </a>
-            <a href="#work" className="px-8 py-3 rounded-full border border-white/20 bg-white/5 text-white font-medium hover:bg-white/10 hover:scale-105 transition-all backdrop-blur-sm">
+            <a href="#work" aria-label="View My Work" className="px-8 py-3 rounded-full border border-white/20 bg-white/5 text-white font-medium hover:bg-white/10 hover:scale-105 transition-all backdrop-blur-sm">
               View My Work
             </a>
           </motion.div>
@@ -54,11 +61,15 @@ const Hero = () => {
       </div>
 
       {/* 3D Canvas */}
-      <ComputersCanvas />
+      <div className="absolute inset-0 z-0">
+        <ErrorBoundary>
+          <ComputersCanvas />
+        </ErrorBoundary>
+      </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 w-full flex justify-center items-center">
-        <a href="#about">
+      <div className="absolute bottom-10 w-full flex justify-center items-center z-10">
+        <a href="#about" aria-label="Scroll to About section">
           <div className="w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2">
             <motion.div
               animate={{ y: [0, 24, 0] }}

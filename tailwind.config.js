@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-export const content = ["./src/**/*.{js,jsx}"];
+export const content = [
+  "./src/**/*.{js,jsx,ts,tsx}",
+  "./src/app/**/*.{js,jsx,ts,tsx}",
+];
 export const mode = "jit";
 
 export const theme = {
@@ -21,9 +24,6 @@ export const theme = {
     },
     screens: {
       xs: "450px",
-    },
-    backgroundImage: {
-      "hero-pattern": "url('/src/assets/herobg.webp')",
     },
     keyframes: {
       borderGradientMove: {

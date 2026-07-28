@@ -1,9 +1,11 @@
+"use client";
 import React from "react";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "../hoc";
 import { technologies } from "../constants";
 import { fadeIn, textVariant } from "../utils/motion";
 import { styles } from "../styles";
+import { imageSrc } from "../utils/image";
 
 const Tech = () => {
   return (
@@ -24,7 +26,7 @@ const Tech = () => {
             title={technology.name}
           >
             <img
-              src={technology.icon}
+              src={imageSrc(technology.icon)}
               alt={technology.name}
               className='w-10 h-10 object-contain'
             />
