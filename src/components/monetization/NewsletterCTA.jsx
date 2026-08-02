@@ -36,7 +36,7 @@ export default function NewsletterCTA() {
             Join the inner circle
           </h3>
           <p className="text-gray-600 text-[16px] leading-relaxed">
-            Get exclusive insights on software engineering, system design, and AI automation delivered straight to your inbox once a month. No spam, just value.
+            Get exclusive insights on software engineering, system design, and AI automation. <br/><span className="text-sm font-bold text-purple-600">(Note: This is currently a UI demo component)</span>
           </p>
         </div>
 

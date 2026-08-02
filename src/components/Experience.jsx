@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -13,7 +12,6 @@ import { styles } from "../styles";
 import { experiences } from "../constants";
 import { SectionWrapper } from "../hoc";
 import { textVariant } from "../utils/motion";
-import { imageSrc } from "../utils/image";
 
 const ExperienceCard = ({ experience }) => {
   return (
@@ -66,9 +64,9 @@ const Experience = () => {
         <p className={`${styles.sectionSubText} text-center font-semibold`}>
           What I have done so far
         </p>
-        <h3 className={`${styles.sectionHeadText} text-center text-gradient`}>
+        <h2 className={`${styles.sectionHeadText} text-center text-gradient`}>
           Work Experience.
-        </h3>
+        </h2>
       </motion.div>
 
       <div className='mt-20 flex flex-col'>
@@ -85,4 +83,4 @@ const Experience = () => {
   );
 };
 
-export default SectionWrapper(Experience, "work");
+export default SectionWrapper(Experience, "experience");

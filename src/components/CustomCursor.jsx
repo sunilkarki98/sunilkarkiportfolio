@@ -1,12 +1,17 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 const CustomCursor = ({ disabled = false }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
   const [isHovering, setIsHovering] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
+
+  // Smooth spring for slight lag effect
+  const springX = useSpring(cursorX, { stiffness: 300, damping: 30 });
+  const springY = useSpring(cursorY, { stiffness: 300, damping: 30 });
 
   useEffect(() => {
     // Only show custom cursor on desktop
@@ -17,7 +22,9 @@ const CustomCursor = ({ disabled = false }) => {
     window.addEventListener("resize", checkMobile);
 
     const updateMousePosition = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      // Directly set motion values — no React re-render!
+      cursorX.set(e.clientX - 100);
+      cursorY.set(e.clientY - 100);
     };
 
     const handleMouseOver = (e) => {
@@ -43,22 +50,22 @@ const CustomCursor = ({ disabled = false }) => {
       window.removeEventListener("mousemove", updateMousePosition);
       window.removeEventListener("mouseover", handleMouseOver);
     };
-  }, []);
+  }, [cursorX, cursorY]);
 
   if (isMobile || disabled) return null;
 
   return (
     <motion.div
       className="fixed top-0 left-0 pointer-events-none z-[50] flex items-center justify-center"
+      style={{
+        x: springX,
+        y: springY,
+      }}
       animate={{
-        x: mousePosition.x - 100, // Reduced from 150 to 100
-        y: mousePosition.y - 100,
         scale: isHovering ? 1.2 : 1,
       }}
       transition={{
-        type: "tween",
-        ease: "linear",
-        duration: 0.1,
+        scale: { type: "spring", stiffness: 300, damping: 20 },
       }}
     >
       <div

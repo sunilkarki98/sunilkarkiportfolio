@@ -12,6 +12,7 @@ const ComputersCanvas = dynamic(() => import('./canvas/Computers'), {
 
 const Hero = () => {
   const [mount3D, setMount3D] = useState(false);
+  const [modelLoaded, setModelLoaded] = useState(false);
 
   useEffect(() => {
     // Delay mounting the heavy 3D canvas by 1.5s to prioritize text rendering
@@ -72,13 +73,15 @@ const Hero = () => {
       </div>
 
       {/* 3D Canvas - Hidden on Mobile, Deferred on Desktop */}
-      <div 
-        className={`absolute inset-0 z-0 hidden sm:block transition-opacity duration-1000 ${mount3D ? 'opacity-100' : 'opacity-0'}`}
-      >
+      <div className="absolute inset-0 z-0 hidden sm:block">
         {mount3D && (
-          <ErrorBoundary>
-            <ComputersCanvas />
-          </ErrorBoundary>
+          <div 
+            className={`w-full h-full transition-opacity duration-1000 ease-in-out ${modelLoaded ? 'opacity-100' : 'opacity-0'}`}
+          >
+            <ErrorBoundary>
+              <ComputersCanvas onLoaded={() => setModelLoaded(true)} />
+            </ErrorBoundary>
+          </div>
         )}
       </div>
 
@@ -87,7 +90,7 @@ const Hero = () => {
         <a href="#about" aria-label="Scroll to About section">
           <div className="w-[30px] h-[52px] sm:w-[35px] sm:h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-1.5 sm:p-2">
             <motion.div
-              animate={{ y: [0, 24, 0] }}
+              animate={{ y: [0, 16, 0] }}
               transition={{
                 duration: 1.5,
                 repeat: Infinity,

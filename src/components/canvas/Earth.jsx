@@ -83,6 +83,7 @@ const CyberGlobe = () => {
       earthRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.3) * 0.1;
     }
     pulseRef.current = Math.sin(state.clock.elapsedTime * 2) * 0.5 + 0.5;
+    state.invalidate();
   });
 
   return (
@@ -172,29 +173,31 @@ const CyberGlobe = () => {
 
 const EarthCanvas = () => {
   return (
-    <Canvas
-      frameloop="always"
-      dpr={[1, 1.5]}
-      gl={{ antialias: true }}
-      camera={{
-        fov: 45,
-        near: 0.1,
-        far: 200,
-        position: [-4, 3, 6],
-      }}
-    >
-      <React.Suspense fallback={<CanvasLoader />}>
-        <OrbitControls
-          autoRotate
-          autoRotateSpeed={0.5}
-          enableZoom={false}
-          maxPolarAngle={Math.PI / 1.5}
-          minPolarAngle={Math.PI / 3}
-        />
-        <CyberGlobe />
-        <Preload all />
-      </React.Suspense>
-    </Canvas>
+    <div aria-hidden="true" className="w-full h-full">
+      <Canvas
+        frameloop="demand"
+        dpr={[1, 1.5]}
+        gl={{ antialias: true }}
+        camera={{
+          fov: 45,
+          near: 0.1,
+          far: 200,
+          position: [-4, 3, 6],
+        }}
+      >
+        <React.Suspense fallback={<CanvasLoader />}>
+          <OrbitControls
+            autoRotate
+            autoRotateSpeed={0.5}
+            enableZoom={false}
+            maxPolarAngle={Math.PI / 1.5}
+            minPolarAngle={Math.PI / 3}
+          />
+          <CyberGlobe />
+          <Preload all />
+        </React.Suspense>
+      </Canvas>
+    </div>
   );
 };
 

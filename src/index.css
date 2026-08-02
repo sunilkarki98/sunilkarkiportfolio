@@ -68,7 +68,7 @@ html::-webkit-scrollbar {
 }
 
 .green-pink-gradient {
-  background: "#915EFF";
+  background: #915EFF;
   background: linear-gradient(90.13deg, #915EFF 1.9%, #6366f1 97.5%);
   background: -webkit-linear-gradient(-90.13deg, #915EFF 1.9%, #6366f1 97.5%);
 }
@@ -245,30 +245,3 @@ html::-webkit-scrollbar {
   @apply bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent;
 }
 
-
-
-.shimmer-text {
-  display: inline-block;
-  background: url('./assets/textbg.webp');
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: white;
-  opacity: 0;
-  animation: shimmer 8s linear 3;
-  animation-delay: 1s;
-  animation-fill-mode: forwards;
-}
-
-
-@keyframes shimmer {
-  0% {
-    background-position: 100% 0;
-    opacity: 1;
-  }
-
-  100% {
-    background-position: -100% 0;
-    opacity: 1;
-  }
-}

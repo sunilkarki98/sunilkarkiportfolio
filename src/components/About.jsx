@@ -10,37 +10,40 @@ import { fadeIn, textVariant } from "../utils/motion";
 import { imageSrc } from "../utils/image";
 
 const ServiceCard = ({ index, title, icon: Icon }) => (
-  <Tilt
-    tiltMaxAngleX={45}
-    tiltMaxAngleY={45}
-    scale={1.05}
-    transitionSpeed={450}
+  <motion.div
+    variants={fadeIn("right", "tween", index * 0.2, 1)}
     className='w-full'
   >
-    <motion.div
-      variants={fadeIn("right", "spring", index * 0.5, 0.75)}
-      className='w-full p-[1px] rounded-[20px] green-pink-gradient shadow-card group cursor-pointer'
+    <Tilt
+      tiltMaxAngleX={10}
+      tiltMaxAngleY={10}
+      scale={1.05}
+      transitionSpeed={450}
     >
       <div
-        className='bg-tertiary rounded-[20px] py-5 px-4 min-h-[160px] flex justify-center items-center flex-col gap-3 transition-colors group-hover:bg-black-200'
+        className='w-full p-[1px] rounded-[20px] green-pink-gradient shadow-card group cursor-pointer'
       >
-        {typeof Icon === 'function' || (typeof Icon === 'object' && !Icon.src) ? (
-          <div className='w-14 h-14 flex items-center justify-center group-hover:scale-110 transition-transform duration-300'>
-            <Icon className="w-full h-full text-purple-400 drop-shadow-lg" />
-          </div>
-        ) : (
-          <Image
-            src={Icon}
-            alt={title}
-            className='w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300'
-          />
-        )}
-        <h3 className='text-white text-[16px] font-bold text-center leading-tight'>
-          {title}
-        </h3>
+        <div
+          className='bg-tertiary rounded-[20px] py-5 px-4 min-h-[160px] flex justify-center items-center flex-col gap-3 transition-colors group-hover:bg-black-200'
+        >
+          {typeof Icon === 'function' || (typeof Icon === 'object' && !Icon.src) ? (
+            <div className='w-14 h-14 flex items-center justify-center group-hover:scale-110 transition-transform duration-300'>
+              <Icon className="w-full h-full text-purple-400 drop-shadow-lg" />
+            </div>
+          ) : (
+            <Image
+              src={Icon}
+              alt={title}
+              className='w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300'
+            />
+          )}
+          <h3 className='text-white text-[16px] font-bold text-center leading-tight'>
+            {title}
+          </h3>
+        </div>
       </div>
-    </motion.div>
-  </Tilt>
+    </Tilt>
+  </motion.div>
 );
 
 const About = () => {

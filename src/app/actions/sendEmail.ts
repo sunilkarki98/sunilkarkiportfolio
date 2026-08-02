@@ -9,15 +9,22 @@ const ContactFormSchema = z.object({
   service: z.string().optional(),
   budget: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
+  honeypot: z.string().optional(),
 });
 
 export async function sendEmailAction(formData: unknown) {
+  // Honeypot check
+  if (typeof formData === 'object' && formData !== null && 'honeypot' in formData && (formData as any).honeypot) {
+    console.warn("Spam blocked by honeypot");
+    return { success: true, message: "Thanks! I'll get back to you within 24 hours." };
+  }
+
   // 2. Validate the incoming data against the Zod schema
   const validationResult = ContactFormSchema.safeParse(formData);
 
   if (!validationResult.success) {
     // Return the first Zod error message securely
-    const error = validationResult.error.errors[0];
+    const error = validationResult.error.issues[0];
     return { success: false, message: error.message };
   }
 

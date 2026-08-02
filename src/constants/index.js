@@ -143,7 +143,7 @@ const technologies = [
 const experiences = [
   {
     title: "Software Engineer",
-    company_name: "Your Company",
+    company_name: "Tech Solutions Inc.",
     icon: meta, // Replace with your company icon
     iconBg: "#383E56",
     date: "Jan 2023 - Present",
@@ -156,7 +156,7 @@ const experiences = [
   },
   {
     title: "Web Developer",
-    company_name: "Previous Company",
+    company_name: "Digital Web Agency",
     icon: shopify, // Replace with your company icon
     iconBg: "#E6DEDD",
     date: "Jan 2022 - Jan 2023",

@@ -24,11 +24,19 @@ interface StatusState {
 }
 
 const Contact: React.FC = () => {
+  interface ContactFormState {
+    name: string;
+    email: string;
+    message: string;
+    honeypot: string;
+  }
+
   const formRef = useRef<HTMLFormElement>(null);
   const [form, setForm] = useState<ContactFormState>({
     name: "",
     email: "",
     message: "",
+    honeypot: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -37,10 +45,10 @@ const Contact: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 
-    setForm({
-      ...form,
+    setForm((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,7 +60,7 @@ const Contact: React.FC = () => {
       const result = await sendEmailAction(form);
       
       if (result.success) {
-        setForm({ name: "", email: "", message: "" });
+        setForm({ name: "", email: "", message: "", honeypot: "" });
         setStatus({ type: "success", message: result.message });
       } else {
         setStatus({ type: "error", message: result.message });
@@ -74,7 +82,7 @@ const Contact: React.FC = () => {
         className='flex-[0.75] bg-black/20 backdrop-blur-sm xl:bg-black-100 p-8 rounded-2xl relative z-[20]'
       >
         <p className={`${styles.sectionSubText} text-gradient`}>Get in touch</p>
-        <h4 className={`${styles.sectionHeadText} text-gradient`}>Contact.</h4>
+        <h2 className={`${styles.sectionHeadText} text-gradient`}>Contact.</h2>
 
         <form
           ref={formRef}
@@ -116,9 +124,21 @@ const Contact: React.FC = () => {
               onChange={handleChange}
               required
               placeholder='What you want to say?'
+              minLength={10}
               className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
             />
           </label>
+
+          {/* Honeypot field - hidden from real users */}
+          <input
+            type="text"
+            name="honeypot"
+            value={form.honeypot}
+            onChange={handleChange}
+            style={{ display: 'none' }}
+            tabIndex={-1}
+            autoComplete="off"
+          />
 
           <button
             type='submit'

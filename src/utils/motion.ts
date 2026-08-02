@@ -11,8 +11,8 @@ export const textVariant = (delay?: number): Variants => {
       opacity: 1,
       transition: {
         type: "spring",
-        duration: 1.25,
-        bounce: 0.25,
+        duration: 0.6,
+        bounce: 0.2,
         delay: delay,
       },
     },
@@ -22,8 +22,11 @@ export const textVariant = (delay?: number): Variants => {
 export const fadeIn = (direction: string, type: string, delay?: number, duration?: number): Variants => {
   return {
     hidden: {
-      x: direction === "left" ? 100 : direction === "right" ? -100 : 0,
-      y: direction === "up" ? 100 : direction === "down" ? -100 : 0,
+      // Fixed: direction now means "fade in FROM this direction"
+      // "left" = element starts off-screen to the left (negative x)
+      // "right" = element starts off-screen to the right (positive x)
+      x: direction === "left" ? -100 : direction === "right" ? 100 : 0,
+      y: direction === "up" ? -100 : direction === "down" ? 100 : 0,
       opacity: 0,
     },
     show: {
@@ -65,10 +68,12 @@ export const slideIn = (direction: string, type: string, delay?: number, duratio
     hidden: {
       x: direction === "left" ? "-100%" : direction === "right" ? "100%" : 0,
       y: direction === "up" ? "-100%" : direction === "down" ? "100%" : 0,
+      opacity: 0,
     },
     show: {
       x: 0,
       y: 0,
+      opacity: 1,
       transition: {
         type: type as any,
         delay: delay,

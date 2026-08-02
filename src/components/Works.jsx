@@ -2,7 +2,7 @@
 import Tilt from "react-parallax-tilt";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { styles } from "../styles";
 import { github, web } from "../assets";
 import { SectionWrapper } from "../hoc";
@@ -21,18 +21,36 @@ const ProjectCard = ({
 }) => {
 
   const [currentImage, setCurrentImage] = useState(0);
+  const cardRef = useRef(null);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 2000);
-    return () => clearInterval(interval);
+    let interval = null;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          interval = setInterval(() => {
+            setCurrentImage((prev) => (prev + 1) % images.length);
+          }, 2000);
+        } else {
+          if (interval) clearInterval(interval);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (cardRef.current) observer.observe(cardRef.current);
+
+    return () => {
+      if (interval) clearInterval(interval);
+      observer.disconnect();
+    };
   }, [images.length]);
 
   return (
-    <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)}>
+    <motion.div ref={cardRef} variants={fadeIn("up", "tween", index * 0.2, 1)}>
       <Tilt
-        tiltMaxAngleX={45}
-        tiltMaxAngleY={45}
+        tiltMaxAngleX={10}
+        tiltMaxAngleY={10}
         scale={1}
         transitionSpeed={450}
         className='bg-tertiary p-5 rounded-2xl sm:w-[360px] w-full'

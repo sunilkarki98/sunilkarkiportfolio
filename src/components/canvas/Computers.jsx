@@ -5,8 +5,12 @@ import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
 import CanvasLoader from "../Loader";
 import { useMediaQuery } from "../../utils/useMediaQuery";
-const Computers = ({ isMobile }) => {
+const Computers = ({ isMobile, onLoaded }) => {
   const computer = useGLTF("./desktop_pc/scene.gltf");
+
+  useEffect(() => {
+    if (onLoaded) onLoaded();
+  }, [onLoaded]);
 
   return (
     <mesh>
@@ -30,7 +34,7 @@ const Computers = ({ isMobile }) => {
   );
 };
 
-const ComputersCanvas = () => {
+const ComputersCanvas = ({ onLoaded }) => {
   const isMobile = useMediaQuery("(max-width: 500px)");
 
   if (isMobile) {
@@ -48,6 +52,7 @@ const ComputersCanvas = () => {
       shadows="percentage"
       dpr={[1, 1.5]}
       camera={{ position: [20, 3, 5], fov: 25 }}
+      aria-hidden="true"
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
@@ -58,7 +63,7 @@ const ComputersCanvas = () => {
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 3}
         />
-        <Computers isMobile={isMobile} />
+        <Computers isMobile={isMobile} onLoaded={onLoaded} />
       </Suspense>
 
       <Preload all />

@@ -17,6 +17,16 @@ const nextConfig = {
         hostname: 'randomuser.me',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'github-readme-stats-orcin-eight-46.vercel.app',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'github-readme-streak-stats.herokuapp.com',
+        pathname: '/**',
+      },
     ],
   },
 };
