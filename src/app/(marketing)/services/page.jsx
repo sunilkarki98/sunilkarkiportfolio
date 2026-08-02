@@ -3,8 +3,8 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import { styles } from "../../styles";
-import { fadeIn, textVariant } from "../../utils/motion";
+import { styles } from "../../../styles";
+import { fadeIn, textVariant } from "../../../utils/motion";
 
 const servicesTiers = [
   {

@@ -1,6 +1,6 @@
-import { getPostBySlug, getBlogSlugs } from "../../../lib/mdx";
+import { getPostBySlug, getBlogSlugs } from "../../../../lib/mdx";
 import { notFound } from "next/navigation";
-import ArticleRenderer from "../../../components/blog/ArticleRenderer";
+import ArticleRenderer from "../../../../components/blog/ArticleRenderer";
 
 // Support static generation
 export async function generateStaticParams() {

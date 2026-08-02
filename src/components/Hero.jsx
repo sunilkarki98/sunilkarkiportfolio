@@ -13,7 +13,7 @@ const Hero = () => {
   return (
     <section className="relative w-full h-[60vh] sm:h-screen mx-auto overflow-hidden">
       <div
-        className={`absolute inset-0 top-[160px] sm:top-[140px] lg:top-[180px] max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-start gap-3 sm:gap-5 z-10`}
+        className={`absolute inset-0 top-[160px] sm:top-[140px] lg:top-[180px] max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-start gap-3 sm:gap-5 z-10 pointer-events-none`}
       >
         {/* Left vertical line & dot */}
         <div className="flex flex-col justify-center items-center mt-2 sm:mt-5">
@@ -22,7 +22,7 @@ const Hero = () => {
         </div>
 
         {/* Text section */}
-        <div className="z-50 mt-1 sm:mt-0">
+        <div className="z-50 mt-1 sm:mt-0 pointer-events-auto">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}

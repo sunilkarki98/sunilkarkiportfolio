@@ -175,7 +175,7 @@ const EarthCanvas = () => {
     <Canvas
       frameloop="always"
       dpr={[1, 1.5]}
-      gl={{ preserveDrawingBuffer: true, antialias: true }}
+      gl={{ antialias: true }}
       camera={{
         fov: 45,
         near: 0.1,
