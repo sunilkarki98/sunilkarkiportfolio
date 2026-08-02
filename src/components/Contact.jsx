@@ -2,7 +2,7 @@
 import React, { useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
+import { sendEmailAction } from "../app/actions/sendEmail";
 
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
@@ -36,37 +36,19 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus({ type: "", message: "" });
-
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
-    if (!serviceId || !templateId || !publicKey) {
-      setStatus({
-        type: "error",
-        message: "The contact form is not configured yet. Please email me directly.",
-      });
-      return;
-    }
-
     setLoading(true);
+
     try {
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          from_name: form.name,
-          to_name: "Sunil Karki",
-          from_email: form.email,
-          to_email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "suneelkarkee98@gmail.com",
-          message: form.message,
-        },
-        publicKey,
-      );
-      setForm({ name: "", email: "", message: "" });
-      setStatus({ type: "success", message: "Thanks — your message has been sent." });
+      const result = await sendEmailAction(form);
+      
+      if (result.success) {
+        setForm({ name: "", email: "", message: "" });
+        setStatus({ type: "success", message: result.message });
+      } else {
+        setStatus({ type: "error", message: result.message });
+      }
     } catch (error) {
-      console.error("EmailJS submission failed", error);
+      console.error("Submission failed", error);
       setStatus({ type: "error", message: "Your message could not be sent. Please try again." });
     } finally {
       setLoading(false);
