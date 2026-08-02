@@ -1,6 +1,6 @@
 import { getBlogSlugs } from '../lib/mdx';
 
-const SITE_URL = 'https://sunilkarki.vercel.app';
+const SITE_URL = 'https://www.sunilkarki98.com.np';
 
 export default function sitemap() {
   // Static pages
