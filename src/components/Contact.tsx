@@ -12,20 +12,30 @@ const EarthCanvas = dynamic(() => import("./canvas/Earth"), {
   ssr: false,
 });
 
-const Contact = () => {
-  const formRef = useRef();
-  const [form, setForm] = useState({
+interface ContactFormState {
+  name: string;
+  email: string;
+  message: string;
+}
+
+interface StatusState {
+  type: "success" | "error" | "";
+  message: string;
+}
+
+const Contact: React.FC = () => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [form, setForm] = useState<ContactFormState>({
     name: "",
     email: "",
     message: "",
   });
 
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState({ type: "", message: "" });
+  const [status, setStatus] = useState<StatusState>({ type: "", message: "" });
 
-  const handleChange = (e) => {
-    const { target } = e;
-    const { name, value } = target;
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
 
     setForm({
       ...form,
@@ -33,7 +43,7 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus({ type: "", message: "" });
     setLoading(true);

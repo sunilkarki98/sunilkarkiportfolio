@@ -1,6 +1,29 @@
 "use server";
 
-export async function sendEmailAction(formData) {
+import { z } from "zod";
+
+// 1. Define the exact shape and rules for incoming data
+const ContactFormSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  service: z.string().optional(),
+  budget: z.string().optional(),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+export async function sendEmailAction(formData: unknown) {
+  // 2. Validate the incoming data against the Zod schema
+  const validationResult = ContactFormSchema.safeParse(formData);
+
+  if (!validationResult.success) {
+    // Return the first Zod error message securely
+    const error = validationResult.error.errors[0];
+    return { success: false, message: error.message };
+  }
+
+  const validatedData = validationResult.data;
+
+  // 3. Process the fully validated, strictly typed data
   const serviceId = process.env.EMAILJS_SERVICE_ID;
   const templateId = process.env.EMAILJS_TEMPLATE_ID;
   const publicKey = process.env.EMAILJS_PUBLIC_KEY;
@@ -21,11 +44,11 @@ export async function sendEmailAction(formData) {
         template_id: templateId,
         user_id: publicKey,
         template_params: {
-          from_name: formData.name,
+          from_name: validatedData.name,
           to_name: "Sunil Karki",
-          from_email: formData.email,
+          from_email: validatedData.email,
           to_email: contactEmail,
-          message: `Service: ${formData.service}\nBudget: ${formData.budget}\n\n${formData.message}`,
+          message: `Service: ${validatedData.service || 'N/A'}\nBudget: ${validatedData.budget || 'N/A'}\n\n${validatedData.message}`,
         },
       }),
     });
