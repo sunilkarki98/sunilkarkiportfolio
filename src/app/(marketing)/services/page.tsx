@@ -2,9 +2,9 @@
 
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { styles } from "../../../styles";
-import { fadeIn, textVariant } from "../../../utils/motion";
-import { sendEmailAction } from "../../actions/sendEmail";
+import { styles } from "@/styles";
+import { fadeIn, textVariant } from "@/utils/motion";
+import { sendEmailAction } from "@/app/actions/sendEmail";
 
 const servicesTiers = [
   {
@@ -55,9 +55,22 @@ const servicesTiers = [
   }
 ];
 
+interface ServiceFormState {
+  name: string;
+  email: string;
+  service: string;
+  budget: string;
+  message: string;
+}
+
+interface StatusState {
+  type: "success" | "error" | "";
+  message: string;
+}
+
 export default function ServicesPage() {
-  const formRef = useRef();
-  const [form, setForm] = useState({
+  const formRef = useRef<HTMLFormElement>(null);
+  const [form, setForm] = useState<ServiceFormState>({
     name: "",
     email: "",
     service: "",
@@ -65,18 +78,18 @@ export default function ServicesPage() {
     message: "",
   });
   const [loading, setLoading] = useState(false);
-  const [status, setStatus] = useState({ type: "", message: "" });
+  const [status, setStatus] = useState<StatusState>({ type: "", message: "" });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const scrollToForm = (serviceName) => {
+  const scrollToForm = (serviceName: string) => {
     setForm((prev) => ({ ...prev, service: serviceName }));
     document.getElementById("services-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus({ type: "", message: "" });
     setLoading(true);
