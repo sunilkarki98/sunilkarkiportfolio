@@ -1,5 +1,5 @@
-import { getAllPosts } from "../../lib/mdx";
-import WritingHub from "../../components/blog/WritingHub";
+import { getAllPosts } from "../../../lib/mdx";
+import WritingHub from "../../../components/blog/WritingHub";
 
 export const metadata = {
   title: "Writing",
