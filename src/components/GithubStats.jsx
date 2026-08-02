@@ -19,7 +19,7 @@ const GithubStats = () => {
             >
                 <div className="p-3 bg-tertiary rounded-2xl border border-white/10 shadow-card flex justify-center overflow-x-auto">
                     <img
-                        src={`https://github-readme-stats-ten-bay-85.vercel.app/api?username=sunilkarki98&show_icons=true&theme=onedark&hide_border=true&bg_color=151030`}
+                        src={`https://github-readme-stats-orcin-eight-46.vercel.app/api?username=sunilkarki98&show_icons=true&theme=onedark&hide_border=true&bg_color=151030`}
                         alt="GitHub Stats"
                         className="w-full h-auto object-contain"
                     />

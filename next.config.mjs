@@ -10,6 +10,15 @@ const nextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'randomuser.me',
+        pathname: '/**',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

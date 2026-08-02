@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { styles } from "../styles";
 import { SectionWrapper } from "../hoc";
-import { textVariant } from "../utils/motion";
+import { textVariant, fadeIn } from "../utils/motion";
 import { HiOutlineSearch, HiOutlineColorSwatch, HiOutlineTerminal, HiOutlineCloudUpload } from "react-icons/hi";
 
 const processSteps = [
@@ -39,8 +39,9 @@ const Process = () => {
 
             <div className='mt-8 grid grid-cols-2 md:grid-cols-4 gap-4'>
                 {processSteps.map((step, index) => (
-                    <div
+                    <motion.div
                         key={step.title}
+                        variants={fadeIn("up", "spring", index * 0.15, 0.75)}
                         className='p-[1px] rounded-2xl green-pink-gradient shadow-card group'
                     >
                         <div className='bg-tertiary p-5 rounded-2xl h-full group-hover:bg-black-200 transition-colors'>
@@ -52,7 +53,7 @@ const Process = () => {
                             <h3 className='text-white text-[18px] font-bold mb-1'>{step.title}</h3>
                             <p className='text-white-100/90 text-[14px] leading-relaxed'>{step.description}</p>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
         </>

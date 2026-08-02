@@ -9,9 +9,31 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter", sans-serif;
+  font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
-  color-scheme: dark;
+}
+
+/* Hide scrollbar across browsers */
+html {
+  scrollbar-width: none; /* Firefox */
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+/* Accessibility Focus Rings */
+*:focus-visible {
+  outline: 2px solid #a855f7;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .hero-background {
@@ -233,7 +255,7 @@
   -webkit-text-fill-color: transparent;
   color: white;
   opacity: 0;
-  animation: shimmer 8s linear infinite;
+  animation: shimmer 8s linear 3;
   animation-delay: 1s;
   animation-fill-mode: forwards;
 }

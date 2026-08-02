@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { SectionWrapper } from "../hoc";
 import { technologies } from "../constants";
@@ -25,8 +26,8 @@ const Tech = () => {
             className='w-16 h-16 rounded-xl bg-tertiary border border-white/10 flex items-center justify-center hover:scale-110 hover:border-purple-500/50 transition-all cursor-pointer group relative'
             title={technology.name}
           >
-            <img
-              src={imageSrc(technology.icon)}
+            <Image
+              src={technology.icon}
               alt={technology.name}
               className='w-10 h-10 object-contain'
             />

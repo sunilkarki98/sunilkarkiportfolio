@@ -7,9 +7,15 @@ import Works from "./Works";
 import Feedbacks from "./Feedbacks";
 import Contact from "./Contact";
 import ValueProposition from "./ValueProposition";
+import EarthCanvas from './canvas/Earth';
+import BallCanvas from './canvas/Ball';
+import ComputersCanvas from './canvas/Computers';
+import StarsCanvas from './canvas/Stars';
 import CurrentlyBuilding from "./CurrentlyBuilding";
 import Process from "./Process";
 import GithubStats from "./GithubStats";
+import CustomCursor from "./CustomCursor";
+import Footer from './Footer';
 
 export {
   Hero,
@@ -24,4 +30,6 @@ export {
   CurrentlyBuilding,
   Process,
   GithubStats,
+  CustomCursor,
+  Footer,
 };

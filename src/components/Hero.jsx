@@ -11,18 +11,18 @@ const ComputersCanvas = dynamic(() => import('./canvas/Computers'), {
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-screen mx-auto overflow-hidden">
+    <section className="relative w-full h-[60vh] sm:h-screen mx-auto overflow-hidden">
       <div
-        className={`absolute inset-0 top-[100px] max-w-7xl mx-auto ${styles.paddingX} flex flex-col sm:flex-row items-start gap-5`}
+        className={`absolute inset-0 top-[160px] sm:top-[140px] lg:top-[180px] max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-start gap-3 sm:gap-5 z-10`}
       >
         {/* Left vertical line & dot */}
-        <div className="flex flex-col justify-center items-center mt-5">
+        <div className="flex flex-col justify-center items-center mt-2 sm:mt-5">
           <div className="w-4 h-4 rounded-full bg-[#915EFF]" />
-          <div className="w-1 sm:h-80 h-40 violet-gradient" />
+          <div className="w-1 h-48 sm:h-80 violet-gradient" />
         </div>
 
         {/* Text section */}
-        <div className="z-50 mt-10 sm:mt-0">
+        <div className="z-50 mt-1 sm:mt-0">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -60,17 +60,17 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* 3D Canvas */}
-      <div className="absolute inset-0 z-0">
+      {/* 3D Canvas - Hidden on Mobile */}
+      <div className="absolute inset-0 z-0 hidden sm:block">
         <ErrorBoundary>
           <ComputersCanvas />
         </ErrorBoundary>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-10 w-full flex justify-center items-center z-10">
+      <div className="absolute bottom-5 sm:bottom-10 w-full flex justify-center items-center z-10">
         <a href="#about" aria-label="Scroll to About section">
-          <div className="w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2">
+          <div className="w-[30px] h-[52px] sm:w-[35px] sm:h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-1.5 sm:p-2">
             <motion.div
               animate={{ y: [0, 24, 0] }}
               transition={{
@@ -78,7 +78,7 @@ const Hero = () => {
                 repeat: Infinity,
                 repeatType: "loop",
               }}
-              className="w-3 h-3 rounded-full bg-secondary mb-1"
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-secondary mb-1"
             />
           </div>
         </a>

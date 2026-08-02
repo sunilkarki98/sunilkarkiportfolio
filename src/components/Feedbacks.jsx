@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 import { styles } from "../styles";
@@ -17,7 +18,7 @@ const FeedbackCard = ({
   image,
 }) => (
   <motion.div
-    variants={fadeIn("", "spring", index * 0.5, 0.75)}
+    variants={fadeIn("", "spring", index * 0.15, 0.75)}
     className='bg-gradient-to-r from-violet-950 to-purple-900 px-6 pb-6 rounded-3xl xs:w-[320px] w-full'
   >
     <p className='text-gradient font-black text-5xl inline-block '>...</p>
@@ -35,9 +36,11 @@ const FeedbackCard = ({
           </p>
         </div>
 
-        <img
-          src={imageSrc(image)}
+        <Image
+          src={image}
           alt={`feedback_by-${name}`}
+          width={40}
+          height={40}
           className='w-10 h-10 rounded-full object-cover'
         />
       </div>

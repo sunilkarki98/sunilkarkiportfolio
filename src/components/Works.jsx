@@ -1,5 +1,6 @@
 "use client";
 import Tilt from "react-parallax-tilt";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { styles } from "../styles";
@@ -38,22 +39,22 @@ const ProjectCard = ({
       >
         <article className="group">
           <div className='relative w-full h-[230px] rounded-2xl overflow-hidden'>
-            <img
-              src={imageSrc(images[currentImage])}
+            <Image
+              src={images[currentImage]}
               alt={name}
               className='w-full h-full object-cover transition-all duration-500 group-hover:scale-110'
             />
 
-            <div className='absolute inset-0 bg-black/60 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 gap-3'>
+            <div className='absolute inset-0 bg-black/70 flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 gap-4'>
               {live_link && (
                 <a
                   href={live_link}
                   target='_blank'
                   rel='noreferrer'
-                  className='px-4 py-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full text-white font-medium hover:scale-105 transition-transform flex items-center gap-2'
+                  className='px-6 py-2.5 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full text-white font-bold hover:scale-105 transition-transform flex items-center gap-2 shadow-lg shadow-purple-500/30'
                 >
-                  <img src={imageSrc(web)} alt="live" className="w-4 h-4 object-contain brightness-0 invert" />
-                  Live Demo
+                  <Image src={web} alt="live" className="w-4 h-4 object-contain brightness-0 invert" />
+                  Visit Site
                 </a>
               )}
               {github_link && (
@@ -61,10 +62,10 @@ const ProjectCard = ({
                   href={github_link}
                   target='_blank'
                   rel='noreferrer'
-                  className='px-4 py-2 bg-black/50 border border-white/20 rounded-full text-white font-medium hover:bg-black/80 hover:scale-105 transition-all flex items-center gap-2 backdrop-blur-sm'
+                  className='px-6 py-2.5 bg-black/80 border border-white/20 rounded-full text-white font-bold hover:bg-black hover:scale-105 transition-all flex items-center gap-2 backdrop-blur-md shadow-lg shadow-black/50'
                 >
-                  <img src={imageSrc(github)} alt="github" className="w-4 h-4 object-contain" />
-                  Source Code
+                  <Image src={github} alt="github" className="w-4 h-4 object-contain" />
+                  Case Study
                 </a>
               )}
             </div>
@@ -112,7 +113,7 @@ const Works = () => {
         </motion.p>
       </div>
 
-      <div className='mt-20 flex flex-wrap gap-7'>
+      <div className='mt-20 flex flex-wrap gap-7 justify-center'>
         {projects.map((project, index) => (
           <ProjectCard key={`project-${index}`} index={index} {...project} />
         ))}

@@ -1,3 +1,6 @@
+import { FaRobot, FaBrain, FaLaptopCode, FaCommentDots } from "react-icons/fa";
+import { SiN8N } from "react-icons/si";
+
 import {
   mobile,
   backend,
@@ -40,6 +43,18 @@ export const navLinks = [
     title: "Work",
   },
   {
+    id: "/writing",
+    title: "Writing",
+  },
+  {
+    id: "/services",
+    title: "Services",
+  },
+  {
+    id: "/uses",
+    title: "Uses",
+  },
+  {
     id: "contact",
     title: "Contact",
   },
@@ -48,23 +63,23 @@ export const navLinks = [
 const services = [
   {
     title: "AI Automation Expert",
-    icon: web,
+    icon: FaRobot,
   },
   {
     title: "AI Chatbot Developer",
-    icon: mobile,
+    icon: FaCommentDots,
   },
   {
     title: "AI Agents Developer",
-    icon: backend,
+    icon: FaBrain,
   },
   {
     title: "n8n Low-code Specialist",
-    icon: creator,
+    icon: SiN8N,
   },
   {
     title: "Full Stack Developer",
-    icon: java
+    icon: FaLaptopCode
   }
 ];
 
@@ -180,6 +195,28 @@ const testimonials = [
 ];
 
 const projects = [
+  {
+    name: "Diva IT Solutions",
+    description:
+      "A complete platform for an IT agency and skill development academy. It showcases digital products for clients and offers live, project-based professional training programs.",
+    tags: [
+      {
+        name: "nextjs",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "typescript",
+        color: "green-text-gradient",
+      },
+      {
+        name: "agency",
+        color: "pink-text-gradient",
+      },
+    ],
+    images: [web], // using web placeholder until new image provided
+    github_link: "https://github.com/sunilkarki98", // Update with actual URL if public
+    live_link: "https://www.divaitsolutions.com/",
+  },
   {
     name: "StaySewa",
     description:
