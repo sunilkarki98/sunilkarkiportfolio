@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { styles } from "../styles";
@@ -10,6 +11,16 @@ const ComputersCanvas = dynamic(() => import('./canvas/Computers'), {
 });
 
 const Hero = () => {
+  const [mount3D, setMount3D] = useState(false);
+
+  useEffect(() => {
+    // Delay mounting the heavy 3D canvas by 1.5s to prioritize text rendering
+    const timer = setTimeout(() => {
+      setMount3D(true);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <section className="relative w-full h-[60vh] sm:h-screen mx-auto overflow-hidden">
       <div
@@ -60,11 +71,15 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* 3D Canvas - Hidden on Mobile */}
-      <div className="absolute inset-0 z-0 hidden sm:block">
-        <ErrorBoundary>
-          <ComputersCanvas />
-        </ErrorBoundary>
+      {/* 3D Canvas - Hidden on Mobile, Deferred on Desktop */}
+      <div 
+        className={`absolute inset-0 z-0 hidden sm:block transition-opacity duration-1000 ${mount3D ? 'opacity-100' : 'opacity-0'}`}
+      >
+        {mount3D && (
+          <ErrorBoundary>
+            <ComputersCanvas />
+          </ErrorBoundary>
+        )}
       </div>
 
       {/* Scroll indicator */}
