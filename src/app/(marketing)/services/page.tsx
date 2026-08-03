@@ -2,9 +2,9 @@
 
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import { styles } from "../../../styles";
-import { fadeIn, textVariant } from "../../../utils/motion";
-import { sendEmailAction } from "../../actions/sendEmail";
+import { styles } from "@/styles";
+import { fadeIn, textVariant } from "@/utils/motion";
+import { sendEmailAction } from "@/app/actions/sendEmail";
 
 const servicesTiers = [
   {

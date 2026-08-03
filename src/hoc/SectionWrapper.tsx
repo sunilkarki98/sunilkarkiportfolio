@@ -1,0 +1,33 @@
+"use client";
+import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
+
+import { styles } from "@/styles";
+import { staggerContainer } from "@/utils/motion";
+
+const StarWrapper = <P extends object>(Component: React.ComponentType<P>, idName: string) => {
+  const HOC = (props: P) => {
+    const shouldReduceMotion = useReducedMotion();
+
+    return (
+      <motion.section
+        variants={staggerContainer()}
+        initial={shouldReduceMotion ? "show" : "hidden"}
+        whileInView='show'
+        viewport={{ once: true, amount: 0.1 }}
+        className={`${styles.padding} max-w-7xl mx-auto relative z-0`}
+      >
+        <span className='hash-span' id={idName}>
+          &nbsp;
+        </span>
+
+        <Component {...props} />
+      </motion.section>
+    );
+  };
+  
+  HOC.displayName = `SectionWrapper(${Component.displayName || Component.name || 'Component'})`;
+  return HOC;
+};
+
+export default StarWrapper;
