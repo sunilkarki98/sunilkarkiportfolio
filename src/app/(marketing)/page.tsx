@@ -23,7 +23,7 @@ export default function Home() {
       <ValueProposition />
       <Process />
       <Works />
-      <CurrentlyBuilding />
+      {/* <CurrentlyBuilding /> */}
       {/* <GithubStats /> */}
       <Tech />
       <Feedbacks />
