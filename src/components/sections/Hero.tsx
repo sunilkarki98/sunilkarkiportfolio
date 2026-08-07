@@ -73,9 +73,9 @@ const Hero = () => {
       </div>
 
       {/* 3D Canvas - Hidden on Mobile, Deferred on Desktop */}
-      <div className="absolute inset-0 z-0 hidden sm:block">
+      <div className="absolute inset-x-0 top-0 bottom-[100px] z-0 hidden sm:block">
         {mount3D && (
-          <div 
+          <div
             className={`w-full h-full transition-opacity duration-1000 ease-in-out ${modelLoaded ? 'opacity-100' : 'opacity-0'}`}
           >
             <ErrorBoundary>
