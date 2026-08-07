@@ -1,0 +1,111 @@
+---
+title: "How to Build AI Agents with n8n (2026 Guide): ReAct, Memory, and Human-in-the-Loop"
+date: "2026-08-07"
+summary: "How to build AI agents with n8n: the ReAct loop, tool calling, memory node types, and the safeguards that keep an autonomous agent from doing something expensive."
+tags: ["AI Agents", "n8n", "Automation", "Architecture", "ReAct"]
+author: "Sunil Karki"
+faq:
+  - question: "What's the difference between an n8n AI Agent node and a regular workflow?"
+    answer: "A regular n8n workflow runs nodes in a fixed sequence you define. An AI Agent node lets the model decide, at runtime, which connected tools to call and in what order, based on the task — the sequence isn't fixed in advance."
+  - question: "Which memory node should I use in n8n for a production agent?"
+    answer: "Postgres, if you need durability and the ability to audit past conversations. Redis if you need session persistence across executions but don't need long-term querying. In-memory only for single-session testing."
+  - question: "How do you stop an n8n agent from taking a harmful or irreversible action?"
+    answer: "Add a Wait node before any irreversible step (sending email, writing to a database, calling a billing API) that routes to a human for approval via Slack or another webhook-based confirmation, and only proceeds once that approval comes back."
+  - question: "Do I need LangChain, or is n8n's native AI Agent node enough?"
+    answer: "The native AI Agent node covers most production cases — tool calling, memory, structured validation. Reach for a LangChain node inside n8n (or raw LangChain in code) only when you need custom control flow the visual canvas can't express, like conditional multi-agent handoffs."
+---
+
+**Building an AI agent with n8n means connecting an LLM to an AI Agent node with tools (search, database, API calls) and a memory node, so the model can reason, take actions, observe the results, and repeat — instead of just answering once and stopping.** That's the core difference from a chatbot, and it's the thing most explainers skip past to get to the flashy demo.
+
+I build these for client work, and most of what's below is stuff I only learned by watching a workflow fail in a specific, annoying way — not from a whitepaper.
+
+## Chatbot vs. AI agent: what's actually different
+
+A chatbot follows `Prompt → Generate`. It answers what you ask from its context and training data, and then it's done.
+
+An AI agent follows `Prompt → Reason → Act → Observe → Repeat`. Instead of just generating text, the model is given **tools** — API endpoints, database connections, web search — and decides for itself which ones to call, in what order, based on what it's missing. It keeps going until the goal is met, not until it's produced one response.
+
+That loop is called **ReAct** (Reasoning + Acting), and it's the architectural pattern underneath basically every "AI agent" product you've seen this year, n8n included.
+
+## How the ReAct loop actually works
+
+The model doesn't generate an answer directly — it generates a **decision**: either "call this tool with these arguments" or "I have enough information to answer now." Whatever the tool returns gets appended to the conversation, and the model runs again on the updated context. There's no separate planning module sitting above the LLM; it's the same model re-reading a growing transcript and deciding what to do next, every time.
+
+The part most tutorials leave out: this only works reliably if tool-call output is structured and validated, not free text the model has to parse itself. If a tool returns malformed JSON, or the model's function call is missing a required parameter, you don't want the agent silently retrying until it hits an execution timeout — you want that surfaced as a catchable error. n8n's AI Agent node enforces this now: since the v1.28 update earlier this year, tool-call responses get JSON-schema validated before execution, with a capped retry count (three, by default) instead of the old behavior of burning API calls until the timeout. That one change fixed more of my flaky agent runs than any amount of prompt tweaking.
+
+## The three components of any n8n AI agent
+
+### 1. A model that's good at tool selection, not just fluent text
+
+This matters more than raw benchmark scores. A model can write beautiful prose and still be bad at deciding *when* to call a database versus when to just answer directly. Anthropic's Sonnet and Opus lines, OpenAI's GPT-5.x family, and Google's Gemini 3.x line are all reasonable defaults; DeepSeek's V4 line is the strongest open-weight option if you're self-hosting for cost or data-residency reasons. Don't pick a model off a general leaderboard — check its tool-use / function-calling benchmark specifically. Reasoning ability and tool-calling reliability correlate, but they're not the same number.
+
+### 2. Memory that matches your session shape
+
+n8n ships four memory node types, and using the wrong one is the most common beginner mistake:
+
+| Memory type | Persists across executions? | Best for |
+|---|---|---|
+| In-memory (default) | No | Single-session chat, quick testing |
+| Redis | Yes, session-keyed | Threads that resume later (WhatsApp, email) |
+| Postgres | Yes, durable | Anything you need to audit or query later |
+| Motorhead | Yes | Managed memory service, less config |
+
+If your agent needs to remember something past the current run, in-memory isn't memory — it's amnesia with extra steps.
+
+### 3. An orchestrator that isn't your own retry logic held together with try/catch
+
+You can build this in raw Python with LangChain, and I still do for anything needing custom control flow the visual canvas can't express. But for most agent work — glue between APIs, scheduled triggers, human approval steps — n8n's execution log saves real debugging time: you can see exactly which tool call failed and what the model saw right before it made that decision, without writing your own logging.
+
+## Building a research agent in n8n, step by step
+
+Here's a version of an agent I've actually shipped:
+
+**Trigger:** a Chat Trigger node for ad hoc runs, or a Schedule node for an automated 8am version. Not a webhook waiting on a frontend — the point of an agent is that it can start itself.
+
+**AI Agent node**, configured as a Tools Agent, with:
+- A Window Buffer Memory node (last ~10 messages, enough that the model doesn't repeat a search it already ran)
+- A web search tool (SerpAPI, or n8n's Google Custom Search node)
+- A Postgres node wired in as a *tool* — meaning the model decides for itself when to query it, based on a schema like this:
+
+```json
+{
+  "name": "query_recent_signups",
+  "description": "Returns signups from the users table within a date range.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "date_range": { "type": "string" }
+    }
+  }
+}
+```
+
+That Postgres tool needs its own read-only credential, scoped to exactly the tables the agent should see. Giving an LLM your main database connection because "it's just for research" is how you find out what happens when a model decides a `DELETE` is a reasonable way to clean up test data. Scope it like you'd scope a new hire's access, not a service account's.
+
+**Execution:** the model decides it needs current news, calls the search tool, gets HTML back, decides that's not enough context, calls the Postgres tool to cross-reference internal numbers, then writes the report. Nothing here is a hardcoded sequence — that's the actual difference from a standard n8n workflow, where node B always runs after node A regardless of what happened in between.
+
+## Human-in-the-loop: the safeguard that actually matters
+
+Autonomous doesn't mean unsupervised. The realistic failure mode isn't a rogue AI — it's the agent hallucinating a plausible-looking argument to a tool call, or reading an ambiguous instruction as "send this to all clients" instead of "draft this for review."
+
+The fix: a `Wait` node before anything irreversible — sending email, running a write query, hitting a billing API. n8n routes the request to Slack with an approve/reject webhook, and the workflow pauses there, sometimes for hours, until a human clicks something. It's not sophisticated. It's also the single highest-leverage node in the whole build, and it should be the first thing you add, not the last.
+
+## When *not* to build an agent
+
+Agents aren't strictly better than chatbots — they're a different tool with different costs. They're slower, since each tool call is a round trip. They're harder to debug when the model's reasoning goes sideways in a way that's hard to reproduce. And they're more expensive per interaction, since you're paying for several model calls instead of one.
+
+If the task is "answer a question from information the model already has," a chatbot is still the right — and cheaper — answer. Agents earn their complexity when the task genuinely requires fetching something you don't already have, in an order you can't predict in advance. That's the actual dividing line, and it's worth being honest with yourself about which one you're actually building before you reach for n8n's AI Agent node.
+
+## FAQ
+
+**What's the difference between an n8n AI Agent node and a regular workflow?**
+A regular n8n workflow runs nodes in a fixed sequence you define. An AI Agent node lets the model decide, at runtime, which connected tools to call and in what order, based on the task — the sequence isn't fixed in advance.
+
+**Which memory node should I use in n8n for a production agent?**
+Postgres, if you need durability and the ability to audit past conversations. Redis if you need session persistence across executions but don't need long-term querying. In-memory only for single-session testing.
+
+**How do you stop an n8n agent from taking a harmful or irreversible action?**
+Add a `Wait` node before any irreversible step (sending email, writing to a database, calling a billing API) that routes to a human for approval via Slack or another webhook-based confirmation, and only proceeds once that approval comes back.
+
+**Do I need LangChain, or is n8n's native AI Agent node enough?**
+The native AI Agent node covers most production cases — tool calling, memory, structured validation. Reach for a LangChain node inside n8n (or raw LangChain in code) only when you need custom control flow the visual canvas can't express, like conditional multi-agent handoffs.

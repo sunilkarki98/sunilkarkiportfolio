@@ -6,6 +6,7 @@ import { MDXComponents } from "./MDXComponents";
 import TableOfContents from "./TableOfContents";
 import ProgressBar from "./ProgressBar";
 import NewsletterCTA from "@/components/monetization/NewsletterCTA";
+import FaqSection from "./FaqSection";
 
 import { Post } from "@/lib/mdx";
 
@@ -95,6 +96,11 @@ export default function ArticleRenderer({ frontmatter, content, basePath, backTe
               />
             </article>
             
+            {/* FAQ Section */}
+            <div className="mt-16">
+              <FaqSection faq={frontmatter.faq || []} />
+            </div>
+
             {/* Newsletter CTA */}
             <div className="mt-16 border-t border-gray-200 pt-16">
               <NewsletterCTA />

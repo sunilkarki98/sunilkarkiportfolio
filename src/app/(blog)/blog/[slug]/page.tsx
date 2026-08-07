@@ -49,12 +49,62 @@ export default async function BlogPost({ params }: PageProps) {
 
   const { frontmatter, content } = post;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: frontmatter.title,
+    description: frontmatter.summary,
+    author: {
+      "@type": "Person",
+      name: frontmatter.author || "Sunil Karki",
+    },
+    image: "https://www.sunilkarki98.com.np/logo.webp",
+    publisher: {
+      "@type": "Organization",
+      name: "Sunil Karki",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.sunilkarki98.com.np/logo.webp"
+      }
+    },
+    datePublished: frontmatter.date,
+    url: `https://www.sunilkarki98.com.np/blog/${slug}`,
+  };
+
+  let faqJsonLd = null;
+  if (frontmatter.faq && Array.isArray(frontmatter.faq)) {
+    faqJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: frontmatter.faq.map((item: any) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer
+        }
+      }))
+    };
+  }
+
   return (
-    <ArticleRenderer
-      frontmatter={frontmatter}
-      content={content}
-      basePath="/blog"
-      backText="Back to blog"
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      {faqJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
+      <ArticleRenderer
+        frontmatter={frontmatter}
+        content={content}
+        basePath="/blog"
+        backText="Back to blog"
+      />
+    </>
   );
 }

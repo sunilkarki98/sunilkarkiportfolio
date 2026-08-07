@@ -13,6 +13,7 @@ export interface PostFrontmatter {
   tags?: string[];
   isPublished?: boolean;
   readingTime?: string;
+  faq?: { question: string; answer: string }[];
 }
 
 // Define the shape of the entire parsed MDX post

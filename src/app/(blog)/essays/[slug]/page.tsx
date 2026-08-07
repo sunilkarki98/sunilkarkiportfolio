@@ -49,12 +49,40 @@ export default async function EssayPost({ params }: PageProps) {
 
   const { frontmatter, content } = post;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: frontmatter.title,
+    description: frontmatter.summary,
+    author: {
+      "@type": "Person",
+      name: frontmatter.author || "Sunil Karki",
+    },
+    image: "https://www.sunilkarki98.com.np/logo.webp",
+    publisher: {
+      "@type": "Organization",
+      name: "Sunil Karki",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.sunilkarki98.com.np/logo.webp"
+      }
+    },
+    datePublished: frontmatter.date,
+    url: `https://www.sunilkarki98.com.np/essays/${slug}`,
+  };
+
   return (
-    <ArticleRenderer
-      frontmatter={frontmatter}
-      content={content}
-      basePath="/essays"
-      backText="Back to essays"
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ArticleRenderer
+        frontmatter={frontmatter}
+        content={content}
+        basePath="/essays"
+        backText="Back to essays"
+      />
+    </>
   );
 }

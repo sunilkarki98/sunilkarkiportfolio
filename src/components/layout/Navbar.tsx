@@ -60,8 +60,7 @@ const Navbar = ({ isReaderMode = false }) => {
         >
           <Image src={logo} alt='logo' className='w-9 h-9 object-contain' />
           <p className={`${isReaderMode ? "text-gray-900" : "text-white"} uppercase text-[18px] font-bold cursor-pointer flex`}>
-            CS &nbsp;
-            <span className={`sm:block hidden ${isReaderMode ? "text-black opacity-80" : "text-white"}`}> | Cosmic Soul</span>
+            Sunil Karki
           </p>
         </Link>
 
