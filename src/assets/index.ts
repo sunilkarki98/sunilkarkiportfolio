@@ -1,4 +1,4 @@
-import logo from "./logo.webp"
+import logo from "./mylogo.png";
 import backend from "./backend.webp";
 import creator from "./creator.webp";
 import mobile from "./mobile.webp";
@@ -19,7 +19,6 @@ import reactjs from "./tech/reactjs.webp";
 import redux from "./tech/redux.webp";
 import tailwind from "./tech/tailwind.webp";
 import typescript from "./tech/typescript.webp";
-import threejs from "./tech/threejs.svg";
 
 import meta from "./company/meta.webp";
 import shopify from "./company/shopify.webp";
@@ -58,7 +57,6 @@ export {
   redux,
   tailwind,
   typescript,
-  threejs,
   meta,
   shopify,
   starbucks,

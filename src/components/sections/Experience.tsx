@@ -4,40 +4,47 @@ import {
   VerticalTimelineElement,
 } from "react-vertical-timeline-component";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 import "react-vertical-timeline-component/style.min.css";
 
-import { styles } from "@/styles";
 import { experiences } from "@/constants";
 import { SectionWrapper } from "@/hoc";
-import { textVariant } from "@/utils/motion";
 import { Experience as ExperienceType } from "@/types";
+import SectionHeader from "@/components/ui/SectionHeader";
+import logo from "@/assets/logo.webp";
 
 const ExperienceCard = ({ experience }: { experience: ExperienceType }) => {
   return (
     <VerticalTimelineElement
       contentStyle={{
-        background: "#1d1836",
-        color: "#fff",
+        background: "var(--color-surface)",
+        color: "var(--color-text-primary)",
       }}
-      contentArrowStyle={{ borderRight: "7px solid  #232631" }}
+      contentArrowStyle={{ borderRight: "7px solid var(--color-surface)" }}
       date={experience.date}
       iconStyle={{ background: experience.iconBg }}
       icon={
         <div className='flex justify-center items-center w-full h-full'>
-          <Image
-            src={experience.icon}
-            alt={experience.company_name}
-            className='w-[60%] h-[60%] object-contain'
-          />
+          {experience.icon ? (
+            <Image
+              src={experience.icon}
+              alt={experience.company_name}
+              className='w-[60%] h-[60%] object-contain'
+            />
+          ) : (
+            <Image
+              src={logo}
+              alt={experience.company_name}
+              className='w-[60%] h-[60%] object-contain'
+            />
+          )}
         </div>
       }
     >
       <div>
-        <h3 className='text-white text-[24px] font-bold text-gradient'>{experience.title}</h3>
+        <h3 className='text-text-primary text-[24px] font-bold text-gradient'>{experience.title}</h3>
         <p
-          className='text-purple-400 text-[16px] font-semibold'
+          className='text-text-secondary text-[16px] font-semibold'
           style={{ margin: 0 }}
         >
           {experience.company_name}
@@ -48,7 +55,7 @@ const ExperienceCard = ({ experience }: { experience: ExperienceType }) => {
         {experience.points.map((point, index) => (
           <li
             key={`experience-point-${index}`}
-            className='text-white-100 text-[14px] pl-1 tracking-wider'
+            className='text-text-secondary text-[14px] pl-1 tracking-wider'
           >
             {point}
           </li>
@@ -61,14 +68,7 @@ const ExperienceCard = ({ experience }: { experience: ExperienceType }) => {
 const Experience = () => {
   return (
     <>
-      <motion.div variants={textVariant()}>
-        <p className={`${styles.sectionSubText} text-center font-semibold`}>
-          What I have done so far
-        </p>
-        <h2 className={`${styles.sectionHeadText} text-center text-gradient`}>
-          Work Experience.
-        </h2>
-      </motion.div>
+      <SectionHeader subtitle="What I have done so far" title="Work Experience." center />
 
       <div className='mt-20 flex flex-col'>
         <VerticalTimeline>

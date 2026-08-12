@@ -6,6 +6,7 @@ import { z } from "zod";
 const ContactFormSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
+  phone: z.string().optional(),
   service: z.string().optional(),
   budget: z.string().optional(),
   message: z.string().min(10, "Message must be at least 10 characters"),
@@ -55,7 +56,7 @@ export async function sendEmailAction(formData: unknown) {
           to_name: "Sunil Karki",
           from_email: validatedData.email,
           to_email: contactEmail,
-          message: `Service: ${validatedData.service || 'N/A'}\nBudget: ${validatedData.budget || 'N/A'}\n\n${validatedData.message}`,
+          message: `Phone: ${validatedData.phone || 'N/A'}\nService: ${validatedData.service || 'N/A'}\nBudget: ${validatedData.budget || 'N/A'}\n\n${validatedData.message}`,
         },
       }),
     });

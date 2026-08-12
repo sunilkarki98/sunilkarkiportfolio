@@ -1,12 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Transpile Three.js ecosystem packages
-  transpilePackages: [
-    'three',
-    '@react-three/fiber',
-    '@react-three/drei',
-    'three-stdlib',
-  ],
+  transpilePackages: [],
   turbopack: {
     root: process.cwd(),
   },

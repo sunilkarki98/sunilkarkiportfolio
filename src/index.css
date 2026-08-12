@@ -1,26 +1,78 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #050816;
-  --color-secondary: #e2e0ff;
-  --color-tertiary: #151030;
-  --color-black-100: #100d25;
-  --color-black-200: #090325;
-  --color-white-100: #f3f3f3;
+  /* ── Backgrounds ── */
+  --color-bg:             var(--bg);
+  --color-surface:        var(--surface);
+  --color-surface-alt:    var(--surface-alt);
+  --color-surface-deep:   var(--surface-deep);
 
-  --font-sans: "Inter", sans-serif;
-  --font-heading: "Outfit", sans-serif;
+  /* ── Text ── */
+  --color-text-primary:   var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted:     var(--text-muted);
+  --color-text-accent:    var(--text-accent);
 
-  --shadow-card: 0px 35px 120px -15px #211e35;
+  /* ── Accent ── */
+  --color-accent:         var(--accent);
+  --color-accent-soft:    var(--accent-soft);
+  --color-accent-hover:   var(--accent-hover);
+  --color-accent-glow:    var(--accent-glow);
 
-  --breakpoint-xs: 450px;
+  /* ── Borders ── */
+  --color-border:         var(--border);
+  --color-border-hover:   var(--border-hover);
 
+  /* ── Gradients ── */
+  --color-gradient-from:  var(--gradient-from);
+  --color-gradient-to:    var(--gradient-to);
+  --color-gradient-subtle-from: var(--gradient-subtle-from);
+  --color-gradient-subtle-to:   var(--gradient-subtle-to);
+
+  /* ── Brand ── */
+  --color-brand:          var(--brand);
+  --color-brand-hover:    var(--brand-hover);
+
+  /* ── Focus / Accessibility ── */
+  --color-focus-ring:     var(--focus-ring);
+
+  /* ── Shadows ── */
+  --shadow-card:          var(--shadow-card-val);
+  --shadow-btn:           var(--shadow-btn-val);
+
+  /* ── Typography ── */
+  --font-sans:            "Inter", sans-serif;
+  --font-heading:         "Outfit", sans-serif;
+
+  /* ── Animation ── */
   --animate-border-gradient-move: borderGradientMove 5s linear infinite;
+  --animate-shimmer: shimmer 3s infinite linear;
+
+  /* Custom breakpoints */
+  --breakpoint-xs: 450px;
+}
+
+@utility section-padding-x {
+  @apply px-6 sm:px-16;
+}
+
+@utility section-padding-y {
+  @apply py-6 sm:py-16;
+}
+
+@utility section-padding {
+  @apply px-6 sm:px-16 py-6 sm:py-10;
+}
+
+@utility btn-primary {
+  @apply bg-text-primary text-bg font-medium px-6 py-2.5 rounded-lg shadow-sm hover:scale-[1.02] hover:opacity-90 transition-all flex items-center justify-center;
+}
+
+@utility btn-secondary {
+  @apply bg-surface text-text-primary font-medium px-6 py-2.5 rounded-lg border border-border hover:bg-surface-alt hover:border-border-hover hover:scale-[1.02] transition-all flex items-center justify-center;
 }
 
 @keyframes borderGradientMove {
@@ -33,14 +85,85 @@
   }
 }
 
+@keyframes shimmer {
+  100% {
+    left: 200%;
+  }
+}
+
 @plugin "@tailwindcss/typography";
 
 @layer base {
+  :root {
+    /* LIGHT MODE */
+    --bg: #ffffff;
+    --surface: #f4f4f5;       /* zinc-100 */
+    --surface-alt: #e4e4e7;   /* zinc-200 */
+    --surface-deep: #fafafa;  /* zinc-50 */
+    
+    --text-primary: #09090b;  /* zinc-950 */
+    --text-secondary: #3f3f46; /* zinc-700 (darkened for sharpness) */
+    --text-muted: #52525b;    /* zinc-600 (darkened for sharpness) */
+    --text-accent: #18181b;   /* zinc-900 */
+
+    --border: #e4e4e7;        /* zinc-200 */
+    --border-hover: #d4d4d8;  /* zinc-300 */
+    
+    --accent: #09090b;
+    --accent-soft: #52525b;
+    --accent-hover: #000000;
+    --accent-glow: rgba(0, 0, 0, 0.05);
+
+    --gradient-from: #3f3f46;   /* zinc-700 */
+    --gradient-to: #71717a;     /* zinc-500 */
+    --gradient-subtle-from: #a1a1aa;
+    --gradient-subtle-to: transparent;
+
+    --brand: #4f46e5;           /* indigo-600 */
+    --brand-hover: #4338ca;     /* indigo-700 */
+
+    --focus-ring: #4f46e5;
+    --shadow-card-val: 0px 20px 60px -15px rgba(0, 0, 0, 0.08);
+    --shadow-btn-val: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .dark {
+    /* DARK MODE */
+    --bg: #09090b;
+    --surface: #18181b;
+    --surface-alt: #27272a;
+    --surface-deep: #000000;
+    
+    --text-primary: #fafafa;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --text-accent: #e4e4e7;
+
+    --border: #27272a;
+    --border-hover: #3f3f46;
+    
+    --accent: #fafafa;
+    --accent-soft: #a1a1aa;
+    --accent-hover: #ffffff;
+    --accent-glow: rgba(255, 255, 255, 0.05);
+
+    --gradient-from: #d4d4d8;   /* zinc-300 */
+    --gradient-to: #71717a;     /* zinc-500 */
+    --gradient-subtle-from: #f4f4f5;
+    --gradient-subtle-to: transparent;
+
+    --brand: #818cf8;           /* indigo-400 */
+    --brand-hover: #a5b4fc;     /* indigo-300 */
+
+    --focus-ring: #818cf8;
+    --shadow-card-val: 0px 35px 120px -15px #0a0a0a;
+    --shadow-btn-val: 0 4px 14px rgba(0, 0, 0, 0.3);
+  }
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+    font-family: "Inter", sans-serif;
     scroll-behavior: smooth;
   }
 }
@@ -58,7 +181,7 @@ html::-webkit-scrollbar {
 
 /* Accessibility Focus Rings */
 *:focus-visible {
-  outline: 2px solid #a855f7;
+  outline: 2px solid var(--color-focus-ring);
   outline-offset: 4px;
 }
 
@@ -92,17 +215,11 @@ html::-webkit-scrollbar {
 }
 
 .violet-gradient {
-  background: #804dee;
-  background: linear-gradient(-90deg, #804dee 0%, rgba(60, 51, 80, 0) 100%);
+  background: var(--color-gradient-subtle-from);
+  background: linear-gradient(-90deg, var(--color-gradient-subtle-from) 0%, transparent 100%);
   background: -webkit-linear-gradient(-90deg,
-      #804dee 0%,
-      rgba(60, 51, 80, 0) 100%);
-}
-
-.green-pink-gradient {
-  background: #915EFF;
-  background: linear-gradient(90.13deg, #915EFF 1.9%, #6366f1 97.5%);
-  background: -webkit-linear-gradient(-90.13deg, #915EFF 1.9%, #6366f1 97.5%);
+      var(--color-gradient-subtle-from) 0%,
+      transparent 100%);
 }
 
 .orange-text-gradient {
@@ -250,10 +367,8 @@ html::-webkit-scrollbar {
   }
 }
 
-.font-handwritten {
-  font-family: 'Pacifico', cursive;
-}
-
 .text-gradient {
-  @apply bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent;
+  background: linear-gradient(to right, var(--color-gradient-from), var(--color-gradient-to));
+  -webkit-background-clip: text;
+  color: transparent;
 }

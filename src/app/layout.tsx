@@ -2,13 +2,14 @@ import "../index.css";
 import { Analytics } from "@vercel/analytics/react";
 import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
 import { Metadata } from "next";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 const SITE_URL = "https://www.sunilkarki98.com.np";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Sunil Karki | AI & Full Stack Developer",
+    default: "Sunil Karki | Computer Science Engineer",
     template: "%s | Sunil Karki",
   },
   description: "Portfolio of Sunil Karki, an expert in AI automation, AI Chatbot development, n8n low-code workflows, and Full Stack web applications.",
@@ -23,30 +24,30 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: SITE_URL,
     siteName: "Sunil Karki",
-    title: "Sunil Karki | AI & Full Stack Developer",
+    title: "Sunil Karki | Computer Science Engineer",
     description: "Portfolio of Sunil Karki, an expert in AI automation, AI Chatbot development, n8n low-code workflows, and Full Stack web applications.",
     images: [
       {
-        url: "/logo.webp",
+        url: "/mylogo.png",
         width: 800,
         height: 600,
-        alt: "Sunil Karki - AI & Full Stack Developer",
+        alt: "Sunil Karki - Computer Science Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sunil Karki | AI & Full Stack Developer",
+    title: "Sunil Karki | Computer Science Engineer",
     description: "Portfolio of Sunil Karki, an expert in AI automation, AI Chatbot development, n8n low-code workflows, and Full Stack web applications.",
-    images: ["/logo.webp"],
+    images: ["/mylogo.png"],
   },
   alternates: {
     canonical: SITE_URL,
   },
   icons: {
-    icon: "/titlelogo.webp",
-    shortcut: "/logo.webp",
-    apple: "/logo.webp",
+    icon: "/mylogo.png",
+    shortcut: "/mylogo.png",
+    apple: "/mylogo.png",
   },
 };
 
@@ -55,7 +56,9 @@ const jsonLd = {
   "@type": "Person",
   name: "Sunil Karki",
   url: SITE_URL,
-  jobTitle: "AI & Full Stack Developer",
+  jobTitle: "Computer Science Engineer",
+  description: "Full-stack software engineer and AI automation specialist based in Nepal. Expert in Next.js, n8n workflows, AI chatbot development, and Agentic AI solutions for businesses.",
+  knowsAbout: ["AI Automation", "n8n Workflows", "Next.js", "Full Stack Development", "Agentic AI", "RAG Pipelines", "ChatGPT Integration"],
   sameAs: [
     "https://github.com/sunilkarki98",
     "https://linkedin.com/in/suneelkarkee",
@@ -66,15 +69,17 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
-      <body className="bg-primary">
-        <ScrollProgressBar />
-        <div id="root">{children}</div>
-        <Analytics />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body className="bg-bg text-text-primary transition-colors duration-300">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <ScrollProgressBar />
+          <div id="root">{children}</div>
+          <Analytics />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );

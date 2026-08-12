@@ -22,7 +22,7 @@ const CustomCursor = ({ disabled = false }: { disabled?: boolean }) => {
     window.addEventListener("resize", checkMobile);
 
     const updateMousePosition = (e: MouseEvent) => {
-      // Directly set motion values — no React re-render!
+      // Directly set motion values - no React re-render!
       cursorX.set(e.clientX - 100);
       cursorY.set(e.clientY - 100);
     };

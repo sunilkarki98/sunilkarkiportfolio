@@ -6,7 +6,7 @@ const ProgressBar = () => {
   
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-400 to-purple-600 origin-left z-50"
+      className="fixed top-0 left-0 right-0 h-1 bg-[linear-gradient(to_right,var(--color-gradient-from),var(--color-gradient-to))] origin-left z-50"
       style={{ scaleX: scrollYProgress }}
     />
   );

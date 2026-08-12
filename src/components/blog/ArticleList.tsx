@@ -20,7 +20,7 @@ export default function ArticleList({ title, description, posts, basePath }: { t
           </p>
         </div>
 
-        {/* Posts List — Minimal Light Style */}
+        {/* Posts List - Minimal Light Style */}
         <div className="space-y-0">
           {posts.map((post, index) => (
             <Link

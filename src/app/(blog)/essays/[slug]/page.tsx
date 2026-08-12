@@ -58,16 +58,17 @@ export default async function EssayPost({ params }: PageProps) {
       "@type": "Person",
       name: frontmatter.author || "Sunil Karki",
     },
-    image: "https://www.sunilkarki98.com.np/logo.webp",
+    image: "https://www.sunilkarki98.com.np/mylogo.png",
     publisher: {
       "@type": "Organization",
       name: "Sunil Karki",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.sunilkarki98.com.np/logo.webp"
+        url: "https://www.sunilkarki98.com.np/mylogo.png"
       }
     },
     datePublished: frontmatter.date,
+    dateModified: frontmatter.date,
     url: `https://www.sunilkarki98.com.np/essays/${slug}`,
   };
 
@@ -82,6 +83,7 @@ export default async function EssayPost({ params }: PageProps) {
         content={content}
         basePath="/essays"
         backText="Back to essays"
+        slug={slug}
       />
     </>
   );

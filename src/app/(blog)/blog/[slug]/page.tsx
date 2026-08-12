@@ -27,14 +27,26 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       publishedTime: post.frontmatter.date,
       authors: [post.frontmatter.author || "Sunil Karki"],
       url: `/blog/${slug}`,
+      images: [
+        {
+          url: "/mylogo.png",
+          width: 800,
+          height: 600,
+          alt: post.frontmatter.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.frontmatter.title,
       description: post.frontmatter.summary,
+      images: ["/mylogo.png"],
     },
     alternates: {
       canonical: `/blog/${slug}`,
+      languages: {
+        "ne-NP": `/ne/blog/${slug}`,
+      },
     },
   };
 }
@@ -58,16 +70,17 @@ export default async function BlogPost({ params }: PageProps) {
       "@type": "Person",
       name: frontmatter.author || "Sunil Karki",
     },
-    image: "https://www.sunilkarki98.com.np/logo.webp",
+    image: "https://www.sunilkarki98.com.np/mylogo.png",
     publisher: {
       "@type": "Organization",
       name: "Sunil Karki",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.sunilkarki98.com.np/logo.webp"
+        url: "https://www.sunilkarki98.com.np/mylogo.png"
       }
     },
     datePublished: frontmatter.date,
+    dateModified: frontmatter.date,
     url: `https://www.sunilkarki98.com.np/blog/${slug}`,
   };
 
@@ -104,6 +117,7 @@ export default async function BlogPost({ params }: PageProps) {
         content={content}
         basePath="/blog"
         backText="Back to blog"
+        slug={slug}
       />
     </>
   );

@@ -16,6 +16,9 @@ export const metadata = {
   },
   alternates: {
     canonical: "/writing",
+    languages: {
+      "ne-NP": "/ne/writing",
+    },
   },
 };
 

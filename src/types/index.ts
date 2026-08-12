@@ -9,6 +9,7 @@ export interface NavLink {
 export interface Service {
   title: string;
   icon: IconType;
+  color?: string;
 }
 
 export interface Technology {

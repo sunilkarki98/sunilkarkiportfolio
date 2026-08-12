@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { styles } from "@/styles";
 import { SectionWrapper } from "@/hoc";
-import { textVariant, fadeIn } from "@/utils/motion";
+import { fadeIn } from "@/utils/motion";
 import { HiOutlineCube, HiOutlineLightningBolt, HiOutlineChatAlt2, HiOutlineTrendingUp } from "react-icons/hi";
+import SectionHeader from "@/components/ui/SectionHeader";
+import GradientCard from "@/components/ui/GradientCard";
 
 const values = [
     {
@@ -24,7 +25,7 @@ const values = [
     },
     {
         title: "Business-First",
-        description: "I don't just write code—I build solutions designed to drive ROI and growth.",
+        description: "I don't just write code-I build solutions designed to drive ROI and growth.",
         icon: HiOutlineTrendingUp,
     },
 ];
@@ -32,23 +33,21 @@ const values = [
 const ValueProposition = () => {
     return (
         <>
-            <motion.div variants={textVariant()}>
-                <p className={`${styles.sectionSubText}`}>Why Work With Me</p>
-                <h2 className={`${styles.sectionHeadText} text-gradient`}>What Sets Me Apart.</h2>
-            </motion.div>
+            <SectionHeader subtitle="Why Work With Me" title="What Sets Me Apart." />
 
             <div className='mt-8 grid grid-cols-2 md:grid-cols-4 gap-4'>
                 {values.map((value, index) => (
                     <motion.div
                         key={value.title}
                         variants={fadeIn("up", "spring", index * 0.15, 0.75)}
-                        className='p-[1px] rounded-2xl green-pink-gradient shadow-card group'
                     >
-                        <div className='bg-tertiary rounded-2xl p-5 h-full flex flex-col items-center text-center group-hover:bg-black-200 transition-colors'>
-                            <value.icon className="text-3xl mb-3 text-white" />
-                            <h3 className='text-white text-[17px] font-bold mb-1'>{value.title}</h3>
-                            <p className="text-white-100/90 text-[14px] leading-relaxed">{value.description}</p>
-                        </div>
+                        <GradientCard innerClassName="px-6 py-5 lg:px-8 lg:py-6 flex flex-col items-start text-left h-full">
+                            <div className="flex flex-row items-center gap-3 mb-3">
+                                <value.icon className="text-2xl text-text-primary shrink-0" />
+                                <h3 className='text-text-primary text-[17px] font-bold'>{value.title}</h3>
+                            </div>
+                            <p className="text-text-secondary text-[14px] leading-relaxed">{value.description}</p>
+                        </GradientCard>
                     </motion.div>
                 ))}
             </div>

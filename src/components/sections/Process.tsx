@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { styles } from "@/styles";
 import { SectionWrapper } from "@/hoc";
-import { textVariant, fadeIn } from "@/utils/motion";
+import { fadeIn } from "@/utils/motion";
 import { HiOutlineSearch, HiOutlineColorSwatch, HiOutlineTerminal, HiOutlineCloudUpload } from "react-icons/hi";
+import SectionHeader from "@/components/ui/SectionHeader";
+import GradientCard from "@/components/ui/GradientCard";
 
 const processSteps = [
     {
@@ -32,27 +33,25 @@ const processSteps = [
 const Process = () => {
     return (
         <>
-            <motion.div variants={textVariant()}>
-                <p className={`${styles.sectionSubText} text-center`}>How I build software</p>
-                <h2 className={`${styles.sectionHeadText} text-center text-gradient`}>Development Process.</h2>
-            </motion.div>
+            <SectionHeader subtitle="How I build software" title="Development Process." center />
 
             <div className='mt-8 grid grid-cols-2 md:grid-cols-4 gap-4'>
                 {processSteps.map((step, index) => (
                     <motion.div
                         key={step.title}
                         variants={fadeIn("up", "spring", index * 0.15, 0.75)}
-                        className='p-[1px] rounded-2xl green-pink-gradient shadow-card group'
                     >
-                        <div className='bg-tertiary p-5 rounded-2xl h-full group-hover:bg-black-200 transition-colors'>
-                            <step.icon className='text-3xl mb-3 text-white' />
-                            <div className='flex items-center gap-2 mb-2'>
-                                <span className='text-xs text-white-100/60 font-mono'>0{index + 1}</span>
-                                <div className='h-px flex-1 bg-white/20'></div>
+                        <GradientCard innerClassName="px-6 py-5 lg:px-8 lg:py-6 h-full flex flex-col">
+                            <div className='flex items-center gap-2 mb-4 w-full'>
+                                <span className='text-[15px] font-bold text-text-muted font-mono'>0{index + 1}</span>
+                                <div className='h-px flex-1 bg-border'></div>
                             </div>
-                            <h3 className='text-white text-[18px] font-bold mb-1'>{step.title}</h3>
-                            <p className='text-white-100/90 text-[14px] leading-relaxed'>{step.description}</p>
-                        </div>
+                            <div className='flex flex-row items-center gap-3 mb-2'>
+                                <step.icon className='text-2xl text-text-primary shrink-0' />
+                                <h3 className='text-text-primary text-[17px] font-bold'>{step.title}</h3>
+                            </div>
+                            <p className='text-text-secondary text-[14px] leading-relaxed'>{step.description}</p>
+                        </GradientCard>
                     </motion.div>
                 ))}
             </div>

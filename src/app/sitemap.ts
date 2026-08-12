@@ -29,12 +29,27 @@ export default function sitemap() {
       changeFrequency: 'monthly',
       priority: 0.6,
     },
+    {
+      url: `${SITE_URL}/ne/writing`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
   ];
 
-  // Dynamic blog posts
-  const blogSlugs = getBlogSlugs('blog');
-  const blogPages = blogSlugs.map((slug) => ({
+  // Dynamic blog posts (English)
+  const blogSlugsEn = getBlogSlugs('blog', 'en');
+  const blogPagesEn = blogSlugsEn.map((slug) => ({
     url: `${SITE_URL}/blog/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
+  // Dynamic blog posts (Nepali)
+  const blogSlugsNe = getBlogSlugs('blog', 'ne');
+  const blogPagesNe = blogSlugsNe.map((slug) => ({
+    url: `${SITE_URL}/ne/blog/${slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 0.7,
@@ -49,5 +64,5 @@ export default function sitemap() {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...blogPages, ...essayPages];
+  return [...staticPages, ...blogPagesEn, ...blogPagesNe, ...essayPages];
 }

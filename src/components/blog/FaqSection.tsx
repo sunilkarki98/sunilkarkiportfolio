@@ -8,7 +8,7 @@ type FaqSectionProps = {
 };
 
 // Renders the same Q&A pairs that feed the FAQPage JSON-LD in [slug]/page.tsx.
-// Keep this in sync with that schema — the visible text and the structured
+// Keep this in sync with that schema - the visible text and the structured
 // data should say the same thing, since mismatched content vs. schema is
 // exactly what triggers a manual action for misleading structured data.
 export default function FaqSection({ faq }: FaqSectionProps) {

@@ -7,6 +7,7 @@ import { FiHome } from "react-icons/fi";
 import { styles } from "@/styles";
 import { navLinks } from "@/constants";
 import { logo, menu, close } from "@/assets";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const Navbar = ({ isReaderMode = false }) => {
   const [active, setActive] = useState("");
@@ -45,7 +46,7 @@ const Navbar = ({ isReaderMode = false }) => {
       className={`${styles.paddingX} w-full flex items-center py-5 fixed top-0 z-[100] transition-all duration-300 ${scrolled
         ? isReaderMode
           ? "bg-white/90 backdrop-blur-xl border-b border-gray-200 shadow-sm"
-          : "bg-primary/80 backdrop-blur-xl border-b border-white/5 shadow-xl"
+          : "bg-bg/80 backdrop-blur-xl border-b border-border shadow-xl"
         : "bg-transparent"
         }`}
     >
@@ -58,8 +59,10 @@ const Navbar = ({ isReaderMode = false }) => {
             window.scrollTo(0, 0);
           }}
         >
-          <Image src={logo} alt='logo' className='w-9 h-9 object-contain' />
-          <p className={`${isReaderMode ? "text-gray-900" : "text-white"} uppercase text-[18px] font-bold cursor-pointer flex`}>
+          <div className="relative w-11 h-11 flex items-center justify-center rounded-xl bg-white/80 dark:bg-white/10 backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-black/5 dark:border-white/10 -my-2">
+            <Image src={logo} alt='logo' className='w-full h-full object-contain scale-125 p-1' />
+          </div>
+          <p className={`${isReaderMode ? "text-gray-900" : "text-text-primary"} uppercase text-[18px] font-bold cursor-pointer flex`}>
             Sunil Karki
           </p>
         </Link>
@@ -86,7 +89,7 @@ const Navbar = ({ isReaderMode = false }) => {
                     aria-label="Navigate to Contact"
                     className={`px-5 py-2 rounded-full text-[16px] font-semibold transition-all duration-300 ${isReaderMode
                         ? 'bg-black text-white hover:bg-gray-800'
-                        : 'bg-white text-primary hover:bg-gray-200'
+                        : 'bg-text-primary text-bg hover:opacity-90'
                       }`}
                   >
                     Contact
@@ -98,7 +101,7 @@ const Navbar = ({ isReaderMode = false }) => {
             return (
               <li
                 key={nav.id}
-                className={`${isReaderMode ? 'text-black opacity-80 hover:opacity-100' : 'text-white opacity-90 hover:opacity-100'
+                className={`${isReaderMode ? 'text-black opacity-80 hover:opacity-100' : 'text-text-primary opacity-90 hover:opacity-100'
                   } ${active === nav.title ? "font-bold !opacity-100" : ""
                   } text-[18px] font-medium cursor-pointer transition-all duration-300`}
                 onClick={() => setActive(nav.title)}
@@ -111,18 +114,13 @@ const Navbar = ({ isReaderMode = false }) => {
               </li>
             );
           })}
-          {!isReaderMode && (
-            <li className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-tertiary border border-white/10 shadow-sm cursor-default">
-              <span className="relative flex h-3 w-3 hover:scale-110 transition-transform">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-              </span>
-              <span className="text-white text-[14px] font-medium tracking-wide">Open to Work</span>
-            </li>
-          )}
+          <li>
+            <ThemeToggle />
+          </li>
         </ul>
 
-        <div className='sm:hidden flex flex-1 justify-end items-center'>
+        <div className='sm:hidden flex flex-1 justify-end items-center gap-4'>
+          <ThemeToggle />
           <button
             type='button'
             aria-label={toggle ? "Close navigation menu" : "Open navigation menu"}
@@ -140,13 +138,13 @@ const Navbar = ({ isReaderMode = false }) => {
 
           <div
             id='mobile-navigation'
-            className={`${!toggle ? "hidden" : "flex"} p-6 ${isReaderMode ? "bg-white border border-gray-200 shadow-xl" : "black-gradient"} absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
+            className={`${!toggle ? "hidden" : "flex"} p-6 ${isReaderMode ? "bg-white border border-gray-200 shadow-xl" : "bg-surface border border-border shadow-xl"} absolute top-20 right-0 mx-4 my-2 min-w-[140px] z-10 rounded-xl`}
           >
             <ul className='list-none flex justify-end items-start flex-1 flex-col gap-4'>
               {currentLinks.map((nav) => (
                 <li
                   key={nav.id}
-                  className={`font-poppins font-medium cursor-pointer text-[16px] transition-all duration-300 ${isReaderMode ? 'text-black opacity-80 hover:opacity-100' : 'text-white opacity-90 hover:opacity-100'
+                  className={`font-sans font-medium cursor-pointer text-[16px] transition-all duration-300 ${isReaderMode ? 'text-black opacity-80 hover:opacity-100' : 'text-text-primary opacity-90 hover:opacity-100'
                     } ${active === nav.title ? "font-bold !opacity-100" : ""
                     }`}
                   onClick={() => {
@@ -161,15 +159,6 @@ const Navbar = ({ isReaderMode = false }) => {
                   )}
                 </li>
               ))}
-              {!isReaderMode && (
-                <li className="flex items-center gap-2 px-3 py-1.5 mt-2 rounded-full bg-tertiary border border-white/10 shadow-sm w-full">
-                  <span className="relative flex h-3 w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                  </span>
-                  <span className="text-white text-[14px] font-medium">Open to Work</span>
-                </li>
-              )}
             </ul>
           </div>
         </div>

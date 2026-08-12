@@ -10,7 +10,11 @@ import FaqSection from "./FaqSection";
 
 import { Post } from "@/lib/mdx";
 
-export default function ArticleRenderer({ frontmatter, content, basePath, backText }: { frontmatter: Post["frontmatter"]; content: string; basePath: string; backText: string }) {
+export default function ArticleRenderer({ frontmatter, content, basePath, backText, slug }: { frontmatter: Post["frontmatter"]; content: string; basePath: string; backText: string; slug: string }) {
+  const isNepali = basePath.startsWith("/ne");
+  const toggleUrl = isNepali ? `/blog/${slug}` : `/ne/blog/${slug}`;
+  const toggleText = isNepali ? "Read in English (EN)" : "नेपालीमा पढ्नुहोस् (NE)";
+
   return (
     <>
       <ProgressBar />
@@ -53,9 +57,20 @@ export default function ArticleRenderer({ frontmatter, content, basePath, backTe
                 {frontmatter.title}
               </h1>
               
-              <p className="text-xl text-black font-medium leading-relaxed max-w-2xl opacity-90">
-                {frontmatter.summary}
-              </p>
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-6">
+                <p className="text-xl text-black font-medium leading-relaxed max-w-2xl opacity-90">
+                  {frontmatter.summary}
+                </p>
+                <Link 
+                  href={toggleUrl}
+                  className="shrink-0 flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full font-bold text-sm hover:bg-gray-800 transition-colors border border-black shadow-sm"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                  </svg>
+                  {toggleText}
+                </Link>
+              </div>
 
               {/* Author */}
               <div className="flex items-center gap-4 mt-8">
@@ -64,12 +79,12 @@ export default function ArticleRenderer({ frontmatter, content, basePath, backTe
                 </div>
                 <div>
                   <p className="text-black font-black text-base">{frontmatter.author || "Sunil Karki"}</p>
-                  <p className="text-black text-sm font-mono font-bold">Computer Engineer</p>
+                  <p className="text-black text-sm font-mono font-bold">{isNepali ? "कम्प्युटर इन्जिनियर" : "Computer Engineer"}</p>
                 </div>
               </div>
             </header>
 
-            {/* Rendered MDX — Clean Light Prose Styling */}
+            {/* Rendered MDX - Clean Light Prose Styling */}
             <article className="prose prose-lg max-w-none
               prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-black
               prose-h1:font-semibold prose-h1:text-4xl prose-h1:mb-8
@@ -115,14 +130,14 @@ export default function ArticleRenderer({ frontmatter, content, basePath, backTe
               
               {/* Share / Author Card */}
               <div className="mt-10 p-6 rounded-2xl border border-gray-200 bg-white shadow-sm">
-                <p className="text-xs font-mono uppercase tracking-wider text-black font-black mb-4">Written by</p>
+                <p className="text-xs font-mono uppercase tracking-wider text-black font-black mb-4">{isNepali ? "लेखक" : "Written by"}</p>
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center text-white font-bold text-sm">
                     SK
                   </div>
                   <div>
                     <p className="text-black font-black text-base">Sunil Karki</p>
-                    <p className="text-black text-sm font-bold">Computer Engineer</p>
+                    <p className="text-black text-sm font-bold">{isNepali ? "कम्प्युटर इन्जिनियर" : "Computer Engineer"}</p>
                   </div>
                 </div>
               </div>

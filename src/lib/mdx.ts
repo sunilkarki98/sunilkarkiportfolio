@@ -24,11 +24,11 @@ export interface Post {
 }
 
 const root = process.cwd();
-const getContentPath = (type: string) => path.join(root, 'src', 'content', type);
+const getContentPath = (type: string, lang: string = 'en') => path.join(root, 'src', 'content', type, lang);
 
 // Get all slugs from the content directory
-export const getBlogSlugs = (type: string = 'blog'): string[] => {
-  const contentPath = getContentPath(type);
+export const getBlogSlugs = (type: string = 'blog', lang: string = 'en'): string[] => {
+  const contentPath = getContentPath(type, lang);
   // Check if directory exists
   if (!fs.existsSync(contentPath)) {
     return [];
@@ -41,9 +41,9 @@ export const getBlogSlugs = (type: string = 'blog'): string[] => {
 };
 
 // Get a single post by its slug
-export const getPostBySlug = async (slug: string, type: string = 'blog'): Promise<Post | null> => {
+export const getPostBySlug = async (slug: string, type: string = 'blog', lang: string = 'en'): Promise<Post | null> => {
   try {
-    const contentPath = getContentPath(type);
+    const contentPath = getContentPath(type, lang);
     const fullPath = path.join(contentPath, `${slug}.mdx`);
     const fileContents = fs.readFileSync(fullPath, 'utf8');
 
@@ -64,12 +64,12 @@ export const getPostBySlug = async (slug: string, type: string = 'blog'): Promis
 };
 
 // Get all posts sorted by date
-export const getAllPosts = async (type: string = 'blog'): Promise<Post[]> => {
-  const slugs = getBlogSlugs(type);
+export const getAllPosts = async (type: string = 'blog', lang: string = 'en'): Promise<Post[]> => {
+  const slugs = getBlogSlugs(type, lang);
   
   const posts = await Promise.all(
     slugs.map(async (slug) => {
-      const post = await getPostBySlug(slug, type);
+      const post = await getPostBySlug(slug, type, lang);
       return post;
     })
   );
