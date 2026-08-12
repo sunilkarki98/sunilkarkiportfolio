@@ -5,15 +5,15 @@ import { styles } from "@/styles";
 
 const Hero = () => {
   return (
-    <section className="relative w-full h-[60vh] sm:h-[80vh] mx-auto overflow-hidden flex items-center">
+    <section className="relative w-full mx-auto overflow-hidden flex items-center pt-32 pb-16 sm:pt-40 sm:pb-24">
       <div
         className={`w-full max-w-7xl mx-auto ${styles.paddingX} flex flex-row items-start gap-3 sm:gap-5 z-10 pointer-events-none`}
       >
         {/* Left vertical line & dot */}
         <div className="flex flex-col justify-center items-center mt-1.5">
-          <div className="relative flex h-4 w-4">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-4 w-4 bg-green-500" />
+          <div className="relative flex justify-center items-center w-6 h-6 rounded-full border border-green-500/30 bg-green-500/10 shadow-[0_0_10px_rgba(34,197,94,0.2)]">
+            <span className="animate-ping absolute inline-flex h-4 w-4 rounded-full bg-green-400 opacity-60" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500 shadow-[0_0_6px_#22c55e]" />
           </div>
           <div className="w-1 h-48 sm:h-80 violet-gradient" />
         </div>
@@ -25,9 +25,9 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full bg-surface border border-border shadow-sm cursor-default">
-              <span className="text-green-400 font-medium tracking-wider uppercase text-sm">
-                Open to Work
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-4 rounded-full bg-surface border border-border shadow-sm cursor-default">
+              <span className="text-text-secondary font-semibold tracking-wider uppercase text-[12px]">
+                Freelance AI & Full-Stack Engineer
               </span>
             </div>
 
@@ -41,11 +41,10 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className={`${styles.heroSubText} mt-4 text-text-secondary max-w-2xl font-light leading-relaxed`}
+            className={`${styles.heroSubText} mt-4 text-text-secondary max-w-3xl font-light leading-relaxed`}
           >
-            I help businesses <span className="font-semibold text-text-accent">automate operations</span> and{" "}
-            <span className="font-semibold text-text-accent">launch digital products faster</span> <br className="sm:block hidden" />
-            with <span className="font-semibold text-text-accent">AI-powered solutions</span> and full-stack engineering.
+            Stop losing time to manual tasks and slow development cycles. <br className="sm:block hidden" />
+            I build <span className="font-semibold text-text-accent">custom AI agents</span>, <span className="font-semibold text-text-accent">automated workflows</span>, and <span className="font-semibold text-text-accent">high-performance web apps</span> that slash your operational costs and scale your business on autopilot.
           </motion.p>
 
           <motion.div
@@ -63,7 +62,6 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
-
     </section>
   );
 };
