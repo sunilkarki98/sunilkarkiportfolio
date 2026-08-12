@@ -4,18 +4,18 @@ import { useState, useRef, useEffect } from "react";
 import { countries, Country } from "@/constants/countries";
 import { FaChevronDown } from "react-icons/fa";
 
-interface PhoneFieldProps {
+interface PhoneFieldProps<T extends string = string> {
   label: string;
-  phoneName: string;
-  countryName: string;
+  phoneName: T;
+  countryName: T;
   phoneValue: string;
   countryValue: string;
-  updateField: (name: string, value: string) => void;
+  updateField: (name: T, value: string) => void;
   required?: boolean;
   className?: string;
 }
 
-const PhoneField = ({
+const PhoneField = <T extends string>({
   label,
   phoneName,
   countryName,

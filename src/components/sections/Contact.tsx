@@ -112,7 +112,7 @@ const Contact: React.FC = () => {
                 countryName="countryCode"
                 phoneValue={form.phone}
                 countryValue={form.countryCode}
-                updateField={updateField}
+                updateField={(name, value) => updateField(name as any, value)}
               />
 
               <FormField
