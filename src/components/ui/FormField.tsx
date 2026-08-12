@@ -16,10 +16,10 @@ interface FormFieldProps {
 }
 
 const baseInputClass =
-  "peer bg-bg shadow-inner pt-7 pb-2 px-4 text-text-primary rounded-lg outline-none border border-border focus:border-text-muted focus:ring-1 focus:ring-text-muted transition-all font-medium w-full placeholder-transparent";
+  "bg-bg shadow-inner py-3 px-4 text-text-primary rounded-lg outline-none border border-border focus:border-text-muted focus:ring-1 focus:ring-text-muted transition-all font-medium w-full placeholder-text-secondary/50";
 
 const labelClass =
-  "absolute text-sm text-text-secondary duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-white pointer-events-none";
+  "block text-sm font-medium text-text-secondary mb-1.5 ml-1";
 
 const FormField = ({
   label,
@@ -35,7 +35,12 @@ const FormField = ({
   options,
   className = "",
 }: FormFieldProps) => (
-  <div className={`relative ${className}`}>
+  <div className={`flex flex-col ${className}`}>
+    {label && (
+      <label htmlFor={name} className={labelClass}>
+        {label}
+      </label>
+    )}
     {type === "textarea" ? (
       <textarea
         id={name}
@@ -79,9 +84,6 @@ const FormField = ({
         className={baseInputClass}
       />
     )}
-    <label htmlFor={name} className={labelClass}>
-      {label}
-    </label>
   </div>
 );
 

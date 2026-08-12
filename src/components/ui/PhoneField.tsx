@@ -56,7 +56,7 @@ const PhoneField = <T extends string>({
 
   return (
     <div className={`flex flex-col ${className}`}>
-      <span className="text-text-primary font-medium mb-2">{label}</span>
+      {label && <label className="block text-sm font-medium text-text-secondary mb-1.5 ml-1">{label}</label>}
       <div className="flex gap-2 relative" ref={dropdownRef}>
         {/* Country Selector Button */}
         <button
@@ -109,7 +109,7 @@ const PhoneField = <T extends string>({
           </div>
         )}
 
-        {/* Phone Number Input (Floating Label inside) */}
+        {/* Phone Number Input */}
         <div className="relative flex-1">
           <input
             id={phoneName}
@@ -119,14 +119,8 @@ const PhoneField = <T extends string>({
             onChange={(e) => updateField(phoneName, e.target.value)}
             required={required}
             placeholder="Phone Number"
-            className="peer bg-bg shadow-inner pt-7 pb-2 px-4 text-text-primary rounded-lg outline-none border border-border focus:border-text-muted focus:ring-1 focus:ring-text-muted transition-all font-medium w-full placeholder-transparent h-full"
+            className="bg-bg shadow-inner py-3 px-4 text-text-primary rounded-lg outline-none border border-border focus:border-text-muted focus:ring-1 focus:ring-text-muted transition-all font-medium w-full placeholder-text-secondary/50 h-full"
           />
-          <label
-            htmlFor={phoneName}
-            className="absolute text-sm text-text-secondary duration-300 transform -translate-y-3 scale-75 top-4 z-10 origin-[0] left-4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-3 peer-focus:text-white pointer-events-none"
-          >
-            Phone Number
-          </label>
         </div>
       </div>
     </div>

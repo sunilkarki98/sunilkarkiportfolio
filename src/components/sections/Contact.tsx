@@ -40,6 +40,15 @@ const Contact: React.FC = () => {
           {/* Left Column: Personal Touch */}
           <div className="lg:w-2/5 p-8 sm:p-12 bg-surface-alt flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-border">
             <div>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 rounded-full bg-surface border border-border shadow-sm cursor-default w-fit">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                </span>
+                <span className="text-text-secondary font-semibold tracking-wider uppercase text-[12px]">
+                  Open to Work
+                </span>
+              </div>
               <p className={`${styles.sectionSubText} text-gradient`}>Get in touch</p>
               <h2 className={`${styles.sectionHeadText} text-text-primary mb-6`}>Let's Talk.</h2>
               <p className="text-text-secondary leading-relaxed mb-8">
@@ -47,9 +56,6 @@ const Contact: React.FC = () => {
                 Whether you have a question, a project in mind, or just want to say hi, 
                 I'll try my best to get back to you within 24 hours.
               </p>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-border shadow-sm mb-10">
-                <StatusPulse label="Available for new projects" />
-              </div>
 
               <div className="mb-12">
                 <p className="text-text-primary font-medium mb-4">Prefer a quick chat?</p>
@@ -107,7 +113,7 @@ const Contact: React.FC = () => {
               </div>
 
               <PhoneField
-                label=""
+                label="Phone Number"
                 phoneName="phone"
                 countryName="countryCode"
                 phoneValue={form.phone}
