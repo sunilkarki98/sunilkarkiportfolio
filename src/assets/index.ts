@@ -1,4 +1,5 @@
 import logo from "./mylogo.png";
+import logoLight from "./mylogo-light.png";
 import backend from "./backend.webp";
 import creator from "./creator.webp";
 import mobile from "./mobile.webp";
@@ -38,6 +39,7 @@ import moviepic3 from "./site/moviesite3.webp"
 
 export {
   logo,
+  logoLight,
   backend,
   creator,
   mobile,

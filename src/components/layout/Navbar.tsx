@@ -6,7 +6,7 @@ import { FiHome } from "react-icons/fi";
 
 import { styles } from "@/styles";
 import { navLinks } from "@/constants";
-import { logo, menu, close } from "@/assets";
+import { logo, logoLight, menu, close } from "@/assets";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 
 const Navbar = ({ isReaderMode = false }) => {
@@ -63,7 +63,7 @@ const Navbar = ({ isReaderMode = false }) => {
             <Image 
               src={logo} 
               alt='logo' 
-              className='w-11 h-11 object-contain scale-[1.3] dark:brightness-100 brightness-0 transition-all duration-300' 
+              className='w-11 h-11 object-contain scale-[1.3] transition-all duration-300 dark:invert-0 dark:hue-rotate-0 invert hue-rotate-180' 
             />
           </div>
           <p className={`${isReaderMode ? "text-gray-900" : "text-text-primary"} uppercase text-[18px] font-bold cursor-pointer flex`}>
