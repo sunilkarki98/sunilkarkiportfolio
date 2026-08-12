@@ -20,7 +20,7 @@ export default function ArticleRenderer({ frontmatter, content, basePath, backTe
       <ProgressBar />
       
       {/* Light Mode Wrapper */}
-      <div className="min-h-screen pt-32 pb-24 bg-[#fafafa]">
+      <div className="min-h-screen pt-32 pb-24 bg-[#fafafa] font-sans">
         {/* Swapped layout: TOC on the left (reverse column order on large screens) */}
         <div className="max-w-7xl mx-auto px-6 sm:px-8 flex flex-col lg:flex-row-reverse justify-between gap-16">
           
@@ -53,7 +53,7 @@ export default function ArticleRenderer({ frontmatter, content, basePath, backTe
                 </span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-semibold text-black tracking-tight leading-[1.15] mb-6">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-black tracking-normal leading-[1.2] mb-6 font-heading">
                 {frontmatter.title}
               </h1>
               
