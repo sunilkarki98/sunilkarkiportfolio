@@ -59,8 +59,12 @@ const Navbar = ({ isReaderMode = false }) => {
             window.scrollTo(0, 0);
           }}
         >
-          <div className="relative w-11 h-11 flex items-center justify-center rounded-xl bg-white/80 dark:bg-white/10 backdrop-blur-md shadow-[0_0_15px_rgba(255,255,255,0.2)] border border-black/5 dark:border-white/10 -my-2">
-            <Image src={logo} alt='logo' className='w-full h-full object-contain scale-125 p-1' />
+          <div className="relative flex items-center justify-center -my-2">
+            <Image 
+              src={logo} 
+              alt='logo' 
+              className='w-11 h-11 object-contain scale-[1.3] dark:brightness-100 brightness-0 transition-all duration-300' 
+            />
           </div>
           <p className={`${isReaderMode ? "text-gray-900" : "text-text-primary"} uppercase text-[18px] font-bold cursor-pointer flex`}>
             Sunil Karki
