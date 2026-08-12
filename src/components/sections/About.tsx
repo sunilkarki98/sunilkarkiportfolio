@@ -25,8 +25,8 @@ const ServiceCard = ({ index, title, icon: Icon, color }: Service & { index: num
         className="min-h-[160px]" 
         innerClassName="py-5 px-4 flex justify-center items-center flex-col gap-3"
       >
-        <div className='w-14 h-14 flex items-center justify-center group-hover:scale-110 transition-transform duration-300'>
-          <Icon className={`w-full h-full drop-shadow-[0_0_8px_rgba(255,255,255,0.15)] ${color || 'text-accent-soft'}`} />
+        <div className='w-14 h-14 flex items-center justify-center group-hover:scale-110 transition-all duration-300'>
+          <Icon className={`w-full h-full opacity-70 group-hover:opacity-100 drop-shadow-[0_0_4px_rgba(255,255,255,0.1)] group-hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.2)] transition-all duration-300 ${color || 'text-accent-soft'}`} />
         </div>
         <h3 className='text-text-primary text-[16px] font-bold text-center leading-tight'>
           {title}
