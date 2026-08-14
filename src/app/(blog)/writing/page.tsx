@@ -1,7 +1,8 @@
 import { getAllPosts } from "@/lib/mdx";
 import WritingHub from "@/components/blog/WritingHub";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Writing",
   description: "Thoughts, tutorials, and deep dives on software engineering and life.",
   openGraph: {

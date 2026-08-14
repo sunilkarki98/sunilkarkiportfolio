@@ -58,13 +58,13 @@ export default async function EssayPost({ params }: PageProps) {
       "@type": "Person",
       name: frontmatter.author || "Sunil Karki",
     },
-    image: "https://www.sunilkarki98.com.np/mylogo.png",
+    image: "https://www.sunilkarki98.com.np/mylogo.webp",
     publisher: {
       "@type": "Organization",
       name: "Sunil Karki",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.sunilkarki98.com.np/mylogo.png"
+        url: "https://www.sunilkarki98.com.np/mylogo.webp"
       }
     },
     datePublished: frontmatter.date,

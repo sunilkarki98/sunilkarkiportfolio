@@ -1,0 +1,74 @@
+---
+title: "AI SEO & GEO in 2026: How to Get Cited by ChatGPT, Gemini, and AI Overviews"
+date: "2026-08-13"
+summary: "How Generative Engine Optimization actually works: why AI crawlers might be blocked on your site right now, what makes a paragraph citable, and the technical checklist to get your brand mentioned in AI-generated answers."
+categories: ["AI Automation", "Business Strategy"]
+tags: ["GEO", "AI SEO", "SEO", "AEO", "Content Strategy"]
+author: "Sunil Karki"
+isPublished: true
+faq:
+  - question: "What's the difference between SEO, AEO, and GEO?"
+    answer: "SEO optimizes for rankings, clicks, and traffic on a search results page. AEO (Answer Engine Optimization) optimizes for getting pulled into a direct answer or snippet. GEO (Generative Engine Optimization) optimizes for being retrieved and cited inside an AI-generated response from tools like ChatGPT, Gemini, or Perplexity — even when the user never clicks through to a website at all."
+  - question: "Why would an AI crawler be blocked from reading my site without me knowing?"
+    answer: "Cloudflare changed its default configuration to block AI bots automatically, and many site owners never noticed. If your robots.txt disallows GPTBot, ClaudeBot, PerplexityBot, or ChatGPT-User, or your CDN blocks them at the edge, AI systems can't read your content no matter how good it is. Check your server logs for those user agents before changing anything else."
+  - question: "Does content need to be written differently for AI systems than for human readers?"
+    answer: "Not fundamentally — but it does need different structure. Most AI answer engines use retrieval-augmented generation, pulling short, self-contained passages rather than reading a full page. That means the first two sentences of a section should answer the question directly, claims should carry specific numbers or sources, and headings should be phrased as the real questions people ask."
+  - question: "How often do AI-generated answers actually change which sources they cite?"
+    answer: "More often than most SEO metrics suggest. GEO tracking data shows citation rates for a given page start dropping sharply once it passes roughly three months without an update. Pages with stale statistics or outdated examples get quietly deprioritized even if their Google ranking hasn't moved."
+---
+
+**Generative Engine Optimization (GEO) is the practice of structuring content so AI systems like ChatGPT, Gemini, Perplexity, and Google AI Overviews retrieve it, quote it, and name your brand as the source — instead of just ranking it on a results page nobody scrolls anymore.** More than half of searches today end without a single click to any website; the person gets an answer directly from the AI and moves on. That's the shift this post covers, and it's not a rebrand of SEO — it's a new layer sitting on top of it, with its own mechanics.
+
+## Why a page can rank #1 on Google and still be invisible to AI
+
+Most AI answer engines run on retrieval-augmented generation: they search, pull a handful of the most relevant *passages* — not full pages — and hand those to a model to synthesize into an answer. That changes the unit of competition. It's no longer your page against a competitor's page. It's your paragraph against theirs.
+
+This is why a site with modest domain authority can out-cite a much bigger competitor with ten times the backlinks. GEO rewards precision and structure over raw authority — a genuine advantage for smaller, more specific businesses over larger, vaguer ones.
+
+## The first thing to check, before touching any content
+
+Can AI crawlers actually read your site?
+
+Cloudflare changed its default configuration to block AI bots automatically, and a lot of site owners have no idea it happened. If your `robots.txt` disallows `GPTBot`, `ClaudeBot`, `PerplexityBot`, or `ChatGPT-User`, or your CDN blocks them at the edge, you've locked the door and then wondered why nobody's coming in. Pull your server logs and search for those user agents.
+
+The second silent failure is rendering. A site built with heavy client-side JavaScript and no server-side rendering can look complete in a browser and be functionally blank to a crawler that doesn't execute scripts the way Chrome does. Sites built on Next.js with proper SSR don't have this problem by default — one more reason that stack choice isn't just a performance decision.
+
+## What makes a paragraph citable
+
+**Answer the question in the first two sentences, not the fifth paragraph.** AI systems favor tight, self-contained definitions they can lift without needing surrounding context. If an article spends three paragraphs building up to an answer, a competitor who just answers it directly wins the citation.
+
+**Structure content the way a retrieval system reads, not the way a brochure reads.** Real questions as subheadings. A direct answer immediately underneath. Supporting detail after. Comparison tables and FAQ blocks aren't just user-friendly — they're already close to the shape an AI answer takes.
+
+**Attach numbers and sources to every claim.** "Fast turnaround" is filler a model will summarize into nothing. "Most builds ship in 10–14 days" is a fact it can quote.
+
+**Mark up pages with schema** — Article, FAQPage, Organization, Product. This tells an AI system exactly what a page is claiming, independent of design or layout. It's cheap to implement and most small sites still skip it.
+
+**Reputation off-site counts as much as reputation on-site.** AI models build an impression of a brand from mentions across the whole web — directories, review platforms, LinkedIn, guest content, client testimonials — and unlinked mentions still carry weight even without a backlink. If a brand only exists on its own domain, it's invisible everywhere an AI is actually looking.
+
+**Stale pages fall out of rotation fast.** GEO tracking data shows citation rates for a page start dropping sharply once it passes roughly three months without an update. This needs a calendar, not a "someday."
+
+## Why this favors smaller, sharper players — not just big brands
+
+There's a version of this story where GEO becomes another arms race the largest brands win by default. That's not quite what's playing out yet. Because citation rewards precision and sourcing over sheer authority, a smaller business that answers real questions in real detail — actual pricing ranges, actual timelines, actual technical trade-offs — can out-cite a much bigger competitor still running generic, keyword-stuffed content from a few years ago. The opportunity isn't chasing a trend; it's being the most specific, most current answer in a category before competitors notice the game changed.
+
+## Where to start this week
+
+1. Check whether AI crawlers can reach the site — robots.txt and server logs, five minutes, non-negotiable.
+2. Pick the three highest-intent pages and rewrite the opening two sentences to directly answer the query.
+3. Add FAQ schema to at least those three pages.
+4. Audit where the brand is — and isn't — mentioned off-site, and fix the gaps.
+5. Put a quarterly content-refresh date on the calendar and keep it.
+
+## FAQ
+
+**What's the difference between SEO, AEO, and GEO?**
+SEO optimizes for rankings, clicks, and traffic on a search results page. AEO (Answer Engine Optimization) optimizes for getting pulled into a direct answer or snippet. GEO (Generative Engine Optimization) optimizes for being retrieved and cited inside an AI-generated response from tools like ChatGPT, Gemini, or Perplexity — even when the user never clicks through to a website at all.
+
+**Why would an AI crawler be blocked from reading my site without me knowing?**
+Cloudflare changed its default configuration to block AI bots automatically, and many site owners never noticed. If your robots.txt disallows GPTBot, ClaudeBot, PerplexityBot, or ChatGPT-User, or your CDN blocks them at the edge, AI systems can't read your content no matter how good it is. Check your server logs for those user agents before changing anything else.
+
+**Does content need to be written differently for AI systems than for human readers?**
+Not fundamentally — but it does need different structure. Most AI answer engines use retrieval-augmented generation, pulling short, self-contained passages rather than reading a full page. That means the first two sentences of a section should answer the question directly, claims should carry specific numbers or sources, and headings should be phrased as the real questions people ask.
+
+**How often do AI-generated answers actually change which sources they cite?**
+More often than most SEO metrics suggest. GEO tracking data shows citation rates for a given page start dropping sharply once it passes roughly three months without an update. Pages with stale statistics or outdated examples get quietly deprioritized even if their Google ranking hasn't moved.

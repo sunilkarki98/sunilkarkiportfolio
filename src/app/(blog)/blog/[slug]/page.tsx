@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       url: `/blog/${slug}`,
       images: [
         {
-          url: "/mylogo.png",
+          url: "/mylogo.webp",
           width: 800,
           height: 600,
           alt: post.frontmatter.title,
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: "summary_large_image",
       title: post.frontmatter.title,
       description: post.frontmatter.summary,
-      images: ["/mylogo.png"],
+      images: ["/mylogo.webp"],
     },
     alternates: {
       canonical: `/blog/${slug}`,
@@ -66,17 +66,19 @@ export default async function BlogPost({ params }: PageProps) {
     "@type": "BlogPosting",
     headline: frontmatter.title,
     description: frontmatter.summary,
+    keywords: frontmatter.tags ? frontmatter.tags.join(", ") : undefined,
+    articleSection: frontmatter.categories ? frontmatter.categories.join(", ") : undefined,
     author: {
       "@type": "Person",
       name: frontmatter.author || "Sunil Karki",
     },
-    image: "https://www.sunilkarki98.com.np/mylogo.png",
+    image: "https://www.sunilkarki98.com.np/mylogo.webp",
     publisher: {
       "@type": "Organization",
       name: "Sunil Karki",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.sunilkarki98.com.np/mylogo.png"
+        url: "https://www.sunilkarki98.com.np/mylogo.webp"
       }
     },
     datePublished: frontmatter.date,

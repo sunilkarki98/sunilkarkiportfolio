@@ -8,13 +8,13 @@ export const metadata: Metadata = {
     title: "My Arsenal & Setup | Sunil Karki",
     description: "A detailed list of the hardware, software, and tools I use daily as a Computer Science Engineer.",
     url: "/uses",
-    images: [{ url: "/mylogo.png", width: 800, height: 600, alt: "Sunil Karki - My Arsenal & Setup" }],
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Sunil Karki - My Arsenal & Setup" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "My Arsenal & Setup | Sunil Karki",
     description: "A detailed list of the hardware, software, and tools I use daily as a Computer Science Engineer.",
-    images: ["/mylogo.png"],
+    images: ["/og-image.jpg"],
   },
   alternates: {
     canonical: "/uses",

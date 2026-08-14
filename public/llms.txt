@@ -1,0 +1,36 @@
+# Sunil Karki — AI & Full-Stack Engineer
+
+> Personal portfolio and technical blog of Sunil Karki, a freelance AI automation specialist and full-stack software engineer based in Nepal.
+
+## About
+
+Sunil Karki is a Computer Science Engineer specializing in:
+- Custom AI agent development (Agentic AI)
+- AI-powered workflow automation using n8n and custom pipelines
+- Full-stack web application development with Next.js, React, Node.js
+- AI chatbot development and RAG (Retrieval-Augmented Generation) pipelines
+- SaaS architecture design and implementation
+
+## Services
+
+- **AI Automation & Agents**: Custom AI agents, n8n workflow automation, business process automation
+- **Full-Stack Web Development**: Next.js, React, Node.js, TypeScript web applications
+- **AI Chatbot Development**: Custom chatbots, RAG pipelines, ChatGPT integrations
+- **Technical Consulting**: Architecture reviews, AI strategy, and implementation planning
+
+## Key Pages
+
+- Homepage: https://www.sunilkarki98.com.np/
+- Services & Pricing: https://www.sunilkarki98.com.np/services
+- Blog & Writing: https://www.sunilkarki98.com.np/writing
+- Tech Stack & Tools: https://www.sunilkarki98.com.np/uses
+
+## Contact
+
+- GitHub: https://github.com/sunilkarki98
+- LinkedIn: https://linkedin.com/in/suneelkarkee
+- Website: https://www.sunilkarki98.com.np/
+
+## Blog Topics
+
+Content covers AI automation for businesses, Agentic AI trends, SaaS architecture, AI SEO & GEO (Generative Engine Optimization), and practical AI implementation guides for business owners.

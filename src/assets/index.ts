@@ -1,5 +1,5 @@
-import logo from "./mylogo.png";
-import logoLight from "./mylogo-light.png";
+import logo from "./mylogo.webp";
+import logoLight from "./mylogo-light.webp";
 import backend from "./backend.webp";
 import creator from "./creator.webp";
 import mobile from "./mobile.webp";

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description: "Portfolio of Sunil Karki, an expert in AI automation, AI Chatbot development, n8n low-code workflows, and Full Stack web applications.",
     images: [
       {
-        url: "/mylogo.png",
+        url: "/og-image.jpg",
         width: 800,
         height: 600,
         alt: "Sunil Karki - Computer Science Engineer",
@@ -39,19 +39,19 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sunil Karki | Computer Science Engineer",
     description: "Portfolio of Sunil Karki, an expert in AI automation, AI Chatbot development, n8n low-code workflows, and Full Stack web applications.",
-    images: ["/mylogo.png"],
+    images: ["/og-image.jpg"],
   },
   alternates: {
     canonical: SITE_URL,
   },
   icons: {
-    icon: "/mylogo.png",
-    shortcut: "/mylogo.png",
-    apple: "/mylogo.png",
+    icon: "/mylogo.webp",
+    shortcut: "/mylogo.webp",
+    apple: "/mylogo.webp",
   },
 };
 
-const jsonLd = {
+const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Sunil Karki",
@@ -67,6 +67,16 @@ const jsonLd = {
   ]
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Sunil Karki",
+  url: SITE_URL,
+  description: "Portfolio of Sunil Karki, an expert in AI automation, AI Chatbot development, n8n low-code workflows, and Full Stack web applications.",
+  author: { "@type": "Person", name: "Sunil Karki" },
+  inLanguage: ["en", "ne"],
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
@@ -77,7 +87,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Analytics />
           <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
           />
         </ThemeProvider>
       </body>

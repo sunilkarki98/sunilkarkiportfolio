@@ -8,6 +8,14 @@ export default function robots() {
         allow: '/',
       },
       {
+        userAgent: 'GPTBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'ChatGPT-User',
+        allow: '/',
+      },
+      {
         userAgent: 'OAI-SearchBot',
         allow: '/',
       },

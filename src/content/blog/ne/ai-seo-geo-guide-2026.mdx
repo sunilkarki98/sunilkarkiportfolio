@@ -1,0 +1,74 @@
+---
+title: "AI SEO र GEO सन् २०२६ मा: ChatGPT, Gemini, र AI Overviews बाट कसरी उद्धृत हुने"
+date: "2026-08-13"
+summary: "Generative Engine Optimization (GEO) वास्तवमा कसरी काम गर्छ: किन AI crawlers तपाईंको साइट पढ्न सक्दैनन्, कुन paragraph उद्धृत हुन्छ, र तपाईंको brand लाई AI-generated जवाफहरूमा उल्लेख गराउने प्राविधिक checklist।"
+categories: ["AI Automation", "Business Strategy"]
+tags: ["GEO", "AI SEO", "SEO", "AEO", "Content Strategy"]
+author: "Sunil Karki"
+isPublished: true
+faq:
+  - question: "SEO, AEO, र GEO मा के फरक छ?"
+    answer: "SEO ले search results page मा rankings, clicks, र traffic को लागि optimize गर्छ। AEO (Answer Engine Optimization) ले direct answer वा snippet मा तान्ने काम गर्छ। GEO (Generative Engine Optimization) ले ChatGPT, Gemini, वा Perplexity जस्ता tools बाट AI-generated response भित्र retrieve र cite हुनको लागि optimize गर्छ — प्रयोगकर्ताले website मा click नगरे पनि।"
+  - question: "मलाई थाहा नभई AI crawler ले मेरो site किन block हुन सक्छ?"
+    answer: "Cloudflare ले आफ्नो default configuration बदलेर AI bots लाई automatically block गर्न थाल्यो, र धेरै site owners लाई यो थाहा भएन। यदि तपाईंको robots.txt ले GPTBot, ClaudeBot, PerplexityBot, वा ChatGPT-User लाई disallow गरेको छ भने, AI systems ले तपाईंको content कत्तिको राम्रो भए पनि पढ्न सक्दैनन्।"
+  - question: "AI systems को लागि content फरक तरिकाले लेख्नु पर्छ?"
+    answer: "मूलभूत रूपमा होइन — तर फरक structure चाहिन्छ। धेरैजसो AI answer engines ले retrieval-augmented generation प्रयोग गर्छन्, पूरा page पढ्नुको सट्टा छोटा, स्वतन्त्र passages तान्छन्। त्यसैले section को पहिलो दुई वाक्यले प्रश्नको सिधै जवाफ दिनुपर्छ।"
+  - question: "AI-generated जवाफहरूले कति पटक source बदल्छन्?"
+    answer: "धेरैजसो SEO metrics ले सुझाव गरेभन्दा बढी पटक। GEO tracking data ले देखाउँछ कि एउटा page को citation rates लगभग तीन महिना update नभएपछि तीव्र रूपमा घट्न थाल्छन्।"
+---
+
+**Generative Engine Optimization (GEO) भनेको content लाई यसरी structure गर्ने अभ्यास हो कि ChatGPT, Gemini, Perplexity, र Google AI Overviews जस्ता AI systems ले यसलाई retrieve गरोस्, quote गरोस्, र तपाईंको brand लाई source को रूपमा नाम दिओस् — search results page मा मात्र rank गर्नुको सट्टा जहाँ अब कोही scroll गर्दैनन्।** आज आधाभन्दा बढी searches बिना कुनै website मा click नगरी सकिन्छन्; व्यक्तिले AI बाट सिधै जवाफ पाउँछ र अगाडि बढ्छ। यो पोस्टले यही परिवर्तनलाई समेट्छ, र यो SEO को rebrand होइन — यो यसको माथि बस्ने नयाँ तह हो, आफ्नै mechanics सहित।
+
+## किन एउटा page Google मा #1 rank हुन्छ तर AI लाई अदृश्य हुन्छ
+
+धेरैजसो AI answer engines retrieval-augmented generation मा चल्छन्: तिनीहरूले खोज्छन्, सबैभन्दा सान्दर्भिक *passages* को मुट्ठीभर तान्छन् — पूरा pages होइन — र ती एउटा model लाई जवाफमा synthesize गर्न दिन्छन्। यसले प्रतिस्पर्धाको एकाइ बदल्छ। अब तपाईंको page बनाम प्रतिस्पर्धीको page होइन। तपाईंको paragraph बनाम उनीहरूको हो।
+
+यसैले कम domain authority भएको site ले दस गुणा बढी backlinks भएको ठूलो प्रतिस्पर्धीलाई पनि out-cite गर्न सक्छ। GEO ले raw authority भन्दा precision र structure लाई पुरस्कृत गर्छ — ठूला, अस्पष्ट भन्दा साना, विशिष्ट businesses को लागि वास्तविक फाइदा।
+
+## कुनै पनि content छुनु अघि पहिलो कुरा जाँच्नुहोस्
+
+के AI crawlers ले वास्तवमा तपाईंको site पढ्न सक्छन्?
+
+Cloudflare ले आफ्नो default configuration बदलेर AI bots लाई automatically block गर्न थाल्यो, र धेरै site owners लाई यो भएको थाहै छैन। यदि तपाईंको `robots.txt` ले `GPTBot`, `ClaudeBot`, `PerplexityBot`, वा `ChatGPT-User` लाई disallow गरेको छ, वा तपाईंको CDN ले तिनीहरूलाई edge मा block गरेको छ भने, तपाईंले ढोका बन्द गर्नुभएको छ र कोही किन आउँदैन भनेर सोचिरहनुभएको छ। आफ्नो server logs तान्नुहोस् र ती user agents खोज्नुहोस्।
+
+दोस्रो मूक विफलता rendering हो। heavy client-side JavaScript र server-side rendering बिना बनेको site browser मा पूर्ण देखिन्छ तर scripts execute नगर्ने crawler लाई functionally खाली हुन्छ। proper SSR सहित Next.js मा बनेका sites मा यो समस्या default मा हुँदैन — stack choice performance मात्र होइन भन्ने अर्को कारण।
+
+## कुन paragraph उद्धृत हुन्छ
+
+**पहिलो दुई वाक्यमा प्रश्नको जवाफ दिनुहोस्, पाँचौं paragraph मा होइन।** AI systems ले कडा, स्वतन्त्र definitions मन पराउँछन् जुन वरिपरिको context बिना उठाउन सकिन्छ। यदि एउटा article ले जवाफसम्म पुग्न तीन paragraphs खर्च गर्छ भने, सिधै जवाफ दिने प्रतिस्पर्धीले citation जित्छ।
+
+**Content लाई retrieval system ले पढ्ने तरिकामा structure गर्नुहोस्, brochure पढ्ने तरिकामा होइन।** वास्तविक प्रश्नहरू subheadings को रूपमा। तल सिधा जवाफ। त्यसपछि supporting detail। Comparison tables र FAQ blocks प्रयोगकर्ता-अनुकूल मात्र होइनन् — तिनीहरू पहिले नै AI जवाफको आकारसँग नजिक छन्।
+
+**प्रत्येक दावीमा numbers र sources जोड्नुहोस्।** "छिटो turnaround" भर्ती हो जुन model ले केहीमा summarize गर्छ। "धेरैजसो builds 10-14 दिनमा ship हुन्छन्" भनेको fact हो जुन quote गर्न सकिन्छ।
+
+**Pages लाई schema ले mark up गर्नुहोस्** — Article, FAQPage, Organization, Product। यसले AI system लाई design वा layout बाट स्वतन्त्र रूपमा page ले के दावी गरिरहेको छ भनी बताउँछ। implement गर्न सस्तो छ र धेरैजसो साना sites ले अझै skip गर्छन्।
+
+**Off-site reputation on-site reputation जत्तिकै महत्त्वपूर्ण छ।** AI models ले brand को impression सम्पूर्ण web — directories, review platforms, LinkedIn, guest content, client testimonials — बाट बनाउँछन्, र unlinked mentions ले backlink बिना पनि weight बोक्छन्। यदि brand आफ्नै domain मा मात्र अवस्थित छ भने, AI ले वास्तवमा हेरिरहेको ठाउँमा यो अदृश्य छ।
+
+**पुरानो pages छिट्टै rotation बाट बाहिर जान्छन्।** GEO tracking data ले देखाउँछ कि page को citation rates लगभग तीन महिना update नभएपछि तीव्र रूपमा घट्न थाल्छन्। यसलाई calendar चाहिन्छ, "कहिले" होइन।
+
+## यसले किन साना, तीक्ष्ण players लाई फाइदा गर्छ — ठूला brands लाई मात्र होइन
+
+यो कथाको एउटा version छ जहाँ GEO अर्को arms race बन्छ जुन सबैभन्दा ठूला brands ले default मा जित्छन्। तर अहिले त्यही भइरहेको छैन। citation ले sheer authority भन्दा precision र sourcing लाई पुरस्कृत गर्ने हुनाले, वास्तविक प्रश्नहरूको वास्तविक विस्तृत जवाफ दिने सानो business — वास्तविक मूल्य सीमाहरू, वास्तविक समयरेखाहरू, वास्तविक प्राविधिक trade-offs — ले अझै केही वर्ष पहिलेको generic, keyword-stuffed content चलाउने ठूलो प्रतिस्पर्धीलाई out-cite गर्न सक्छ।
+
+## यो हप्ता कहाँबाट सुरु गर्ने
+
+1. AI crawlers ले site मा पुग्न सक्छन् कि सक्दैनन् जाँच्नुहोस् — robots.txt र server logs, पाँच मिनेट, अनिवार्य।
+2. तीनवटा highest-intent pages छान्नुहोस् र पहिलो दुई वाक्यहरू query को सिधै जवाफ दिन rewrite गर्नुहोस्।
+3. कम्तिमा ती तीन pages मा FAQ schema थप्नुहोस्।
+4. Brand कहाँ — र कहाँ छैन — off-site मा उल्लेख भएको छ audit गर्नुहोस्, र gaps भर्नुहोस्।
+5. Quarterly content-refresh मिति calendar मा राख्नुहोस् र पालना गर्नुहोस्।
+
+## FAQ
+
+**SEO, AEO, र GEO मा के फरक छ?**
+SEO ले search results page मा rankings, clicks, र traffic को लागि optimize गर्छ। AEO (Answer Engine Optimization) ले direct answer वा snippet मा तान्ने काम गर्छ। GEO (Generative Engine Optimization) ले ChatGPT, Gemini, वा Perplexity जस्ता tools बाट AI-generated response भित्र retrieve र cite हुनको लागि optimize गर्छ — प्रयोगकर्ताले website मा click नगरे पनि।
+
+**मलाई थाहा नभई AI crawler ले मेरो site किन block हुन सक्छ?**
+Cloudflare ले आफ्नो default configuration बदलेर AI bots लाई automatically block गर्न थाल्यो, र धेरै site owners लाई यो थाहा भएन। यदि तपाईंको robots.txt ले GPTBot, ClaudeBot, PerplexityBot, वा ChatGPT-User लाई disallow गरेको छ, वा तपाईंको CDN ले तिनीहरूलाई edge मा block गरेको छ भने, AI systems ले तपाईंको content कत्तिको राम्रो भए पनि पढ्न सक्दैनन्।
+
+**AI systems को लागि content फरक तरिकाले लेख्नु पर्छ?**
+मूलभूत रूपमा होइन — तर फरक structure चाहिन्छ। धेरैजसो AI answer engines ले retrieval-augmented generation प्रयोग गर्छन्, पूरा page पढ्नुको सट्टा छोटा, स्वतन्त्र passages तान्छन्। त्यसैले section को पहिलो दुई वाक्यले प्रश्नको सिधै जवाफ दिनुपर्छ, दावीहरूमा specific numbers वा sources हुनुपर्छ, र headings वास्तविक प्रश्नहरूको रूपमा हुनुपर्छ।
+
+**AI-generated जवाफहरूले कति पटक source बदल्छन्?**
+धेरैजसो SEO metrics ले सुझाव गरेभन्दा बढी पटक। GEO tracking data ले देखाउँछ कि एउटा page को citation rates लगभग तीन महिना update नभएपछि तीव्र रूपमा घट्न थाल्छन्। पुरानो statistics वा outdated examples भएका pages Google ranking नसरे पनि चुपचाप deprioritize हुन्छन्।
