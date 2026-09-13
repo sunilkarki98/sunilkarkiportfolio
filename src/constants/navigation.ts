@@ -1,28 +1,14 @@
 import { NavLink } from "@/types";
 
 export const navLinks: NavLink[] = [
-  {
-    id: "about",
-    title: "About",
-  },
-  {
-    id: "work",
-    title: "Work",
-  },
-  {
-    id: "/writing",
-    title: "Insights",
-  },
-  {
-    id: "/services",
-    title: "Services",
-  },
-  {
-    id: "/uses",
-    title: "Uses",
-  },
-  {
-    id: "contact",
-    title: "Contact",
-  },
+  { id: "work", title: "Work", count: "40" },
+  { id: "about", title: "Service", count: "4" },
+  { id: "experience", title: "Experience", count: "9y+" },
+  { id: "contact", title: "Contact", count: "" },
+];
+
+export const blogLinks: NavLink[] = [
+  { id: "/", title: "Home", count: "" },
+  { id: "/blog", title: "Insights", count: "" },
+  { id: "contact", title: "Contact", count: "" },
 ];

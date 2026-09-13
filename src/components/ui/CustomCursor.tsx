@@ -1,17 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import React, { useEffect, useState, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const CustomCursor = ({ disabled = false }: { disabled?: boolean }) => {
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
   const [isHovering, setIsHovering] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
-
-  // Smooth spring for slight lag effect
-  const springX = useSpring(cursorX, { stiffness: 300, damping: 30 });
-  const springY = useSpring(cursorY, { stiffness: 300, damping: 30 });
+  const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Only show custom cursor on desktop
@@ -21,14 +17,22 @@ const CustomCursor = ({ disabled = false }: { disabled?: boolean }) => {
     checkMobile();
     window.addEventListener("resize", checkMobile);
 
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useGSAP(() => {
+    if (isMobile || disabled || !cursorRef.current) return;
+
+    // quickTo is highly optimized for mouse tracking
+    const xTo = gsap.quickTo(cursorRef.current, "x", { duration: 0.6, ease: "power3" });
+    const yTo = gsap.quickTo(cursorRef.current, "y", { duration: 0.6, ease: "power3" });
+
     const updateMousePosition = (e: MouseEvent) => {
-      // Directly set motion values - no React re-render!
-      cursorX.set(e.clientX - 100);
-      cursorY.set(e.clientY - 100);
+      xTo(e.clientX - 100);
+      yTo(e.clientY - 100);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
-      // Check if hovering over clickable elements
       const target = e.target as HTMLElement;
       if (
         target.tagName.toLowerCase() === "a" ||
@@ -47,27 +51,26 @@ const CustomCursor = ({ disabled = false }: { disabled?: boolean }) => {
     window.addEventListener("mouseover", handleMouseOver);
 
     return () => {
-      window.removeEventListener("resize", checkMobile);
       window.removeEventListener("mousemove", updateMousePosition);
       window.removeEventListener("mouseover", handleMouseOver);
     };
-  }, [cursorX, cursorY]);
+  }, [isMobile, disabled]);
+
+  useEffect(() => {
+    if (!cursorRef.current) return;
+    gsap.to(cursorRef.current, {
+      scale: isHovering ? 1.2 : 1,
+      duration: 0.3,
+      ease: "power2.out"
+    });
+  }, [isHovering]);
 
   if (isMobile || disabled) return null;
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[50] flex items-center justify-center"
-      style={{
-        x: springX,
-        y: springY,
-      }}
-      animate={{
-        scale: isHovering ? 1.2 : 1,
-      }}
-      transition={{
-        scale: { type: "spring", stiffness: 300, damping: 20 },
-      }}
+    <div
+      ref={cursorRef}
+      className="fixed top-0 left-0 pointer-events-none z-[50] flex items-center justify-center will-change-transform"
     >
       <div
         className="w-[200px] h-[200px] rounded-full"
@@ -76,7 +79,7 @@ const CustomCursor = ({ disabled = false }: { disabled?: boolean }) => {
           background: "radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 70%)",
         }}
       />
-    </motion.div>
+    </div>
   );
 };
 

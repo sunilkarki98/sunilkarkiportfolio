@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { sendEmailAction } from "@/app/actions/sendEmail";
+import { sendEmailAction } from "@/lib/actions/sendEmail";
 
 interface StatusState {
   type: "success" | "error" | "";

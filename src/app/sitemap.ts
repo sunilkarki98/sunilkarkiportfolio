@@ -12,25 +12,7 @@ export default function sitemap() {
       priority: 1.0,
     },
     {
-      url: `${SITE_URL}/writing`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_URL}/services`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/uses`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${SITE_URL}/ne/writing`,
+      url: `${SITE_URL}/blog`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
@@ -55,14 +37,5 @@ export default function sitemap() {
     priority: 0.7,
   }));
 
-  // Dynamic essays
-  const essaySlugs = getBlogSlugs('essays');
-  const essayPages = essaySlugs.map((slug) => ({
-    url: `${SITE_URL}/essays/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.7,
-  }));
-
-  return [...staticPages, ...blogPagesEn, ...blogPagesNe, ...essayPages];
+  return [...staticPages, ...blogPagesEn, ...blogPagesNe];
 }

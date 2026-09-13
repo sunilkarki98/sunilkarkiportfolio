@@ -56,15 +56,19 @@
 }
 
 @utility section-padding-x {
-  @apply px-6 sm:px-16;
+  @apply px-6 sm:px-16 lg:px-24;
 }
 
 @utility section-padding-y {
-  @apply py-6 sm:py-16;
+  @apply py-8 sm:py-12 lg:py-16;
 }
 
 @utility section-padding {
-  @apply px-6 sm:px-16 py-6 sm:py-10;
+  @apply px-6 sm:px-16 lg:px-24 py-8 sm:py-12 lg:py-16;
+}
+
+@utility serial-number {
+  @apply font-mono text-xs sm:text-sm tracking-widest text-text-muted font-medium uppercase;
 }
 
 @utility btn-primary {
@@ -85,10 +89,17 @@
   }
 }
 
-@keyframes shimmer {
-  100% {
-    left: 200%;
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
   }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@theme {
+  --animate-marquee: marquee 30s linear infinite;
 }
 
 @plugin "@tailwindcss/typography";

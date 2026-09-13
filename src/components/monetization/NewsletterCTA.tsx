@@ -1,12 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { fadeIn } from "@/utils/motion";
+import { useState, useRef } from "react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function NewsletterCTA() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle"); // idle, loading, success, error
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    gsap.from(containerRef.current, {
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top bottom-=100",
+        toggleActions: "play none none none"
+      },
+      y: 50,
+      opacity: 0,
+      duration: 0.8,
+      ease: "power3.out",
+    });
+  }, { scope: containerRef });
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,11 +38,8 @@ export default function NewsletterCTA() {
   };
 
   return (
-    <motion.div 
-      variants={fadeIn("up", "spring", 0.5, 0.75)}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true }}
+    <div 
+      ref={containerRef}
       className="w-full bg-white rounded-3xl p-8 md:p-12 border border-gray-200 shadow-md relative overflow-hidden mt-16"
     >
       {/* Background Glow */}
@@ -36,7 +51,7 @@ export default function NewsletterCTA() {
             Join the inner circle
           </h3>
           <p className="text-gray-600 text-[16px] leading-relaxed">
-            Get exclusive insights on software engineering, system design, and AI automation. <br/><span className="text-sm font-bold text-text-muted">(Note: This is currently a UI demo component)</span>
+            Get exclusive insights on software engineering, system design, and AI automation. <br/><span className="text-sm font-bold text-text-secondary">(Note: This is currently a UI demo component)</span>
           </p>
         </div>
 
@@ -63,6 +78,6 @@ export default function NewsletterCTA() {
           </button>
         </form>
       </div>
-    </motion.div>
+    </div>
   );
 }

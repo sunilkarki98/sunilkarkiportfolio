@@ -4,17 +4,25 @@ import { StaticImageData } from "next/image";
 export interface NavLink {
   id: string;
   title: string;
+  count?: string;
 }
 
 export interface Service {
   title: string;
   icon: IconType;
   color?: string;
+  description: string;
+  tags: string[];
+  workflow: string[];
+  relatedTechs: string[];
 }
+
+export type TechCategory = "Frontend" | "Backend" | "AI & Automation" | "Infrastructure";
 
 export interface Technology {
   name: string;
-  icon: StaticImageData | any;
+  icon: IconType | StaticImageData | any;
+  category: TechCategory;
 }
 
 export interface Experience {
@@ -42,7 +50,8 @@ export interface ProjectTag {
 export interface Project {
   name: string;
   description: string;
-  tags: ProjectTag[];
+  tags: string[];
+  stack: { name: string; icon: IconType | StaticImageData | any }[];
   images: (StaticImageData | any)[];
   github_link: string;
   live_link: string;

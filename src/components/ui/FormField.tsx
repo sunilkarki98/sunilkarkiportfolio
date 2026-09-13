@@ -16,7 +16,7 @@ interface FormFieldProps {
 }
 
 const baseInputClass =
-  "bg-bg shadow-inner py-3 px-4 text-text-primary rounded-lg outline-none border border-border focus:border-text-muted focus:ring-1 focus:ring-text-muted transition-all font-medium w-full placeholder-text-secondary/50";
+  "bg-surface py-3 px-4 text-text-primary rounded-none outline-none border border-border focus:border-text-primary transition-all font-light w-full placeholder-text-secondary/50";
 
 const labelClass =
   "block text-sm font-medium text-text-secondary mb-1.5 ml-1";

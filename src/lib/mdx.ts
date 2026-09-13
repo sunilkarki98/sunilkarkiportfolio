@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import readingTime from 'reading-time';
+import { cache } from 'react';
 
 // Define the shape of our MDX metadata
 export interface PostFrontmatter {
@@ -64,7 +65,7 @@ export const getPostBySlug = async (slug: string, type: string = 'blog', lang: s
 };
 
 // Get all posts sorted by date
-export const getAllPosts = async (type: string = 'blog', lang: string = 'en'): Promise<Post[]> => {
+export const getAllPosts = cache(async (type: string = 'blog', lang: string = 'en'): Promise<Post[]> => {
   const slugs = getBlogSlugs(type, lang);
   
   const posts = await Promise.all(
@@ -83,4 +84,4 @@ export const getAllPosts = async (type: string = 'blog', lang: string = 'en'): P
   return validPosts.sort((a, b) => {
     return new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime();
   });
-};
+});

@@ -1,0 +1,367 @@
+---
+title: "Building My AI-Powered Second Brain with Obsidian and Hermes Agent"
+date: "2026-09-13"
+summary: "How I combined Obsidian as a personal knowledge base with Hermes Agent as an AI layer to build a Second Brain I can interact with — not just store notes in."
+author: "Sunil Karki"
+categories: ["AI Automation", "Knowledge Management"]
+tags: ["Obsidian", "Hermes Agent", "Second Brain", "AI Agents", "Knowledge Management"]
+isPublished: true
+faq:
+  - question: "What is a Second Brain?"
+    answer: "A Second Brain is a personal knowledge management system where you capture, organize, and retrieve information so it can be used effectively later — not just stored and forgotten."
+  - question: "Why use Obsidian instead of Notion or other tools?"
+    answer: "Obsidian stores everything as local Markdown files rather than locking data inside a proprietary database. This makes it transparent, portable, and ideal for AI integration since agents can read and write standard text files."
+  - question: "What is Hermes Agent?"
+    answer: "Hermes is an AI agent framework from Nous Research that supports tools, skills, context files, persistent memory, and integrations like Obsidian — allowing you to give it tasks rather than just questions."
+  - question: "Do I need to be a developer to build this?"
+    answer: "The initial setup requires some technical knowledge, but once configured, the day-to-day interaction is conversational — you talk to the agent and it works with your knowledge base."
+---
+
+I have always liked the idea of having a personal knowledge system where notes, ideas, research, projects, and useful information do not simply disappear into folders and browser tabs.
+
+The problem is that taking notes is easy.
+
+**Actually using those notes later is the hard part.**
+
+That led me to experiment with a different approach: combining **Obsidian**, as my personal knowledge base, with **Hermes Agent**, as an AI agent that can work with that knowledge.
+
+The goal is not to build another chatbot.
+
+The goal is to build a **Second Brain that I can interact with through an AI agent.**
+
+---
+
+## The Problem
+
+Traditional note-taking usually looks something like this:
+
+```text
+Idea
+  ↓
+Create Note
+  ↓
+Forget About It
+  ↓
+Search Manually Later
+  ↓
+Maybe Find It
+```
+
+Even when the information is stored safely, there is still a gap between **having knowledge** and **being able to use it effectively**.
+
+I wanted to explore a workflow where an AI agent could help bridge that gap.
+
+```text
+                 ┌─────────────────────┐
+                 │       Me            │
+                 │  Ideas / Questions  │
+                 └──────────┬──────────┘
+                            │
+                            ▼
+                 ┌─────────────────────┐
+                 │    Hermes Agent     │
+                 │                     │
+                 │ Understands task    │
+                 │ Searches knowledge  │
+                 │ Creates/updates     │
+                 │ notes               │
+                 └──────────┬──────────┘
+                            │
+                            ▼
+                 ┌─────────────────────┐
+                 │       Obsidian      │
+                 │                     │
+                 │  Markdown knowledge │
+                 │       base          │
+                 └─────────────────────┘
+```
+
+This became the foundation of my Second Brain experiment.
+
+---
+
+## Why Obsidian?
+
+I chose Obsidian because the underlying knowledge is stored as **Markdown files** rather than being locked inside a proprietary database.
+
+That makes the system simple and transparent.
+
+My knowledge lives in a vault, and the vault is ultimately just files.
+
+```text
+Obsidian Vault
+│
+├── Notes
+├── Projects
+├── Ideas
+├── Research
+├── References
+└── AGENTS.md
+```
+
+This is important for an AI-assisted knowledge system.
+
+The AI should work with my knowledge.
+
+It should not own my knowledge.
+
+---
+
+## Why Hermes Agent?
+
+Obsidian provides the knowledge layer, but I wanted an agent that could actually **work with the vault**.
+
+That is where Hermes Agent comes in.
+
+Hermes is an AI agent framework from Nous Research that supports tools, skills, context files, persistent memory, and integrations such as Obsidian.
+
+Instead of treating the AI as a simple question-and-answer interface, I can give it a task and allow it to work through the available tools and instructions.
+
+For this project, Hermes becomes the **agent layer** sitting between me and my knowledge base.
+
+---
+
+## The Architecture
+
+My current setup is intentionally simple.
+
+### The main components
+
+| Component          | Role                                 |
+| ------------------ | ------------------------------------ |
+| **Obsidian**       | Personal knowledge base              |
+| **Hermes Agent**   | AI agent and orchestration layer     |
+| **Obsidian Skill** | Allows Hermes to work with the vault |
+| **AGENTS.md**      | Defines how the agent should behave  |
+| **OpenRouter**     | Model routing layer                  |
+| **MiniMax Free**   | LLM used by the agent                |
+
+The interesting part is that none of these components needs to be a giant system.
+
+Each has a specific responsibility.
+
+---
+
+## Hermes + Obsidian
+
+The important part of this project is not simply connecting Hermes to Obsidian.
+
+It is changing the way I interact with my knowledge.
+
+Instead of:
+
+> "Where did I save that note?"
+
+the interaction becomes closer to:
+
+> "Find the information I previously wrote about this."
+
+Or:
+
+> "Create a note from this idea."
+
+Or:
+
+> "Update my existing project note with these new details."
+
+The agent becomes an interface for working with the knowledge base.
+
+---
+
+## The Role of AGENTS.md
+
+One of the most useful parts of the setup is AGENTS.md.
+
+An agent needs more than access to files.
+
+It also needs **instructions about how those files should be handled**.
+
+For example, I can define rules around:
+
+* where different types of notes belong
+* how notes should be structured
+* how existing notes should be updated
+* how new information should be organized
+* what the agent should avoid doing
+
+This creates an important separation:
+
+**The Markdown files contain the knowledge.**
+
+**AGENTS.md contains the rules for working with that knowledge.**
+
+---
+
+## How a Typical Interaction Works
+
+Suppose I have previously written something about a project.
+
+Later, I ask Hermes a question about it.
+
+The important concept is that the answer can be grounded in **my own stored information**, rather than depending entirely on what the model already knows.
+
+The agent searches the vault, reads the relevant Markdown files, understands and organizes the context, and then answers using my knowledge.
+
+---
+
+## The Second Brain Is More Than AI Memory
+
+This distinction became important while building the system.
+
+There are actually different kinds of "memory" involved.
+
+### Obsidian
+
+Stores the actual knowledge I intentionally keep.
+
+### AGENTS.md
+
+Defines how the agent should operate within the knowledge system.
+
+### Hermes memory
+
+Provides persistent agent context where applicable.
+
+These are related, but they are not the same thing.
+
+That separation makes the architecture much easier to reason about.
+
+---
+
+## Where the LLM Fits
+
+I am currently using **MiniMax Free through OpenRouter** as the model layer.
+
+The model provides the reasoning capability.
+
+Hermes handles the agent workflow.
+
+Obsidian holds the knowledge.
+
+That separation is one of the things I found most interesting about the experiment.
+
+---
+
+## Skills: Giving the Agent Procedures
+
+Another useful concept in Hermes is **Skills**.
+
+A skill is essentially a reusable set of instructions for performing a particular type of task.
+
+This is different from simply giving an AI more information.
+
+Information tells the agent **what something is**.
+
+A skill can tell it **how to do something**.
+
+For a Second Brain, that opens interesting possibilities.
+
+Over time, this can turn the Second Brain from a collection of notes into a system with repeatable workflows.
+
+---
+
+## My Current Vault
+
+An important part of this project is that I am not pretending this is already a giant, perfectly organized knowledge graph.
+
+It is still evolving.
+
+My current Obsidian setup is intentionally small, with the agent instructions in place and the structure being developed as I experiment.
+
+That is actually useful.
+
+I would rather prove the workflow with a small knowledge base first than create thousands of notes that have no consistent structure.
+
+The project is therefore less about having a massive vault and more about establishing a **good foundation for one**.
+
+---
+
+## The Bigger Idea
+
+The system becomes a loop.
+
+I learn something. I capture it. The knowledge becomes part of my Second Brain.
+
+Later, Hermes can help me retrieve or work with that knowledge.
+
+Then the result can become new knowledge.
+
+---
+
+## What I Learned
+
+Building this was less about installing an AI agent and more about understanding how the different layers should work together.
+
+### 1. AI is not the knowledge base
+
+The model can reason, but it should not be treated as the permanent source of truth.
+
+My notes remain the source of personal knowledge.
+
+### 2. Instructions matter
+
+Giving an agent access to files is not enough.
+
+Clear instructions such as those in AGENTS.md can make its behavior much more predictable.
+
+### 3. Start with a small system
+
+A Second Brain does not need thousands of notes on day one.
+
+A small, consistent structure is more useful than a huge collection of disconnected information.
+
+### 4. The model is only one part of the system
+
+MiniMax provides the language model.
+
+OpenRouter provides the model access layer.
+
+Hermes provides agent behavior.
+
+Obsidian provides persistent personal knowledge.
+
+Each layer solves a different problem.
+
+---
+
+## What I Want to Build Next
+
+This is still an evolving project.
+
+The direction I want to explore is a more capable personal knowledge system where Hermes can help with workflows such as: Capture, Understand, Organize, Connect, Retrieve, Create, Improve, and Capture Again.
+
+The interesting question is no longer:
+
+**"Can AI answer my questions?"**
+
+It becomes:
+
+**"Can AI help me continuously work with the knowledge I have accumulated?"**
+
+That is the idea behind my Obsidian Second Brain experiment.
+
+---
+
+## Final Thoughts
+
+This project started from a simple frustration with traditional note-taking.
+
+I did not want another place to store information.
+
+I wanted to experiment with a system where my knowledge could become something I could **actively interact with**.
+
+Obsidian gives me ownership and structure.
+
+Hermes gives me an agent that can work with that knowledge.
+
+AGENTS.md gives the agent operational rules.
+
+OpenRouter and MiniMax provide the model layer.
+
+Together, they form the foundation of an AI-assisted Second Brain that I can continue to evolve.
+
+It is not a finished system yet.
+
+And that is intentional.
+
+The interesting part is building the system gradually, learning how the pieces interact, and discovering what an AI agent can actually do when it has access to a structured body of personal knowledge.

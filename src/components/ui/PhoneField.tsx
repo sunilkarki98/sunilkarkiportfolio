@@ -62,7 +62,7 @@ const PhoneField = <T extends string>({
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="flex items-center gap-2 bg-bg shadow-inner py-4 px-4 text-text-primary rounded-lg border border-border hover:border-text-muted transition-all min-w-[100px] justify-between"
+          className="flex items-center gap-2 bg-surface py-3 px-4 text-text-primary rounded-none border border-border hover:border-text-primary transition-all min-w-[100px] justify-between"
         >
           <span className="flex items-center gap-2 text-lg">
             <span>{selectedCountry.flag}</span>
@@ -119,7 +119,7 @@ const PhoneField = <T extends string>({
             onChange={(e) => updateField(phoneName, e.target.value)}
             required={required}
             placeholder="Phone Number"
-            className="bg-bg shadow-inner py-3 px-4 text-text-primary rounded-lg outline-none border border-border focus:border-text-muted focus:ring-1 focus:ring-text-muted transition-all font-medium w-full placeholder-text-secondary/50 h-full"
+            className="bg-surface py-3 px-4 text-text-primary rounded-none outline-none border border-border focus:border-text-primary transition-all font-light w-full placeholder-text-secondary/50 h-full"
           />
         </div>
       </div>

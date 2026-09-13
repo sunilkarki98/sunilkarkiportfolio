@@ -1,139 +1,166 @@
 "use client";
-import Tilt from "react-parallax-tilt";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
-import github from "@/assets/github.webp";
-import web from "@/assets/web.webp";
-import { SectionWrapper } from "@/hoc";
+import { FiArrowRight } from "react-icons/fi";
+import gsap from "gsap";
+
 import { projects } from "@/constants";
-import { fadeIn } from "@/utils/motion";
-import { Project } from "@/types";
-import SectionHeader from "@/components/ui/SectionHeader";
+import { Container } from "@/components/ui/Container";
 
-const ProjectCard = ({
-  index,
-  name,
-  description,
-  tags,
-  images,
-  github_link,
-  live_link,
-}: Project & { index: number }) => {
+const Works = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeProject = projects[activeIndex];
+  const totalProjects = projects.length;
+  
+  const contentRef = useRef<HTMLDivElement>(null);
 
-  const [currentImage, setCurrentImage] = useState(0);
-  const cardRef = useRef(null);
-
+  // Simple fade transition effect when switching projects
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          interval = setInterval(() => {
-            setCurrentImage((prev) => (prev + 1) % images.length);
-          }, 2000);
-        } else {
-          if (interval) clearInterval(interval);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (cardRef.current) observer.observe(cardRef.current);
-
-    return () => {
-      if (interval) clearInterval(interval);
-      observer.disconnect();
-    };
-  }, [images.length]);
+    if (!contentRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        contentRef.current,
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
+      );
+    });
+    return () => ctx.revert();
+  }, [activeIndex]);
 
   return (
-    <motion.div ref={cardRef} variants={fadeIn("up", "tween", index * 0.2, 1)}>
-      <Tilt
-        tiltMaxAngleX={10}
-        tiltMaxAngleY={10}
-        scale={1}
-        transitionSpeed={450}
-        className='bg-surface p-5 rounded-2xl sm:w-[360px] w-full'
-      >
-        <article className="group">
-          <div className='relative w-full h-[230px] rounded-2xl overflow-hidden'>
-            <Image
-              src={images[currentImage]}
-              alt={name}
-              className='w-full h-full object-cover transition-all duration-500 group-hover:scale-110'
-            />
+    <Container as="section" id="work" className="section-padding-x section-padding-y relative z-0">
+      
+      {/* ── HEADER ── */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 lg:mb-20 border-b border-border pb-8 gap-8">
+        <div className="flex flex-col gap-2 max-w-2xl">
+          <span className="font-mono text-xs tracking-[0.2em] text-text-muted uppercase mb-2">
+            {"{"} SELECTED WORK {"}"}
+          </span>
+          <h2 className="font-heading font-bold text-text-primary text-3xl sm:text-4xl lg:text-5xl uppercase tracking-tight">
+            My work.
+          </h2>
+          <p className="text-text-secondary text-sm sm:text-base font-light mt-2">
+            Real products. Real systems. Built with modern technologies to solve actual problems.
+          </p>
+        </div>
+        
+        <div className="flex flex-col items-start md:items-end gap-1">
+          <span className="serial-number text-lg sm:text-xl text-text-primary">
+            {String(activeIndex + 1).padStart(2, "0")} / {String(totalProjects).padStart(2, "0")}
+          </span>
+          <span className="font-mono text-xs tracking-widest text-text-muted uppercase">
+            Projects I’ve built.
+          </span>
+        </div>
+      </div>
 
-            <div className='absolute inset-0 bg-bg/70 backdrop-blur-[2px] flex flex-col justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 gap-4'>
-              {live_link && (
-                <a
-                  href={live_link}
-                  target='_blank'
-                  rel='noreferrer'
-                  className='btn-primary px-6 py-2.5 rounded-full gap-2'
+      {/* ── 3-COLUMN BROWSER LAYOUT ── */}
+      <div className="flex flex-col lg:flex-row gap-12 lg:gap-8 w-full min-h-[600px]">
+        
+        {/* COLUMN 1: PROJECT LIST (Left) */}
+        <div className="w-full lg:w-[22%] flex flex-col gap-1 border-b lg:border-b-0 lg:border-r border-border pb-8 lg:pb-0 lg:pr-6">
+          {projects.map((project, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <button
+                key={project.name}
+                onClick={() => setActiveIndex(index)}
+                className={`group flex items-center justify-between w-full py-3 transition-all duration-300 outline-none focus-visible:ring-1 focus-visible:ring-text-primary/30 border-l-2 ${
+                  isActive 
+                    ? "border-text-primary pl-4 text-text-primary bg-surface/30" 
+                    : "border-transparent pl-3 text-text-secondary hover:text-text-primary hover:border-text-muted hover:pl-4"
+                }`}
+              >
+                <div className="flex items-center gap-4">
+                  <span className={`font-mono text-xs transition-colors ${
+                    isActive ? "text-text-primary" : "text-text-muted group-hover:text-text-primary/70"
+                  }`}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className={`font-heading font-bold text-sm sm:text-base uppercase tracking-widest text-left`}>
+                    {project.name}
+                  </span>
+                </div>
+                {isActive && <FiArrowRight className="w-4 h-4 text-text-primary" />}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* COLUMN 2: PROJECT PRESENTATION (Center) */}
+        <div className="w-full lg:w-[56%] flex flex-col" ref={contentRef}>
+          {/* Project Details */}
+          <div className="mb-8">
+            <h3 className="font-heading font-bold text-2xl sm:text-3xl lg:text-4xl text-text-primary uppercase tracking-tight mb-4">
+              {activeProject.name}
+            </h3>
+            <p className="text-text-secondary text-base sm:text-base leading-relaxed font-light max-w-xl mb-6">
+              {activeProject.description}
+            </p>
+            
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2">
+              {activeProject.tags.map((tag) => (
+                <span 
+                  key={tag} 
+                  className="font-mono text-xs tracking-wider text-text-muted uppercase border border-border px-2.5 py-1"
                 >
-                  <Image src={web} alt="live" className="w-4 h-4 object-contain brightness-0 invert" />
-                  Visit Site
-                </a>
-              )}
-              {github_link && (
-                <a
-                  href={github_link}
-                  target='_blank'
-                  rel='noreferrer'
-                  className='btn-secondary bg-surface/80 hover:bg-surface-alt px-6 py-2.5 rounded-full gap-2 shadow-sm'
-                >
-                  <Image src={github} alt="github" className="w-4 h-4 object-contain" />
-                  Case Study
-                </a>
-              )}
+                  {tag}
+                </span>
+              ))}
             </div>
           </div>
 
-          <div className='mt-5'>
-            <h3 className='text-text-primary font-bold text-[24px]'>{name}</h3>
-            <p className='mt-2 text-text-secondary text-[14px]'>{description}</p>
+          {/* Featured Image */}
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] bg-surface border border-border overflow-hidden">
+            <Image
+              src={activeProject.images[0]}
+              alt={activeProject.name}
+              fill
+              sizes="(max-width: 1024px) 100vw, 60vw"
+              className="object-cover object-top transition-transform duration-700 hover:scale-105"
+            />
           </div>
-
-          <div className='mt-4 flex flex-wrap gap-2'>
-            {tags.map((tag) => (
-              <p
-                key={`${name}-${tag.name}`}
-                className={`text-[14px] ${tag.color}`}
+          
+          <div className="mt-6">
+             <a
+                href={activeProject.live_link || activeProject.github_link}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-xs text-text-primary/70 hover:text-text-primary transition-colors uppercase tracking-widest font-mono"
               >
-                #{tag.name}
-              </p>
-            ))}
+                View Live Project <FiArrowRight className="w-3.5 h-3.5" />
+              </a>
           </div>
-        </article>
-      </Tilt>
-    </motion.div>
+        </div>
+
+        {/* COLUMN 3: TECH STACK (Right) */}
+        <div className="w-full lg:w-[22%] flex flex-col lg:border-l border-border pt-8 lg:pt-0 lg:pl-6">
+          <span className="font-mono text-xs tracking-[0.2em] text-text-muted uppercase mb-6 lg:mb-8 border-b border-border pb-3">
+            TECH STACK
+          </span>
+          
+          <div className="flex flex-col gap-1">
+            {activeProject.stack.map((tech) => {
+              const TechIcon = tech.icon;
+              return (
+                <div 
+                  key={tech.name} 
+                  className="flex items-center gap-4 py-3 px-2 text-text-secondary hover:text-text-primary transition-colors border-b border-transparent hover:border-border group cursor-default"
+                >
+                  <TechIcon className="w-4 h-4 text-text-muted group-hover:text-text-primary transition-colors" />
+                  <span className="font-mono text-xs uppercase tracking-widest">
+                    {tech.name}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+      </div>
+    </Container>
   );
 };
 
-const Works = () => {
-  return (
-    <>
-      <SectionHeader subtitle="My work" title="Projects." />
-
-      <div className='w-full flex'>
-        <motion.p
-          variants={fadeIn("", "", 0.1, 1)}
-          className='mt-3 text-text-secondary text-[17px] max-w-3xl leading-[30px]'
-        >
-          Each project below is a real-world solution I designed, built, and shipped.
-          They demonstrate my ability to solve complex problems, work with different
-          technologies, and deliver results that matter to the business.
-        </motion.p>
-      </div>
-
-      <div className='mt-20 flex flex-wrap gap-7 justify-center'>
-        {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} index={index} {...project} />
-        ))}
-      </div>
-    </>
-  );
-};
-
-export default SectionWrapper(Works, "work");
+export default Works;
