@@ -45,7 +45,7 @@ const Navbar = ({ isReaderMode = false }) => {
         {/* Left: Status Pill */}
         <div className="w-[280px] flex justify-start items-center shrink-0">
           <Link href="/" onClick={() => { setActive(""); window.scrollTo(0, 0); }}>
-            <div className={`inline-flex items-center gap-3 px-4 py-2 sm:py-2.5 rounded-full border transition-all duration-300 ${isReaderMode ? 'bg-white border-gray-200 text-gray-900 shadow-sm hover:shadow-md' : 'bg-surface/50 border-border text-text-primary hover:bg-surface'}`}>
+            <div className={`inline-flex items-center gap-3 px-4 py-2 sm:py-2.5 rounded-none border transition-all duration-300 ${isReaderMode ? 'bg-white border-gray-200 text-gray-900 shadow-sm hover:shadow-md' : 'bg-surface/50 border-border text-text-primary hover:bg-surface'}`}>
               <div className="relative flex justify-center items-center w-2 h-2">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-green-500/50 animate-ping" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
@@ -98,7 +98,7 @@ const Navbar = ({ isReaderMode = false }) => {
           
           <a
             href="#contact"
-            className={`hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 shadow-md hover:scale-[1.02] ${isReaderMode
+            className={`hidden sm:flex items-center gap-2 px-6 py-2.5 rounded-none text-sm font-semibold transition-all duration-300 shadow-md hover:scale-[1.02] ${isReaderMode
                 ? 'bg-black text-white hover:bg-gray-800 hover:shadow-lg'
                 : 'bg-text-primary text-bg hover:opacity-90 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]'
               }`}

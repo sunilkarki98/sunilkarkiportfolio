@@ -3,131 +3,81 @@
 import { useRef, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FiGlobe } from "react-icons/fi";
-// ── Decoding Effect ──────────────────────────────────────
-// Rapidly cycles through random characters before settling
-// on the final word — creates a "system boot" feeling.
-const GLITCH_CHARS = "01!@#$%&?XYZABCDEF{}[]<>/\\|";
+import { CobeGlobe } from "@/components/ui/CobeGlobe";
+import { decodeText, HERO_LEFT_COMPLETE } from "@/utils/decodeText";
 
-function decodeText(
-  el: HTMLElement,
-  finalText: string,
-  duration = 0.8,
-  targetOpacity = 0.18,
-  onComplete?: () => void
-) {
-  // Cancel any existing decode animation on this element
-  if ((el as any)._decodeRaf) {
-    cancelAnimationFrame((el as any)._decodeRaf);
-  }
 
-  const length = finalText.length;
-  const durationMs = duration * 1000;
-  const scrambleInterval = 80; // Slower, more deliberate character cycling
-  let lastScrambleTime = 0;
-  let startTime: number | null = null;
-
-  // Make visible and set first scrambled frame SYNCHRONOUSLY
-  el.style.opacity = String(targetOpacity);
-  el.textContent = finalText
-    .split("")
-    .map(() => GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)])
-    .join("");
-
-  function tick(timestamp: number) {
-    if (startTime === null) startTime = timestamp;
-    const elapsed = timestamp - startTime;
-    const progress = Math.min(elapsed / durationMs, 1);
-
-    // Ease-out for smooth deceleration: characters lock in faster at the end
-    const easedProgress = 1 - Math.pow(1 - progress, 2);
-    const revealedCount = Math.floor(easedProgress * length);
-
-    // Only update text content at the scramble interval to keep the glitch aesthetic
-    if (timestamp - lastScrambleTime >= scrambleInterval || progress >= 1) {
-      lastScrambleTime = timestamp;
-
-      if (progress >= 1) {
-        el.textContent = finalText;
-        onComplete?.();
-        return;
-      }
-
-      el.textContent = finalText
-        .split("")
-        .map((char, i) => {
-          if (i < revealedCount) return char;
-          return GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
-        })
-        .join("");
-    }
-
-    const raf = requestAnimationFrame(tick);
-    (el as any)._decodeRaf = raf;
-  }
-
-  const raf = requestAnimationFrame(tick);
-  (el as any)._decodeRaf = raf;
-  return () => cancelAnimationFrame((el as any)._decodeRaf);
-}
 
 // ── Magnetic Physics ─────────────────────────────────────
 // Each word is attracted towards the cursor when it hovers
 // over the right-side field. Uses GSAP for spring-like easing.
+// Mouse tracking is rAF-throttled and each element gets a single
+// combined tween (position + opacity) instead of two per element,
+// avoiding layout thrash and redundant tween creation on every
+// mousemove event.
 function useMagnetic(containerRef: React.RefObject<HTMLDivElement | null>) {
   const magneticEls = useRef<HTMLElement[]>([]);
   const isActive = useRef(true);
+  const rafId = useRef<number | null>(null);
+  const pendingPos = useRef<{ x: number; y: number } | null>(null);
+
+  const applyMagnetic = useCallback(() => {
+    rafId.current = null;
+    if (!containerRef.current || !isActive.current || !pendingPos.current) return;
+
+    const containerRect = containerRef.current.getBoundingClientRect();
+    const mouseX = pendingPos.current.x - containerRect.left - containerRect.width / 2;
+    const mouseY = pendingPos.current.y - containerRect.top - containerRect.height / 2;
+
+    magneticEls.current.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      const elCenterX =
+        rect.left + rect.width / 2 - containerRect.left - containerRect.width / 2;
+      const elCenterY =
+        rect.top + rect.height / 2 - containerRect.top - containerRect.height / 2;
+
+      const distX = mouseX - elCenterX;
+      const distY = mouseY - elCenterY;
+      const dist = Math.sqrt(distX * distX + distY * distY);
+
+      const maxPull = 80; // Allow much further movement before capping
+      const radius = 400; // Huge radius for a smooth gradient of pull
+      const strength = Math.max(0, 1 - dist / radius);
+      
+      // Pull heavily towards the mouse, less restricted by strength curve
+      const pullX = distX * strength * 0.45;
+      const pullY = distY * strength * 0.45;
+      const opacityBoost = 0.18 + (strength * 0.5);
+
+      // Single combined tween per element (was two separate gsap.to calls)
+      gsap.to(el, {
+        x: Math.min(maxPull, Math.max(-maxPull, pullX)),
+        y: Math.min(maxPull, Math.max(-maxPull, pullY)),
+        opacity: opacityBoost,
+        duration: 0.8, // Faster tracking
+        ease: "power2.out", // Smoother/punchier ease
+        overwrite: "auto",
+      });
+    });
+  }, [containerRef]);
 
   const handleMouseMove = useCallback(
     (e: MouseEvent) => {
-      if (!containerRef.current || !isActive.current) return;
-
-      const containerRect = containerRef.current.getBoundingClientRect();
-      // Mouse position relative to container center
-      const mouseX = e.clientX - containerRect.left - containerRect.width / 2;
-      const mouseY = e.clientY - containerRect.top - containerRect.height / 2;
-
-      magneticEls.current.forEach((el) => {
-        const rect = el.getBoundingClientRect();
-        const elCenterX =
-          rect.left + rect.width / 2 - containerRect.left - containerRect.width / 2;
-        const elCenterY =
-          rect.top + rect.height / 2 - containerRect.top - containerRect.height / 2;
-
-        // Distance from mouse to element center
-        const distX = mouseX - elCenterX;
-        const distY = mouseY - elCenterY;
-        const dist = Math.sqrt(distX * distX + distY * distY);
-
-        // Attraction strength — closer = stronger pull
-        const maxPull = 18; // reduced max pull for subtlety
-        const radius = 150; // Much smaller radius so only the hovered word reacts
-        const strength = Math.max(0, 1 - dist / radius);
-        const pullX = distX * strength * 0.12;
-        const pullY = distY * strength * 0.12;
-
-        gsap.to(el, {
-          x: Math.min(maxPull, Math.max(-maxPull, pullX)),
-          y: Math.min(maxPull, Math.max(-maxPull, pullY)),
-          duration: 1.2,
-          ease: "power3.out",
-          overwrite: "auto",
-        });
-
-        // Opacity boost based on proximity
-        const opacityBoost = 0.18 + strength * 0.37;
-        gsap.to(el, {
-          opacity: opacityBoost,
-          duration: 0.8,
-          ease: "power2.out",
-          overwrite: false,
-        });
-      });
+      if (!isActive.current) return;
+      pendingPos.current = { x: e.clientX, y: e.clientY };
+      // Throttle to once per animation frame regardless of mousemove frequency
+      if (rafId.current === null) {
+        rafId.current = requestAnimationFrame(applyMagnetic);
+      }
     },
-    [containerRef]
+    [applyMagnetic]
   );
 
   const handleMouseLeave = useCallback(() => {
+    if (rafId.current !== null) {
+      cancelAnimationFrame(rafId.current);
+      rafId.current = null;
+    }
     // Spring back to origin
     magneticEls.current.forEach((el) => {
       gsap.to(el, {
@@ -155,6 +105,10 @@ function useMagnetic(containerRef: React.RefObject<HTMLDivElement | null>) {
     return () => {
       container.removeEventListener("mousemove", handleMouseMove);
       container.removeEventListener("mouseleave", handleMouseLeave);
+      if (rafId.current !== null) {
+        cancelAnimationFrame(rafId.current);
+        rafId.current = null;
+      }
     };
   }, [containerRef, handleMouseMove, handleMouseLeave]);
 
@@ -193,26 +147,31 @@ const Hero = () => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
       // Start everything simultaneously at time 0
-      
+
       // 1 → Left side sequential entrance, all rooted at 0
       tl.to(".hero-status", { opacity: 1, scale: 1, duration: 0.5 }, 0);
       tl.to(".hero-axis", { scaleY: 1, duration: 1, ease: "power2.inOut" }, 0.2);
       tl.to(".hero-role", { opacity: 1, y: 0, duration: 0.5 }, 0.3);
-      tl.to(".hero-name-line", {
+      tl.to(".role-char", { opacity: 1, duration: 0.01, stagger: 0.04 }, 0.4);
+      tl.to(
+        ".hero-name-line",
+        {
           clipPath: "inset(0 0 0% 0)",
           duration: 0.7,
           stagger: 0.12,
           ease: "power3.inOut",
-        }, 0.2);
-      tl.to(".hero-copy", { opacity: 1, y: 0, duration: 0.5 }, 0.6);
-      tl.to(".hero-cta", { opacity: 1, y: 0, duration: 0.4, stagger: 0.08 }, 0.8);
+        },
+        1.1 // Starts after typing effect finishes
+      );
+      tl.to(".hero-copy", { opacity: 1, y: 0, duration: 0.5 }, 1.3);
+      tl.to(".hero-cta", { opacity: 1, y: 0, duration: 0.4, stagger: 0.08 }, 1.5);
 
       // 2 → Right side decode also starts exactly at time 0
       tl.add(() => {
         const words = ["AI", "AUTOMATION", "SOFTWARE"];
-        const durations = [1.6, 1.6, 1.6];
+        const durations = [0.9, 0.9, 0.9];
         const opacities = [0.18, 0.15, 0.16];
-        const staggerDelays = [0, 600, 1200]; // 0ms delay for the first word!
+        const staggerDelays = [0, 350, 700]; // 0ms delay for the first word!
 
         // Also grab all the wrapper rows so we can fade them in one by one
         const rows = document.querySelectorAll(".hero-editorial");
@@ -243,27 +202,33 @@ const Hero = () => {
                       gsap.to(rows[3], {
                         opacity: 1,
                         y: 0,
-                        duration: 0.6,
+                        duration: 0.4,
                         ease: "power2.out",
                       });
-                      
+
                       const meta1 = rows[3].querySelector(".meta-decode-1") as HTMLElement;
                       const meta2 = rows[3].querySelector(".meta-decode-2") as HTMLElement;
-                      
+
+                      // Both metadata strings decode simultaneously — no serial
+                      // setTimeout gap, which also removes an uncancellable
+                      // leaked timer that could fire after unmount.
                       if (meta1) {
-                        const cleanup1 = decodeText(meta1, "BASED IN NEPAL", 0.8, 1, () => {
-                          if (sectionRef.current) gsap.to(sectionRef.current.querySelector(".meta-icon-1"), { opacity: 1, duration: 0.4 });
+                        const cleanup1 = decodeText(meta1, "BASED IN NEPAL", 0.5, 1, () => {
+                          if (sectionRef.current) {
+                            const icon = sectionRef.current.querySelector(".meta-icon-1");
+                            if (icon) gsap.to(icon, { opacity: 1, duration: 0.4 });
+                          }
                         });
                         cleanups.push(cleanup1);
                       }
                       if (meta2) {
-                        // Start the second metadata decode simultaneously or slightly after
-                        setTimeout(() => {
-                          const cleanup2 = decodeText(meta2, "AVAILABLE WORLDWIDE", 1.0, 1, () => {
-                            if (sectionRef.current) gsap.to(sectionRef.current.querySelector(".meta-icon-2"), { opacity: 1, duration: 0.4 });
-                          });
-                          cleanups.push(cleanup2);
-                        }, 200);
+                        const cleanup2 = decodeText(meta2, "AVAILABLE WORLDWIDE", 0.6, 1, () => {
+                          if (sectionRef.current) {
+                            const icon = sectionRef.current.querySelector(".meta-icon-2");
+                            if (icon) gsap.to(icon, { opacity: 1, duration: 0.4 });
+                          }
+                        });
+                        cleanups.push(cleanup2);
                       }
                     }
                   }
@@ -276,8 +241,6 @@ const Hero = () => {
         });
       }, 0); // Start at absolute 0 time!
 
-
-
       // Scroll parallax — subtle depth between left and right
       ScrollTrigger.create({
         trigger: sectionRef.current,
@@ -288,7 +251,7 @@ const Hero = () => {
           if (!sectionRef.current) return;
           const leftContent = sectionRef.current.querySelector(".hero-left-content");
           const rightContent = sectionRef.current.querySelector(".hero-right-content");
-          
+
           const p = self.progress;
           if (leftContent) {
             gsap.set(leftContent, {
@@ -347,11 +310,15 @@ const Hero = () => {
           {/* Text content */}
           <div className="flex flex-col">
             <span
-              className="hero-role text-text-muted text-[11px] sm:text-[12px] font-medium tracking-[0.2em] uppercase mb-5 sm:mb-6"
+              className="hero-role text-text-muted text-[13px] sm:text-[14px] font-semibold tracking-[0.2em] uppercase mb-5 sm:mb-6 flex"
               style={{ opacity: 0, transform: "translateY(8px)" }}
               data-hero
             >
-              Software Engineer
+              {"Software Engineer_".split("").map((char, i) => (
+                <span key={i} className="role-char inline-block" style={{ opacity: 0 }}>
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
             </span>
 
             <h1 className="font-heading font-black tracking-[-0.03em] leading-[0.88]">
@@ -379,7 +346,7 @@ const Hero = () => {
               <a
                 href="#contact"
                 aria-label="Book a free strategy call"
-                className="hero-cta btn-primary px-7 sm:px-8 py-3 rounded-full"
+                className="hero-cta btn-primary px-7 sm:px-8 py-3"
                 style={{ opacity: 0, transform: "translateY(10px)" }}
                 data-hero
               >
@@ -388,7 +355,7 @@ const Hero = () => {
               <a
                 href="#work"
                 aria-label="See results I've delivered"
-                className="hero-cta btn-secondary px-7 sm:px-8 py-3 rounded-full"
+                className="hero-cta btn-secondary px-7 sm:px-8 py-3"
                 style={{ opacity: 0, transform: "translateY(10px)" }}
                 data-hero
               >
@@ -412,7 +379,7 @@ const Hero = () => {
             >
               <span
                 className="text-text-muted/80 text-[11px] tracking-[0.15em] cursor-crosshair"
-                style={{ fontFamily: "monospace" }}
+                style={{ fontFamily: "var(--font-mono)" }}
                 onMouseEnter={(e) => decodeText(e.currentTarget, "001", 0.4, 0.8)}
               >
                 001
@@ -442,7 +409,7 @@ const Hero = () => {
             >
               <span
                 className="text-text-muted/80 text-[11px] tracking-[0.15em] cursor-crosshair"
-                style={{ fontFamily: "monospace" }}
+                style={{ fontFamily: "var(--font-mono)" }}
                 onMouseEnter={(e) => decodeText(e.currentTarget, "002", 0.4, 0.8)}
               >
                 002
@@ -472,7 +439,7 @@ const Hero = () => {
             >
               <span
                 className="text-text-muted/80 text-[11px] tracking-[0.15em] cursor-crosshair"
-                style={{ fontFamily: "monospace" }}
+                style={{ fontFamily: "var(--font-mono)" }}
                 onMouseEnter={(e) => decodeText(e.currentTarget, "003", 0.4, 0.8)}
               >
                 003
@@ -503,36 +470,44 @@ const Hero = () => {
               <span className="w-12 h-px bg-border" />
               <span
                 className="text-text-secondary text-[12px] tracking-[0.18em] uppercase flex items-center"
-                style={{ fontFamily: "monospace" }}
+                style={{ fontFamily: "var(--font-mono)" }}
               >
-                <span 
+                <span
                   className="flex items-center gap-2 cursor-crosshair transition-all duration-300 hover:text-text-primary group"
                   onMouseEnter={(e) => {
                     const icon = e.currentTarget.querySelector(".meta-icon-1");
                     if (icon) gsap.to(icon, { opacity: 0, duration: 0.1 });
-                    decodeText(e.currentTarget.querySelector('.meta-decode-1') as HTMLElement, "BASED IN NEPAL", 0.4, 1, () => {
-                      if (icon) gsap.to(icon, { opacity: 1, duration: 0.3 });
-                    });
+                    const target = e.currentTarget.querySelector(".meta-decode-1") as HTMLElement;
+                    if (target) {
+                      decodeText(target, "BASED IN NEPAL", 0.4, 1, () => {
+                        if (icon) gsap.to(icon, { opacity: 1, duration: 0.3 });
+                      });
+                    }
                   }}
                 >
                   <span className="meta-decode-1 inline-block min-w-[125px]" style={{ opacity: 0 }}>BASED IN NEPAL</span>
-                  <span className="meta-icon-1 text-[14px] group-hover:scale-110 transition-transform opacity-0">🇳🇵</span>
+                  <span className="meta-icon-1 text-[20px] group-hover:scale-110 transition-transform opacity-0">🇳🇵</span>
                 </span>
-                
+
                 <span className="mx-4 opacity-30 text-border">|</span>
-                
-                <span 
+
+                <span
                   className="flex items-center gap-2 cursor-crosshair transition-all duration-300 hover:text-text-primary group"
                   onMouseEnter={(e) => {
                     const icon = e.currentTarget.querySelector(".meta-icon-2");
                     if (icon) gsap.to(icon, { opacity: 0, duration: 0.1 });
-                    decodeText(e.currentTarget.querySelector('.meta-decode-2') as HTMLElement, "AVAILABLE WORLDWIDE", 0.5, 1, () => {
-                      if (icon) gsap.to(icon, { opacity: 1, duration: 0.3 });
-                    });
+                    const target = e.currentTarget.querySelector(".meta-decode-2") as HTMLElement;
+                    if (target) {
+                      decodeText(target, "AVAILABLE WORLDWIDE", 0.5, 1, () => {
+                        if (icon) gsap.to(icon, { opacity: 1, duration: 0.3 });
+                      });
+                    }
                   }}
                 >
                   <span className="meta-decode-2 inline-block min-w-[175px]" style={{ opacity: 0 }}>AVAILABLE WORLDWIDE</span>
-                  <FiGlobe className="meta-icon-2 w-3.5 h-3.5 group-hover:rotate-12 transition-transform opacity-0" />
+                  <div className="meta-icon-2 opacity-100">
+                    <CobeGlobe size={24} />
+                  </div>
                 </span>
               </span>
             </div>
@@ -545,7 +520,7 @@ const Hero = () => {
             <span className="w-6 h-px bg-border" />
             <span
               className="hero-editorial text-text-muted/30 text-[10px] tracking-[0.18em] uppercase"
-              style={{ opacity: 0, fontFamily: "monospace" }}
+              style={{ opacity: 0, fontFamily: "var(--font-mono)" }}
               data-hero
             >
               AI · Automation · Software

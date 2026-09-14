@@ -1,19 +1,18 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, HTMLAttributes } from "react";
 
-interface ContainerProps {
+interface ContainerProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   className?: string;
   as?: React.ElementType;
-  id?: string;
 }
 
 export const Container = React.forwardRef<HTMLElement, ContainerProps>(
-  ({ children, className = "", as: Component = "div", id }, ref) => {
+  ({ children, className = "", as: Component = "div", ...rest }, ref) => {
     return (
       <Component
         ref={ref}
-        id={id}
         className={`w-full max-w-[1400px] mx-auto ${className}`}
+        {...rest}
       >
         {children}
       </Component>

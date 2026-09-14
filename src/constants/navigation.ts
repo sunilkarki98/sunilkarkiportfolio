@@ -1,9 +1,9 @@
 import { NavLink } from "@/types";
 
 export const navLinks: NavLink[] = [
-  { id: "work", title: "Work", count: "40" },
-  { id: "about", title: "Service", count: "4" },
-  { id: "experience", title: "Experience", count: "9y+" },
+  { id: "work", title: "Work", count: "20" },
+  { id: "about", title: "Service", count: "5" },
+  { id: "experience", title: "Experience", count: "3y+" },
   { id: "contact", title: "Contact", count: "" },
 ];
 
