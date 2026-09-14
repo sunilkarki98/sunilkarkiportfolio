@@ -186,7 +186,7 @@ const About = () => {
           if (subtitleRef.current) {
             const cleanup = decodeText(
               subtitleRef.current,
-              "< Introduction />",
+              "< INTRODUCTION />",
               0.8,
               0.8,
               () => {
@@ -231,7 +231,7 @@ const About = () => {
         // Metadata 1: '< Capabilities />' decodes
         tl.add(() => {
           if (capsRef.current) {
-            cleanups.push(decodeText(capsRef.current, "{ Capabilities }", 1.2, 1));
+            cleanups.push(decodeText(capsRef.current, "< CAPABILITIES />", 1.2, 1));
           }
         }, 1.3);
 
@@ -365,9 +365,7 @@ const About = () => {
       <div className="mb-12 lg:mb-16">
         <div className="flex flex-col">
           <div className="mb-1">
-            <p className="text-text-primary/80 text-sm tracking-[0.2em] uppercase font-mono">
-              <span ref={subtitleRef} data-about-subtitle className="inline-block min-w-[150px]" style={{ opacity: 0 }}>{"< Introduction />"}</span>
-            </p>
+            <span ref={subtitleRef} data-about-subtitle className="text-text-primary/80 text-sm tracking-[0.2em] uppercase font-mono block" style={{ opacity: 0 }}>{"< INTRODUCTION />"}</span>
           </div>
           <div data-about-line className="w-full h-px bg-border mb-3 origin-left" style={{ transform: "scaleX(0)" }} />
           <h2
@@ -387,7 +385,7 @@ const About = () => {
 
         {/* Metadata */}
         <div className="about-meta flex items-center gap-4 mt-6" style={{ opacity: 0, transform: "translateY(12px)" }}>
-          <span ref={capsRef} className="serial-number min-w-[125px]">{"{ Capabilities }"}</span>
+          <span ref={capsRef} className="serial-number min-w-[125px]">{"< CAPABILITIES />"}</span>
           <span ref={tagsRef} className="font-mono text-xs tracking-[0.3em] text-text-muted uppercase min-w-[300px]">
             BUILD &bull; AUTOMATE &bull; GROW
           </span>

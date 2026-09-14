@@ -33,8 +33,8 @@ const Works = () => {
       {/* ── HEADER ── */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 lg:mb-20 border-b border-border pb-8 gap-8">
         <div className="flex flex-col gap-2 max-w-2xl">
-          <span className="font-mono text-xs tracking-[0.2em] text-text-muted uppercase mb-2">
-            {"{"} SELECTED WORK {"}"}
+          <span className="text-text-primary/80 text-sm tracking-[0.2em] uppercase font-mono mb-2">
+            {`< SELECTED WORK />`}
           </span>
           <h2 className="font-heading font-bold text-text-primary text-3xl sm:text-4xl lg:text-5xl uppercase tracking-tight">
             My work.

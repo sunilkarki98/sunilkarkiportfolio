@@ -14,7 +14,7 @@ const SectionHeader = ({ subtitle, title, center = true, className = "" }: Secti
         className={`text-text-primary/80 text-sm tracking-[0.2em] uppercase font-mono ${center ? "text-center" : ""}`}
         data-header="subtitle"
       >
-        {"{"} {subtitle} {"}"}
+        {`< ${subtitle} />`}
       </p>
     </div>
     <div className="w-full h-px bg-border mb-3" />
